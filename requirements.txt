@@ -2,3 +2,4 @@ jpype1
 jupyter
 notebook
 tabula-py
+IPython
