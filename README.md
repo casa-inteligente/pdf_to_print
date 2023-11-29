@@ -1,7 +1,7 @@
 # pdf_to_print
 Lê dados no arquivo em .pdf e imprime na declaração 
 ## Uso 
-
+-  instale as dependências do *requirements.txt*</br>
 ```markdown
 pip instal -r requirements.txt
 ```
