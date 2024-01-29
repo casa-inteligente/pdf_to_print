@@ -8,7 +8,7 @@
 #####	LICENÇA:			MIT license
 #####	PROJETO:			https://github.com/casa-inteligente/pdf_to_print
 
-
+#https://pythonacademy.com.br/blog/manipulando-arquivos-pdf-com-python
 #https://www.youtube.com/watch?v=8eNxZI-3Bxs
 
 import IPython as display
@@ -24,20 +24,36 @@ paginas='all'
 
 lista_tabela = tabula.io.read_pdf(arquivo,pages=paginas)
 
+# for t in lista_tabela:
+#     print(t,"\n--------------\n")
 
+
+#qUANTIDADE DE PAGINAS
+print("==============\n\n\n")
 print(len(lista_tabela))
+print("\n \n \n ==============\n\n\n")
 
-#print (lista_tabela)
 
-#imprimi na tela os valores
-
+#imprimi na tela os valores do pdf completo
 for tabela in lista_tabela:
-    print(tabela)
-    #print(tabela.find('RECOLHIDO(A)'))
+    print(tabela, "\n +++++++++++++++++++++\n")
+    print(tabela.index)
+    #print(tabela.find(''))
+print('\n\n\n+++++++++++++++++++++++++++++\n\n\n')
 
-len(lista_tabela)
-print('------------------------------------------------------------------------')
-#removendo as coluna de situação
-tabela_limpa = tabela.drop(3, axis=0)
-print('\nimprime a tabela limpa, que não esta limpa ainda..... \n')
-print(tabela_limpa)
+#
+# #removendo as coluna de situação
+# tabela_limpa = tabela.drop(3, axis=0)
+# print('\nimprime a tabela limpa, que não esta limpa ainda..... \n')
+# print(tabela_limpa)
+
+print('----Mostra tabela 1\n\n')
+tabela1 = lista_tabela[0]
+print(tabela1)
+print('\n\n\n--------\n\n\n')
+
+print('----Mostra tabela 2\n\n')
+tabela2 = lista_tabela[1]
+print(tabela2)
+#print(tabela.index)
+print('\n\n\n--------\n\n\n')
