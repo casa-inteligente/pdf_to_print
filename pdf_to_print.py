@@ -16,8 +16,9 @@ import pandas
 import tabula
 from tabula.io import read_pdf
 
-arquivo='teste.pdf'
-arquivo='FECHADO.pdf'
+#arquivo='teste.pdf'
+#arquivo='FECHADO.pdf'
+arquivo='www.sc.gov.br_ipen_RelatorioIpen_004_2ReltorioPorSetorImprimir.asp_cd_Unidade=8088&de_Celas=4421,4420,4414,4415,4416,4417,4418,5399,4424,6504,4422,4423,5746,5571,6527&cd_Galeria=.pdf'
 paginas='all'
 
 
