@@ -10,8 +10,8 @@ pip instal -r requirements.txt
 - [x] Lê arquivo .pdf <br>
 - [ ] Limpas as tabelas.<br>
 - [ ] Gera o termos de compromissos de cada um e salva em uma pasta com .pdf.<br>
-- [ ] Imprime na impressora em folha usada. (https://www.youtube.com/watch?v=EQlXQsYeoUI) <br> 
+- [ ] [Imprime na impressora em folha usada.](https://www.youtube.com/watch?v=EQlXQsYeoUI) <br> 
 
-### Algumas referencias consultadas
+### Algumas referências consultadas
 
 [manipulando-arquivos-pdf-com-python](https://pythonacademy.com.br/blog/manipulando-arquivos-pdf-com-python)
