@@ -5,6 +5,9 @@ Lê dados no arquivo em .pdf e imprime na declaração
 ```markdown
 pip instal -r requirements.txt
 ```
+#### Situações especiais do arquivo .pdf a ser lido
+Possui várias tabelas, sendo a 1° cabeçalho (lixo), possui uma única coluna com diversas ou únicas linhas e várias informações dentro da linha, das quais apenas desejo duas delas.
+
 
 ## Funcionalidades
 - [x] Lê arquivo .pdf <br>

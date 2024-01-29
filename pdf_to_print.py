@@ -15,6 +15,8 @@ import IPython as display
 import pandas
 import tabula
 from tabula.io import read_pdf
+from PyPDF2 import PdfWriter
+from PyPDF2 import PdfFileReader
 
 #arquivo='teste.pdf'
 #arquivo='FECHADO.pdf'
@@ -55,5 +57,26 @@ print('\n\n\n--------\n\n\n')
 print('----Mostra tabela 2\n\n')
 tabela2 = lista_tabela[1]
 print(tabela2)
+print("\n\n--tenta imprimir colunas\n\n")
+
+#tabela2.find("NATAN")
 #print(tabela.index)
 print('\n\n\n--------\n\n\n')
+
+
+
+
+
+# # Abrindo um arquivo PDF existente
+# with open("www.sc.gov.br_ipen_RelatorioIpen_004_2ReltorioPorSetorImprimir.asp_cd_Unidade=8088&de_Celas=4421,4420,4414,4415,4416,4417,4418,5399,4424,6504,4422,4423,5746,5571,6527&cd_Galeria=.pdf", "rb") as input_pdf:
+#     # Criando um objeto PdfFileReader
+#     pdf_reader = PdfFileReader(input_pdf)
+#
+#     # Obtendo o número de páginas do arquivo PDF
+#     num_pages = pdf_reader.numPages
+#
+#     # Lendo o texto de cada página
+#     for page_number in range(num_pages):
+#         page = pdf_reader.getPage(page_number)
+#         text = page.extractText()
+#         print("Texto da página", page_number + 1, ":", text)
