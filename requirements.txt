@@ -3,3 +3,4 @@ jupyter
 notebook
 tabula-py
 IPython
+PyPDF2
