@@ -19,3 +19,4 @@ Possui várias tabelas, sendo a 1° cabeçalho (lixo), possui uma única coluna 
 
 [manipulando-arquivos-pdf-com-python](https://pythonacademy.com.br/blog/manipulando-arquivos-pdf-com-python) <br>
 [Como Imprimir Arquivos Automaticamente com Python](https://www.youtube.com/watch?v=EQlXQsYeoUI)<br>
+[Como Ler Arquivo PDF, Como Mesclar (merge) arquivos PDF, PDF para Texto com Python , PyPDF2](https://www.youtube.com/watch?v=MRmqMRLleK4)
