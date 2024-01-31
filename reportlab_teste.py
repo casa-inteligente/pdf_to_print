@@ -1,16 +1,70 @@
-from reportlab.lib.pagesizes import letter
+#####	NOME:				report_teste.py
+#####	VERSÃO:				1.0
+#####	DESCRIÇÃO:			Coleta informações de um arquivo em pdf e imprime em uma declaração
+#####	DATA DA CRIAÇÃO:	31/01/2024
+#####	ESCRITO POR:		Natan Ogliari
+#####	E-MAIL:				natanogliari@gmail.com
+#####	DISTRO:				Ubuntu GNU/Linux 22.04
+#####	LICENÇA:			MIT license
+#####	PROJETO:			https://github.com/casa-inteligente/pdf_to_print
+
+from reportlab.lib.pagesizes import letter, A4
 from reportlab.pdfgen import canvas
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image
+from reportlab.lib.units import cm
+pdf_filename = "exemplo.pdf"
+
+# BaseDocTemplate(self, pdf_filename,
+#  pagesize=defaultPageSize,
+#  pageTemplates=[],
+#  showBoundary=0,
+#  leftMargin=cm,
+#  rightMargin=cm,
+#  topMargin=cm,
+#  bottomMargin=cm,
+#  allowSplitting=1,
+#  title=None,
+#  author='Natan Ogliari',
+#  _pageBreakQuick=1,
+#  encrypt=None)
+
+
+
+
 
 # Crie um arquivo PDF em branco
-c = canvas.Canvas("exemplo.pdf", pagesize=letter)
-c.setFont("Helvetica", 11)
+pdf_filename = "exemplo.pdf"
+mydoc = canvas.Canvas(pdf_filename, pagesize=letter)
+mydoc.setFont("Times-Roman", 11)
 # Defina o título do documento
-c.setTitle("Termo de kit de higienes")
+mydoc.setTitle("Termo de kit de axdva")
 
 # Adicione texto ao PDF
-c.drawString(100, 750, "Olá, Mundo!")
+mydoc.drawString(100, 750, "Olá, Mundo!")
 
 # Salve o arquivo PDF
-c.showPage()
-c.save()
+mydoc.showPage()
+mydoc.save()
 print("PDF criado com sucesso.")
+
+
+data = [['Nome', 'jhj', 'Idade'],
+        ['João','','25'],
+        ['Maria', '','30']]
+
+
+mydoc = SimpleDocTemplate(pdf_filename, pagesize=letter)
+table = Table(data)
+
+# Estilo da tabela
+style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), (0.2, 0.4, 0.6)),  # Cor de fundo para cabeçalho
+                    ('TEXTCOLOR', (0, 0), (-1, 0), (1, 1, 1)),  # Cor do texto no cabeçalho
+                    ('ALIGN', (0, 0), (-1, -1), 'CENTER'),  # Alinhamento central
+                    ('FONTNAME', (0, 0), (-1, 0), 'Times-BoldItalic')])  # Fonte negrito para cabeçalho
+
+
+
+table.setStyle(style)
+mydoc.build([table])
+
+
