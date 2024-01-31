@@ -21,3 +21,5 @@ Possui várias tabelas, sendo a 1° cabeçalho (lixo), possui uma única coluna 
 [Como Imprimir Arquivos Automaticamente com Python](https://www.youtube.com/watch?v=EQlXQsYeoUI)<br>
 [Como Ler Arquivo PDF, Como Mesclar (merge) arquivos PDF, PDF para Texto com Python , PyPDF2](https://www.youtube.com/watch?v=MRmqMRLleK4) <br>
 [Documentação PyPDF2](https://pypdf2.readthedocs.io/en/3.0.0/user/forms.html) <br>
+[medium gera pdf](https://medium.com/@habbema/criando-arquivos-pdf-com-python-0eb5229c4a70) <br>
+[usandopy](https://www.usandopy.com/pt/artigo/reportlab-em-python-como-criar-documentos-pdf-personalizado-em-python-automacao-em-python/) <br>

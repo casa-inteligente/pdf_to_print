@@ -3,9 +3,9 @@ from reportlab.pdfgen import canvas
 
 # Crie um arquivo PDF em branco
 c = canvas.Canvas("exemplo.pdf", pagesize=letter)
-
+c.setFont("Helvetica", 11)
 # Defina o título do documento
-c.setTitle("Meu Documento PDF")
+c.setTitle("Termo de kit de higienes")
 
 # Adicione texto ao PDF
 c.drawString(100, 750, "Olá, Mundo!")
