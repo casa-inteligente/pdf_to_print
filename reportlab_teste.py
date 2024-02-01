@@ -37,12 +37,12 @@ c.drawString(247, 40, 'Fone: (49) 3664 - 6672 / e-mail: pr29@pp.sc.gov.br')
 ### Titulo do documento
 c.setFont("Helvetica-Oblique", 12)
 c.drawString(230, 730, 'TERMO DE RECEBIMENTO')
-c.drawString(60, 710, 'Instruções:')
-c.drawString(60, 600, '01) Os internos devem assinalar a opção com um X;')
-c.drawString(60, 580, '02) Na opção "Observação" descrever o que está sendo entregue (tamanho e ')
-c.drawString(60, 560, 'quantidade de uniforme);')
-c.drawString(60, 540, '03) O termo de recebimento, devidamente assinado, deverá ser digitalizado')
-c.drawString(60, 520, 'e arquivado no IPEN do interno;')
+c.drawString(60, 700, 'Instruções:')
+c.drawString(60, 680, '01) Os internos devem assinalar a opção com um X;')
+c.drawString(60, 660, '02) Na opção "Observação" descrever o que está sendo entregue (tamanho e quantidade')
+c.drawString(60, 640, 'de uniforme);')
+c.drawString(60, 620, '03) O termo de recebimento, devidamente assinado, deverá ser digitalizado e arquivado')
+c.drawString(60, 600, 'no IPEN do interno;')
 
 
 
