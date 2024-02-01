@@ -22,10 +22,10 @@ c.setTitle("Termo de kit de axdva")
 
 ### Cabeçalho
 c.setFont("Helvetica-Oblique", 10)
-c.drawImage('logo.png', 60, 700, width=60, height=60)
-c.drawString(130, 745, "ESTADO DE SANTA CATARINA")
-c.drawString(130, 730, "SECRETARIA DE ESTADO DA ADMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
-c.drawString(130,715, 'PRESÍDIO MARAVILHA')
+c.drawImage('logo.png', 50, 760, width=60, height=60)
+c.drawString(120, 800, "ESTADO DE SANTA CATARINA")
+c.drawString(120, 785, "SECRETARIA DE ESTADO DA ADMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
+c.drawString(120, 770, 'PRESÍDIO MARAVILHA')
 ################
 #### Rodapé
 c.setFont("Helvetica-Oblique", 8)
@@ -33,6 +33,18 @@ c.drawString(247, 80, 'POLÍCIA PENAL DE SANTA CATARINA')
 c.drawString(247, 70, 'Presídio de Maravilha')
 c.drawString(247, 60, 'Av. Sul Brasil, n. 1607, centro - CEP 89874-000 - Maravilha/SC')
 c.drawString(247, 50, 'Fone: (49) 3664 - 6672 / e-mail: pr29@pp.sc.gov.br')
+
+### Titulo do documento
+c.setFont("Helvetica-Oblique", 12)
+c.drawString(247, 660, 'TERMO DE RECEBIMENTO')
+c.drawString(60, 640, 'Instruções:')
+c.drawString(60, 600, '01) Os internos devem assinalar a opção com um X;')
+c.drawString(60, 580, '02) Na opção "Observação" descrever o que está sendo entregue (tamanho e ')
+c.drawString(60, 560, 'quantidade de uniforme);')
+c.drawString(60, 540, '03) O termo de recebimento, devidamente assinado, deverá ser digitalizado')
+c.drawString(60, 520, 'e arquivado no IPEN do interno;')
+
+
 
 c.save() # Salva o documento e fecha
 
