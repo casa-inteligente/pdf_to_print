@@ -82,3 +82,5 @@ print('\n\n\n--------\n\n\n')
 #         page = pdf_reader.getPage(page_number)
 #         text = page.extractText()
 #         print("Texto da página", page_number + 1, ":", text)
+
+

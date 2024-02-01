@@ -12,6 +12,8 @@ from reportlab.lib.pagesizes import letter, A4
 from reportlab.pdfgen import canvas
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image
 from reportlab.lib.units import cm
+
+
 pdf_filename = "exemplo.pdf"
 
 # BaseDocTemplate(self, pdf_filename,
@@ -66,5 +68,26 @@ style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), (0.2, 0.4, 0.6)),  # Cor de 
 
 table.setStyle(style)
 mydoc.build([table])
+
+
+
+
+
+c = canvas.Canvas("documento_com_imagem.pdf", pagesize=letter)
+
+### Cabeçalho
+c.drawImage('logo.png', 60, 700, width=60, height=60)
+c.drawString(130, 745, "ESTADO DE SANTA CATARINA")
+c.drawString(130, 730, "SECRETARIA DE ESTADO DA ADMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
+c.drawString(130,715, 'PRESÍDIO MARAVILHA')
+################
+#### Rodapé
+c.drawString(250,80, 'POLÍCIA PENAL DE SANTA CATARINA')
+c.drawString(250,70, 'Presídio de Maravilha')
+c.drawString(250,60, 'Av. Sul Brasil, n. 1607, centro - CEP 89874-000 - Maravilha/SC')
+c.drawString(250,50, 'Fone: (49) 3664 - 6672 / e-mail: pr29@pp.sc.gov.br')
+
+
+c.save()
 
 
