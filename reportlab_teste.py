@@ -29,10 +29,10 @@ c.drawString(120, 770, 'PRESÍDIO MARAVILHA')
 ################
 #### Rodapé
 c.setFont("Helvetica-Oblique", 8)
-c.drawString(247, 80, 'POLÍCIA PENAL DE SANTA CATARINA')
-c.drawString(247, 70, 'Presídio de Maravilha')
-c.drawString(247, 60, 'Av. Sul Brasil, n. 1607, centro - CEP 89874-000 - Maravilha/SC')
-c.drawString(247, 50, 'Fone: (49) 3664 - 6672 / e-mail: pr29@pp.sc.gov.br')
+c.drawString(247, 70, 'POLÍCIA PENAL DE SANTA CATARINA')
+c.drawString(247, 60, 'Presídio de Maravilha')
+c.drawString(247, 50, 'Av. Sul Brasil, n. 1607, centro - CEP 89874-000 - Maravilha/SC')
+c.drawString(247, 40, 'Fone: (49) 3664 - 6672 / e-mail: pr29@pp.sc.gov.br')
 
 ### Titulo do documento
 c.setFont("Helvetica-Oblique", 12)
