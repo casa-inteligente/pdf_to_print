@@ -36,8 +36,8 @@ c.drawString(247, 40, 'Fone: (49) 3664 - 6672 / e-mail: pr29@pp.sc.gov.br')
 
 ### Titulo do documento
 c.setFont("Helvetica-Oblique", 12)
-c.drawString(247, 660, 'TERMO DE RECEBIMENTO')
-c.drawString(60, 640, 'Instruções:')
+c.drawString(230, 730, 'TERMO DE RECEBIMENTO')
+c.drawString(60, 710, 'Instruções:')
 c.drawString(60, 600, '01) Os internos devem assinalar a opção com um X;')
 c.drawString(60, 580, '02) Na opção "Observação" descrever o que está sendo entregue (tamanho e ')
 c.drawString(60, 560, 'quantidade de uniforme);')
