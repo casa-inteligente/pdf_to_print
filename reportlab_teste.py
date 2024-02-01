@@ -76,18 +76,21 @@ mydoc.build([table])
 c = canvas.Canvas("documento_com_imagem.pdf", pagesize=letter)
 
 ### Cabeçalho
+c.setFont("Helvetica-Oblique", 10)
 c.drawImage('logo.png', 60, 700, width=60, height=60)
+
 c.drawString(130, 745, "ESTADO DE SANTA CATARINA")
 c.drawString(130, 730, "SECRETARIA DE ESTADO DA ADMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
 c.drawString(130,715, 'PRESÍDIO MARAVILHA')
 ################
 #### Rodapé
+c.setFont("Helvetica-Oblique", 8)
 c.drawString(250,80, 'POLÍCIA PENAL DE SANTA CATARINA')
 c.drawString(250,70, 'Presídio de Maravilha')
 c.drawString(250,60, 'Av. Sul Brasil, n. 1607, centro - CEP 89874-000 - Maravilha/SC')
 c.drawString(250,50, 'Fone: (49) 3664 - 6672 / e-mail: pr29@pp.sc.gov.br')
 
 
-c.save()
+c.save() # Salva o documento e fecha
 
 
