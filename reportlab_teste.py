@@ -16,11 +16,11 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image
 from reportlab.lib.units import cm
 
 
-pdf_filename = "imprimir/exemplo.pdf"
-name_interno = 'fulano'
-number_ipen = 123456
+pdf_filename = "exemplo.pdf"
+nome_interno = 'fulano'
+numero_ipen = '123456'
 
-c = canvas.Canvas(pdf_filename, pagesize=A4)
+c = canvas.Canvas('imprimir/'+pdf_filename, pagesize=A4)
 c.setTitle("Termo de Recebimento")
 
 ### Cabeçalho
@@ -34,10 +34,11 @@ c.drawString(120, 770, 'PRESÍDIO MARAVILHA')
 #### Rodapé
 c.setFillColor(aColor='gray')  # Cor Cinza
 c.setFont("Helvetica-Oblique", 8)
-c.drawString(247, 70, 'POLÍCIA PENAL DE SANTA CATARINA')
-c.drawString(247, 60, 'Presídio de Maravilha')
-c.drawString(247, 50, 'Av. Sul Brasil, n. 1607, centro - CEP 89874-000 - Maravilha/SC')
-c.drawString(247, 40, 'Fone: (49) 3664 - 6672 / e-mail: pr29@pp.sc.gov.br')
+#c.drawString(247, 70, 'POLÍCIA PENAL DE SANTA CATARINA')
+c.drawCentredString(300,70, 'POLÍCIA PENAL DE SANTA CATARINA', mode=None, charSpace=0)
+c.drawCentredString(300, 60, 'Presídio de Maravilha', mode=None, charSpace=0)
+c.drawCentredString(300, 50, 'Av. Sul Brasil, n. 1607, centro - CEP 89874-000 - Maravilha/SC', mode=None, charSpace=0)
+c.drawCentredString(300, 40, 'Fone: (49) 3664 - 6672 / e-mail: pr29@pp.sc.gov.br', mode=None, charSpace=0)
 
 ### Titulo do documento
 c.setFillColor(aColor='black')  # Cor preto
@@ -54,8 +55,8 @@ c.drawString(60, 600, 'no IPEN do interno;')
 
 ## tabela com informações
 # c = SimpleDocTemplate(pdf_filename, pagesize=A4)
-# data = [['nome', 'uih', 'ohihj'],
-#         ['nome', 'uih', 'ohihj'],
+# data = [['Interno', nome_interno],
+#         ['IPEN:', numero_ipen+'|'],
 # ]
 # table = Table(data)
 # c.build([table])
@@ -63,16 +64,28 @@ c.drawString(60, 600, 'no IPEN do interno;')
 hoje = dd.datetime.now()
 hoje_br = hoje.strftime("%d/%m/%Y")
 #print(hoje_br)
-c.drawString(200, 460,'-----------------------------')
-c.drawString(200, 450,'|          '+ hoje_br + '   |')
+c.drawString(60, 470,'| INTERNO:  '+nome_interno)
+#c.drawString(60,470, '|')
+c.drawString(60, 465,'|________________________________________________________________________|')
+c.drawString(60, 450,'| IPEN: '+numero_ipen +'                                                                                     |'+' DATA: ' + hoje_br + '    |')
+
+## Componente recebido em
+c.setFillColor(aColor='black')  # Cor preto
+c.setFont("Helvetica-Bold", 12) #Negrito
+c.drawString(60, 250, 'Recebido em ______/______/__________.')
+
+## Assinaura do interno
+c.setFillColor(aColor='black')  # Cor preto
+c.setFont("Helvetica-Bold", 12) #Negrito
+c.drawString(60, 170, '___________________________________')
+c.drawString(60, 155, 'Assinatura do interno.')
 
 
-
-
+## Assinatura servidor
 c.setFillColor(aColor='black')  # Cor preto
 c.setFont("Helvetica-Bold", 12) #Negrito
 c.drawString(60, 110, '___________________________________')
-c.drawString(60, 95, 'Asinatura do servidor (nome completo)')
+c.drawString(60, 95, 'Assinatura do servidor (nome completo).')
 
 
 c.showPage()
