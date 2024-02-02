@@ -16,7 +16,7 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image
 from reportlab.lib.units import cm
 
 
-pdf_filename = "exemplo.pdf"
+pdf_filename = "imprimir/exemplo.pdf"
 name_interno = 'fulano'
 number_ipen = 123456
 
@@ -59,11 +59,20 @@ c.drawString(60, 600, 'no IPEN do interno;')
 # ]
 # table = Table(data)
 # c.build([table])
-
+## data do sistema no formato BR
 hoje = dd.datetime.now()
 hoje_br = hoje.strftime("%d/%m/%Y")
 #print(hoje_br)
-c.drawString(100, 450, hoje_br)
+c.drawString(200, 460,'-----------------------------')
+c.drawString(200, 450,'|          '+ hoje_br + '   |')
+
+
+
+
+c.setFillColor(aColor='black')  # Cor preto
+c.setFont("Helvetica-Bold", 12) #Negrito
+c.drawString(60, 110, '___________________________________')
+c.drawString(60, 95, 'Asinatura do servidor (nome completo)')
 
 
 c.showPage()
