@@ -11,8 +11,9 @@ Possui várias tabelas, sendo a 1° cabeçalho (lixo), possui uma única coluna 
 
 ## Funcionalidades
 - [x] Lê arquivo .pdf <br>
+- [x] Termo de entrega <br>
 - [ ] Limpas as tabelas.<br>
-- [ ] Gera o termos de compromissos de cada um e salva em uma pasta com .pdf.<br>
+- [ ] Gera os termos de compromissos de cada um e salva em uma pasta com .pdf.<br>
 - [ ] [Imprime na impressora em folha usada.](https://www.youtube.com/watch?v=EQlXQsYeoUI) <br>
 
 ### Algumas referências consultadas
