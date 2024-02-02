@@ -33,7 +33,8 @@ c.drawString(120, 785, "SECRETARIA DE ESTADO DA ADMINISTRAÇÃO PRISIONAL E SOCI
 c.drawString(120, 770, 'PRESÍDIO MARAVILHA')
 ################
 #### Rodapé
-c.setFillColor(aColor='gray')  # Cor Cinza
+#c.setFillColor(aColor='gray')  # Cor Cinza
+c.setFillColorRGB(.7 ,.7, .7)
 c.setFont("Helvetica-Oblique", 8)
 c.drawCentredString(300,70, 'POLÍCIA PENAL DE SANTA CATARINA', mode=None, charSpace=0)
 c.drawCentredString(300, 60, 'Presídio de Maravilha', mode=None, charSpace=0)
@@ -51,7 +52,7 @@ c.drawString(60, 660, '02) Na opção "Observação" descrever o que está sendo
 c.drawString(60, 640, 'de uniforme);')
 c.drawString(60, 620, '03) O termo de recebimento, devidamente assinado, deverá ser digitalizado e arquivado')
 c.drawString(60, 600, 'no IPEN do interno;')
-
+c.rect(10*cm,15*cm,2*cm,2*cm, fill=0)# para criar retangulo
 
 ## tabela com informações
 # c = SimpleDocTemplate(pdf_filename, pagesize=A4)
