@@ -20,7 +20,8 @@ pdf_filename = "exemplo.pdf"
 nome_interno = 'fulano'
 numero_ipen = '123456'
 
-c = canvas.Canvas('imprimir/'+pdf_filename, pagesize=A4)
+page_size = A4
+c = canvas.Canvas('imprimir/'+pdf_filename, pagesize=page_size)
 c.setTitle("Termo de Recebimento")
 
 ### Cabeçalho
@@ -34,7 +35,6 @@ c.drawString(120, 770, 'PRESÍDIO MARAVILHA')
 #### Rodapé
 c.setFillColor(aColor='gray')  # Cor Cinza
 c.setFont("Helvetica-Oblique", 8)
-#c.drawString(247, 70, 'POLÍCIA PENAL DE SANTA CATARINA')
 c.drawCentredString(300,70, 'POLÍCIA PENAL DE SANTA CATARINA', mode=None, charSpace=0)
 c.drawCentredString(300, 60, 'Presídio de Maravilha', mode=None, charSpace=0)
 c.drawCentredString(300, 50, 'Av. Sul Brasil, n. 1607, centro - CEP 89874-000 - Maravilha/SC', mode=None, charSpace=0)
