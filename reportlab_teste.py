@@ -7,7 +7,8 @@
 #####	DISTRO:				Ubuntu GNU/Linux 22.04
 #####	LICENÇA:			MIT license
 #####	PROJETO:			https://github.com/casa-inteligente/pdf_to_print
-
+import dateutil.utils
+import datetime as dd
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.pdfgen import canvas
@@ -58,6 +59,11 @@ c.drawString(60, 600, 'no IPEN do interno;')
 # ]
 # table = Table(data)
 # c.build([table])
+
+hoje = dd.datetime.now()
+hoje_br = hoje.strftime("%d/%m/%Y")
+#print(hoje_br)
+c.drawString(100, 450, hoje_br)
 
 
 c.showPage()
