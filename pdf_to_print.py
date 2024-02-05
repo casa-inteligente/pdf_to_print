@@ -83,29 +83,50 @@ print('\n\n\n--------\n\n\n')
 #         text = page.extractText()
 #         print("Texto da página", page_number + 1, ":", text)
 
+#
+# from reportlab.pdfgen import canvas
+#
+# def GeneratePDF(lista):
+#     try:
+#         nome_pdf = input('Informe o nome do PDF: ')
+#         pdf = canvas.Canvas('{}.pdf'.format(nome_pdf))
+#         x = 720
+#         for nome,idade in lista.items():
+#             x -= 20
+#             pdf.drawString(247,x, '{} : {}'.format(nome,idade))
+#         pdf.setTitle(nome_pdf)
+#         pdf.setFont("Helvetica-Oblique", 14)
+#         pdf.drawString(245,750, 'Lista de Convidados')
+#         pdf.setFont("Helvetica-Bold", 12)
+#         pdf.drawString(245,724, 'Nome e idade')
+#         pdf.save()
+#         print('{}.pdf criado com sucesso!'.format(nome_pdf))
+#     except:
+#         print('Erro ao gerar {}.pdf'.format(nome_pdf))
+#
+# lista = {'Rafaela': '19', 'Jose': '15', 'Maria': '22','Eduardo':'24'}
+#
+#
+#
+# GeneratePDF(tabela2)
 
-from reportlab.pdfgen import canvas
+import PyPDF2
+import spacy
 
-def GeneratePDF(lista):
-    try:
-        nome_pdf = input('Informe o nome do PDF: ')
-        pdf = canvas.Canvas('{}.pdf'.format(nome_pdf))
-        x = 720
-        for nome,idade in lista.items():
-            x -= 20
-            pdf.drawString(247,x, '{} : {}'.format(nome,idade))
-        pdf.setTitle(nome_pdf)
-        pdf.setFont("Helvetica-Oblique", 14)
-        pdf.drawString(245,750, 'Lista de Convidados')
-        pdf.setFont("Helvetica-Bold", 12)
-        pdf.drawString(245,724, 'Nome e idade')
-        pdf.save()
-        print('{}.pdf criado com sucesso!'.format(nome_pdf))
-    except:
-        print('Erro ao gerar {}.pdf'.format(nome_pdf))
+# Carregar o modelo em inglês do spaCy
+#nlp = spacy.load('en_core_web_sm')
+nlp = spacy.load('pt_core_news_sm')
+# Abrir o arquivo PDF
+with open(arquivo, 'rb') as file:
+    reader = PyPDF2.PdfFileReader(file)
+    text = ''
+    for page in range(reader.numPages):
+        text += reader.getPage(page).extractText()
 
-lista = {'Rafaela': '19', 'Jose': '15', 'Maria': '22','Eduardo':'24'}
+# Processar o texto com o spaCy
+doc = nlp(text)
 
-
-
-GeneratePDF(tabela2)
+# Identificar e imprimir as entidades nomeadas que são pessoas
+for entity in doc.ents:
+    if entity.label_ == 'PERSON':
+        print(entity.text)
