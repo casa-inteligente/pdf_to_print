@@ -1,27 +1,27 @@
-import PyPDF2
+import os
+from PyPDF2 import PdfFileReader
 from reportlab.pdfgen import canvas
 
-def create_pdf(name):
-    c = canvas.Canvas(f"Termo_de_Compromisso_{name}.pdf")
-    text = f"""
-    TERMO DE COMPROMISSO
+def extract_names_from_pdf(file_path):
+    pdf = PdfFileReader(file_path)
+    text = ""
+    for page in pdf.pages:
+        text += page.extract_text()
 
-    Eu, {name}, comprometo-me a cumprir as obrigações e responsabilidades que me foram atribuídas.
-    """
-    c.drawString(100, 750, text)
-    c.save()
-
-def read_names_from_pdf(file_name):
-    #pdf_file = open(file_name, 'rb')
-    pdf_file = open('FECHADO.pdf', 'rb')
-    pdf_reader = PyPDF2.PdfFileReader(pdf_file)
-    page = pdf_reader.getPage(0)
-    names = page.extractText().split('\n')
-    pdf_file.close()
+    # Supondo que os nomes estejam separados por novas linhas
+    names = text.split('\n')
     return names
 
-file_name = 'fef.pdf'
-names = read_names_from_pdf(file_name)
+def create_appointments(names, output_dir):
+    for name in names:
+        output_path = os.path.join(output_dir, f"{name}_compromisso.pdf")
+        c = canvas.Canvas(output_path)
+        text = f"Compromisso para {name}"
+        c.drawString(100, 800, text)
+        c.save()
 
-for name in names:
-    create_pdf(name)
+# Substitua 'input.pdf' pelo caminho do seu arquivo PDF
+names = extract_names_from_pdf('FECHADO.pdf')
+
+# Substitua 'output_dir' pelo diretório onde você deseja salvar os novos arquivos PDF
+create_appointments(names, 'imprimir')
