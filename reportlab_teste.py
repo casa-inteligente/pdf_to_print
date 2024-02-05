@@ -45,14 +45,14 @@ c.drawCentredString(300, 40, 'Fone: (49) 3664 - 6672 / e-mail: pr29@pp.sc.gov.br
 c.setFillColor(aColor='black')  # Cor preto
 c.setFont("Helvetica-Bold", 12) #Negrito
 c.drawString(230, 730, 'TERMO DE RECEBIMENTO')
-c.drawString(60, 700, 'Instruções:')
+c.drawString(60, 680, 'Instruções:')
 c.setFont("Helvetica-Oblique", 12)
-c.drawString(60, 680, '01) Os internos devem assinalar a opção com um X;')
-c.drawString(60, 660, '02) Na opção "Observação" descrever o que está sendo entregue (tamanho e quantidade')
-c.drawString(60, 640, 'de uniforme);')
-c.drawString(60, 620, '03) O termo de recebimento, devidamente assinado, deverá ser digitalizado e arquivado')
-c.drawString(60, 600, 'no IPEN do interno;')
-c.rect(10*cm,15*cm,2*cm,2*cm, fill=0)# para criar retangulo
+c.drawString(60, 650, '01) Os internos devem assinalar a opção com um "X";')
+c.drawString(60, 630, '02) Na opção "Observação" descrever o que está sendo entregue (tamanho e quantidade')
+c.drawString(60, 610, 'de uniforme);')
+c.drawString(60, 590, '03) O termo de recebimento, devidamente assinado, deverá ser digitalizado e arquivado')
+c.drawString(60, 570, 'no IPEN do interno;')
+c.rect(2.5*cm,11*cm,16*cm,9*cm, fill=0)# para criar retangulo
 
 ## tabela com informações
 # c = SimpleDocTemplate(pdf_filename, pagesize=A4)
