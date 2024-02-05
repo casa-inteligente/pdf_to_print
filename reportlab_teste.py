@@ -45,14 +45,14 @@ c.drawCentredString(300, 40, 'Fone: (49) 3664 - 6672 / e-mail: pr29@pp.sc.gov.br
 c.setFillColor(aColor='black')  # Cor preto
 c.setFont("Helvetica-Bold", 12) #Negrito
 c.drawString(230, 730, 'TERMO DE RECEBIMENTO')
-c.drawString(60, 680, 'Instruções:')
+c.drawString(2*cm, 680, 'Instruções:')
 c.setFont("Helvetica-Oblique", 12)
-c.drawString(60, 650, '01) Os internos devem assinalar a opção com um "X";')
-c.drawString(60, 630, '02) Na opção "Observação" descrever o que está sendo entregue (tamanho e quantidade')
-c.drawString(60, 610, 'de uniforme);')
-c.drawString(60, 590, '03) O termo de recebimento, devidamente assinado, deverá ser digitalizado e arquivado')
-c.drawString(60, 570, 'no IPEN do interno;')
-c.rect(2.5*cm,11*cm,16*cm,9*cm, fill=0)# para criar retangulo
+c.drawString(2*cm, 650, '01) Os internos devem assinalar a opção com um "X";')
+c.drawString(2*cm, 630, '02) Na opção "Observação" descrever o que está sendo entregue (tamanho e quantidade')
+c.drawString(2*cm, 610, 'de uniforme);')
+c.drawString(2*cm, 590, '03) O termo de recebimento, devidamente assinado, deverá ser digitalizado e arquivado')
+c.drawString(2*cm, 570, 'no IPEN do interno;')
+c.rect(2*cm,10*cm,17*cm,9*cm, fill=0)# para criar retangulo
 
 ## tabela com informações
 # c = SimpleDocTemplate(pdf_filename, pagesize=A4)
@@ -65,28 +65,30 @@ c.rect(2.5*cm,11*cm,16*cm,9*cm, fill=0)# para criar retangulo
 hoje = dd.datetime.now()
 hoje_br = hoje.strftime("%d/%m/%Y")
 #print(hoje_br)
-c.drawString(60, 470,'| INTERNO:  '+nome_interno)
-#c.drawString(60,470, '|')
-c.drawString(60, 465,'|________________________________________________________________________|')
-c.drawString(60, 450,'| IPEN: '+numero_ipen +'                                                                                     |'+' DATA: ' + hoje_br + '    |')
+#Componente no nome
+c.rect(2*cm, 19*cm,17*cm,.5*cm, fill=0)# para criar retangulo
+c.drawString(2*cm, 19.1*cm,'  INTERNO:       '+nome_interno)
+#Componente Ipem
+c.rect(2*cm, 19*cm,17*cm,.5*cm, fill=0)# para criar retangulo
+c.drawString(2*cm, 19.1*cm,'  INTERNO:       '+nome_interno)
 
 ## Componente recebido em
 c.setFillColor(aColor='black')  # Cor preto
 c.setFont("Helvetica-Bold", 12) #Negrito
-c.drawString(60, 250, 'Recebido em ______/______/__________.')
+c.drawString(2*cm, 250, 'Recebido em ______/______/__________.')
 
 ## Assinaura do interno
 c.setFillColor(aColor='black')  # Cor preto
 c.setFont("Helvetica-Bold", 12) #Negrito
-c.drawString(60, 170, '___________________________________')
-c.drawString(60, 155, 'Assinatura do interno.')
+c.drawString(2*cm, 170, '___________________________________')
+c.drawString(2*cm, 155, 'Assinatura do interno.')
 
 
 ## Assinatura servidor
 c.setFillColor(aColor='black')  # Cor preto
 c.setFont("Helvetica-Bold", 12) #Negrito
-c.drawString(60, 110, '___________________________________')
-c.drawString(60, 95, 'Assinatura do servidor (nome completo).')
+c.drawString(2*cm, 110, '___________________________________')
+c.drawString(2*cm, 95, 'Assinatura do servidor (nome completo).')
 
 
 c.showPage()
