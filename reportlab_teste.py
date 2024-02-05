@@ -112,11 +112,11 @@ c.setFont("Helvetica-Bold", 12) #Negrito
 c.drawString(2*cm, 110, '___________________________________')
 c.drawString(2*cm, 95, 'Assinatura do servidor (nome completo).')
 
-#para teste maluco
-xlist = [2*cm , 10*cm ]
-ylist = [2*cm , 20*cm ]
-
-c.grid(xlist, ylist)
+# #para teste maluco
+# xlist = [2*cm , 10*cm ]
+# ylist = [2*cm , 20*cm ]
+#
+# c.grid(xlist, ylist)
 
 
 
