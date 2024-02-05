@@ -46,9 +46,9 @@ c.drawCentredString(300, 40, 'Fone: (49) 3664 - 6672 / e-mail: pr29@pp.sc.gov.br
 ### Titulo do documento
 c.setFillColor(aColor='black')  # Cor preto
 c.setFont("Helvetica-Bold", 12) #Negrito
-c.drawString(230, 730, 'TERMO DE RECEBIMENTO')
+c.drawCentredString(10.5*cm, 730, 'TERMO DE RECEBIMENTO')
 c.drawString(2*cm, 680, 'Instruções:')
-c.setFont("Helvetica-Oblique", 12) #Fonte normal
+c.setFont("Helvetica-Oblique", 12, leading=1) #Fonte normal
 c.drawString(2*cm, 650, '01) Os internos devem assinalar a opção com um "X";')
 c.drawString(2*cm, 630, '02) Na opção "Observação" descrever o que está sendo entregue (tamanho e quantidade')
 c.drawString(2*cm, 610, 'de uniforme);')
@@ -111,6 +111,13 @@ c.setFillColor(aColor='black')  # Cor preto
 c.setFont("Helvetica-Bold", 12) #Negrito
 c.drawString(2*cm, 110, '___________________________________')
 c.drawString(2*cm, 95, 'Assinatura do servidor (nome completo).')
+
+#para teste maluco
+xlist = [2*cm , 10*cm ]
+ylist = [2*cm , 20*cm ]
+
+c.grid(xlist, ylist)
+
 
 
 c.showPage()
