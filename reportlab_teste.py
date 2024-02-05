@@ -15,9 +15,9 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image
 from reportlab.lib.units import cm
 
-
-pdf_filename = "exemplo.pdf"
 nome_interno = 'fulano'
+pdf_filename = nome_interno+".pdf"
+
 numero_ipen = '123456'
 
 page_size = A4
@@ -27,10 +27,10 @@ c.setTitle("Termo de Recebimento")
 ### Cabeçalho
 c.setFillColor(aColor='gray')  # Cor Cinza
 c.setFont("Helvetica-Oblique", 10)
-c.drawImage('logo.png', 50, 760, width=60, height=60)
-c.drawString(120, 800, "ESTADO DE SANTA CATARINA")
-c.drawString(120, 785, "SECRETARIA DE ESTADO DA ADMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
-c.drawString(120, 770, 'PRESÍDIO MARAVILHA')
+c.drawImage('logo.png', 2*cm, 760, width=60, height=60)
+c.drawString(4.5*cm, 800, "ESTADO DE SANTA CATARINA")
+c.drawString(4.5*cm, 785, "SECRETARIA DE ESTADO DA ADMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
+c.drawString(4.5*cm, 770, 'PRESÍDIO MARAVILHA')
 ################
 #### Rodapé
 #c.setFillColor(aColor='gray')  # Cor Cinza
@@ -46,7 +46,7 @@ c.setFillColor(aColor='black')  # Cor preto
 c.setFont("Helvetica-Bold", 12) #Negrito
 c.drawString(230, 730, 'TERMO DE RECEBIMENTO')
 c.drawString(2*cm, 680, 'Instruções:')
-c.setFont("Helvetica-Oblique", 12)
+c.setFont("Helvetica-Oblique", 12) #Fonte normal
 c.drawString(2*cm, 650, '01) Os internos devem assinalar a opção com um "X";')
 c.drawString(2*cm, 630, '02) Na opção "Observação" descrever o que está sendo entregue (tamanho e quantidade')
 c.drawString(2*cm, 610, 'de uniforme);')
@@ -54,13 +54,7 @@ c.drawString(2*cm, 590, '03) O termo de recebimento, devidamente assinado, dever
 c.drawString(2*cm, 570, 'no IPEN do interno;')
 c.rect(2*cm,10*cm,17*cm,9*cm, fill=0)# para criar retangulo
 
-## tabela com informações
-# c = SimpleDocTemplate(pdf_filename, pagesize=A4)
-# data = [['Interno', nome_interno],
-#         ['IPEN:', numero_ipen+'|'],
-# ]
-# table = Table(data)
-# c.build([table])
+
 ## data do sistema no formato BR
 hoje = dd.datetime.now()
 hoje_br = hoje.strftime("%d/%m/%Y")
@@ -74,6 +68,30 @@ c.drawString(2*cm, 18.6*cm,'  IPEN:       '+numero_ipen)
 #Componente data
 c.rect(10.5*cm, 18.5*cm,8.5*cm,.5*cm, fill=0)# para criar retangulo
 c.drawString(10.5*cm, 18.6*cm,'  DATA:       '+hoje_br)
+## Componentes das informaçõe das coisas entregues
+## Componente kit higiene
+c.rect(2*cm, 18*cm,4*cm,.5*cm, fill=0)# para criar retangulo
+c.rect(6*cm, 18*cm,13*cm,.5*cm, fill=0)# para criar retangulo
+c.drawString(6*cm, 18.1*cm,' Kit higiene')
+## Componente Uniforme
+c.rect(2*cm, 17.5*cm,4*cm,.5*cm, fill=0)# para criar retangulo
+c.rect(6*cm, 17.5*cm,13*cm,.5*cm, fill=0)# para criar retangulo
+c.drawString(6*cm, 17.6*cm,' Uniforme')
+#Componente cobertor
+c.rect(2*cm, 17*cm,4*cm,.5*cm, fill=0)# para criar retangulo
+c.rect(6*cm, 17*cm,13*cm,.5*cm, fill=0)# para criar retangulo
+c.drawString(6*cm, 17.1*cm,' Cobertor')
+
+#Componente Observação
+c.setFillColor(aColor='black')  # Cor preto
+c.setFont("Helvetica-Bold", 12) #Negrito
+c.rect(2*cm, 16.5*cm,4*cm,.5*cm, fill=0)# para criar retangulo
+c.drawString(2*cm, 16.6*cm,'    Observação:')
+c.rect(6*cm, 16.5*cm,13*cm,.5*cm, fill=0)# para criar retangulo
+
+c.setFont("Helvetica-Oblique", 12)
+
+
 ## Componente recebido em
 c.setFillColor(aColor='black')  # Cor preto
 c.setFont("Helvetica-Bold", 12) #Negrito
