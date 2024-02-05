@@ -69,13 +69,15 @@ hoje_br = hoje.strftime("%d/%m/%Y")
 c.rect(2*cm, 19*cm,17*cm,.5*cm, fill=0)# para criar retangulo
 c.drawString(2*cm, 19.1*cm,'  INTERNO:       '+nome_interno)
 #Componente Ipem
-c.rect(2*cm, 19*cm,17*cm,.5*cm, fill=0)# para criar retangulo
-c.drawString(2*cm, 19.1*cm,'  INTERNO:       '+nome_interno)
-
+c.rect(2*cm, 18.5*cm,8.5*cm,.5*cm, fill=0)# para criar retangulo
+c.drawString(2*cm, 18.6*cm,'  IPEN:       '+numero_ipen)
+#Componente data
+c.rect(10.5*cm, 18.5*cm,8.5*cm,.5*cm, fill=0)# para criar retangulo
+c.drawString(10.5*cm, 18.6*cm,'  DATA:       '+hoje_br)
 ## Componente recebido em
 c.setFillColor(aColor='black')  # Cor preto
 c.setFont("Helvetica-Bold", 12) #Negrito
-c.drawString(2*cm, 250, 'Recebido em ______/______/__________.')
+c.drawString(2*cm, 220, 'Recebido em ______/______/__________.')
 
 ## Assinaura do interno
 c.setFillColor(aColor='black')  # Cor preto
