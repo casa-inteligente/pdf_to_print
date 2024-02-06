@@ -25,6 +25,7 @@ arquivo = "FECHADO.pdf" #Nome do arquivo pdf
 paginas = 'all' #quais paginas a serem lidas
 
 lista_tabela = tabula.io.read_pdf(arquivo, pages=paginas)
+
 print(len(lista_tabela))
 
 for tabela in lista_tabela:
@@ -35,9 +36,8 @@ tabela3 = lista_tabela[2]
 #print(tabela3)
 tabela_var = lista_tabela[1]
 tabela_var.columns = tabela_var.iloc[2]
-print(tabela_var)
 
-
+tabela_var = tabela_var[['', ""]]
 
 
 nome_interno = 'fulano'
