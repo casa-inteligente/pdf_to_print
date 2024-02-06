@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #####	NOME:				report_teste.py
 #####	VERSÃO:				1.0
 #####	DESCRIÇÃO:			Coleta informações de um arquivo em pdf e imprime em uma declaração
@@ -9,21 +10,32 @@
 #####	PROJETO:			https://github.com/casa-inteligente/pdf_to_print
 import dateutil.utils
 import datetime as dd
+import PyPDF2
+import re
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
+import tabula
+from tabula.io import read_pdf
 from reportlab.pdfgen import canvas
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image
 from reportlab.lib.units import cm
 
 ##abre pdf
+arquivo = "FECHADO.pdf" #Nome do arquivo pdf
+paginas = 'all' #quais paginas a serem lidas
 
+lista_tabela = tabula.io.read_pdf(arquivo, pages=paginas)
+print(len(lista_tabela))
 
-
-
-
-
-
-
+for tabela in lista_tabela:
+        #print(tabela, "\n +++++++++++++++++++++\n")
+        stop_d = tabela.index.stop
+        print(stop_d)
+tabela3 = lista_tabela[2]
+#print(tabela3)
+tabela_var = lista_tabela[1]
+tabela_var.columns = tabela_var.iloc[2]
+print(tabela_var)
 
 
 
@@ -76,10 +88,10 @@ hoje_br = hoje.strftime("%d/%m/%Y")
 #print(hoje_br)
 #Componente no nome
 c.rect(2*cm, 19*cm, 17*cm, .5*cm, fill=0)# para criar retangulo
-c.drawString(2*cm, 19.1*cm,'  INTERNO:       '+nome_interno)
+c.drawString(2*cm, 19.1*cm, '  INTERNO:       '+nome_interno)
 #Componente Ipem
-c.rect(2*cm, 18.5*cm, 8.5*cm,.5*cm, fill=0)# para criar retangulo
-c.drawString(2*cm, 18.6*cm,'  IPEN:       '+numero_ipen)
+c.rect(2*cm, 18.5*cm, 8.5*cm, .5*cm, fill=0)# para criar retangulo
+c.drawString(2*cm, 18.6*cm, '  IPEN:       '+numero_ipen)
 #Componente data
 c.rect(10.5*cm, 18.5*cm, 8.5*cm, .5*cm, fill=0)# para criar retangulo
 c.drawString(10.5*cm, 18.6*cm, '  DATA:       '+hoje_br)
@@ -91,17 +103,17 @@ c.drawString(6*cm, 18.1*cm, ' Kit higiene')
 ## Componente Uniforme
 c.rect(2*cm, 17.5*cm, 4*cm, .5*cm, fill=0)# para criar retangulo
 c.rect(6*cm, 17.5*cm, 13*cm, .5*cm, fill=0)# para criar retangulo
-c.drawString(6*cm, 17.6*cm,' Uniforme')
+c.drawString(6*cm, 17.6*cm, ' Uniforme')
 #Componente cobertor
-c.rect(2*cm, 17*cm,4*cm,.5*cm, fill=0)# para criar retangulo
-c.rect(6*cm, 17*cm,13*cm,.5*cm, fill=0)# para criar retangulo
-c.drawString(6*cm, 17.1*cm,' Cobertor')
+c.rect(2*cm, 17*cm, 4*cm, .5*cm, fill=0)# para criar retangulo
+c.rect(6*cm, 17*cm, 13*cm, .5*cm, fill=0)# para criar retangulo
+c.drawString(6*cm, 17.1*cm, ' Cobertor')
 
 #Componente Observação
 c.setFillColor(aColor='black')  # Cor preto
 c.setFont("Helvetica-Bold", 12) #Negrito
 c.rect(2*cm, 16.5*cm, 4*cm, .5*cm, fill=0)# para criar retangulo
-c.drawString(2*cm, 16.6*cm,'    Observação:')
+c.drawString(2*cm, 16.6*cm, '    Observação:')
 c.rect(6*cm, 16.5*cm, 13*cm, .5*cm, fill=0)# para criar retangulo
 
 c.setFont("Helvetica-Oblique", 12)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #####	NOME:				pdf_to_print.py
 #####	VERSÃO:				1.0
 #####	DESCRIÇÃO:			Coleta informações de um arquivo em pdf e imprime em uma declaração
