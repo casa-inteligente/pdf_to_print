@@ -15,6 +15,19 @@ from reportlab.pdfgen import canvas
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image
 from reportlab.lib.units import cm
 
+##abre pdf
+
+
+
+
+
+
+
+
+
+
+
+
 nome_interno = 'fulano'
 pdf_filename = nome_interno+".pdf"
 
@@ -117,8 +130,6 @@ c.drawString(2*cm, 95, 'Assinatura do servidor (nome completo).')
 # ylist = [2*cm , 20*cm ]
 #
 # c.grid(xlist, ylist)
-
-
 
 c.showPage()
 c.save() # Salva o documento e fecha

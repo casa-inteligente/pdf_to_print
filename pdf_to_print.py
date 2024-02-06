@@ -109,24 +109,24 @@ print('\n\n\n--------\n\n\n')
 #
 #
 # GeneratePDF(tabela2)
-
-import PyPDF2
-import spacy
-
-# Carregar o modelo em inglês do spaCy
-#nlp = spacy.load('en_core_web_sm')
-nlp = spacy.load('pt_core_news_sm')
-# Abrir o arquivo PDF
-with open(arquivo, 'rb') as file:
-    reader = PyPDF2.PdfFileReader(file)
-    text = ''
-    for page in range(reader.numPages):
-        text += reader.getPage(page).extractText()
-
-# Processar o texto com o spaCy
-doc = nlp(text)
-
-# Identificar e imprimir as entidades nomeadas que são pessoas
-for entity in doc.ents:
-    if entity.label_ == 'PERSON':
-        print(entity.text)
+#
+# import PyPDF2
+# import spacy
+#
+# # Carregar o modelo em inglês do spaCy
+# #nlp = spacy.load('en_core_web_sm')
+# nlp = spacy.load('pt_core_news_sm')
+# # Abrir o arquivo PDF
+# with open(arquivo, 'rb') as file:
+#     reader = PyPDF2.PdfFileReader(file)
+#     text = ''
+#     for page in range(reader.numPages):
+#         text += reader.getPage(page).extractText()
+#
+# # Processar o texto com o spaCy
+# doc = nlp(text)
+#
+# # Identificar e imprimir as entidades nomeadas que são pessoas
+# for entity in doc.ents:
+#     if entity.label_ == 'PERSON':
+#         print(entity.text)
