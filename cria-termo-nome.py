@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import PyPDF2
 from reportlab.pdfgen import canvas
 
@@ -12,7 +13,7 @@ def extract_names_from_pdf(file_path):
 
 def create_pdf_for_each_name(names):
     for name in names:
-        c = canvas.Canvas(name+".pdf")
+        c = canvas.Canvas('imprimir/'+name+".pdf")
         c.drawString(100, 750, "Compromisso para: "+name)
         c.save()
 
