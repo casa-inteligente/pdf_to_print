@@ -12,6 +12,8 @@ import dateutil.utils
 import datetime as dd
 import PyPDF2
 import re
+import numpy as np
+import pandas as pd
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 import tabula
@@ -32,12 +34,18 @@ for tabela in lista_tabela:
         #print(tabela, "\n +++++++++++++++++++++\n")
         stop_d = tabela.index.stop
         print(stop_d)
+tabela2 = lista_tabela[1]
 tabela3 = lista_tabela[2]
+
 #print(tabela3)
 tabela_var = lista_tabela[1]
-tabela_var.columns = tabela_var.iloc[2]
+tabela_var.columns = tabela_var.iloc[20]
+print("\n INICIO DOS TESTE DE EXTRAÇÃO DE DADOS SEPARADOS\n")
+#print(tabela_var.columns)
 
-
+#print(lista_tabela)
+teste_maluco = tabela2.loc[1:25]
+print(teste_maluco)
 
 
 
