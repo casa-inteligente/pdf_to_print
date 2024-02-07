@@ -40,6 +40,8 @@ tabela_var.columns = tabela_var.iloc[2]
 
 
 
+
+
 nome_interno = 'fulano'
 pdf_filename = nome_interno+".pdf"
 
