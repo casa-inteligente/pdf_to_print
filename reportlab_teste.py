@@ -37,7 +37,7 @@ tabela3 = lista_tabela[2]
 tabela_var = lista_tabela[1]
 tabela_var.columns = tabela_var.iloc[2]
 
-tabela_var = tabela_var[['', ""]]
+
 
 
 nome_interno = 'fulano'
