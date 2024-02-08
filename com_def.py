@@ -154,6 +154,10 @@ class Le_pdf:
             numero_tabelas = len(lista_tabela)
             print('Possui {} tabelas' .format(numero_tabelas))
 
+            #Para apagar Linha: axis=0
+            #Para apagar Coluna: axis=1
+            lista_tabela = lista_tabela.drop("TRABALHO EXTERNO", axis=0) # eixo 0 linha; eixo 1 coluna
+
             for tabela in lista_tabela: #grava as tabelas em tabela
                 #print(tabela, "\n +++++++++++++++++++++\n")
                 stop_d = tabela.index.stop
@@ -167,9 +171,13 @@ class Le_pdf:
 
 
             # print(tabela3)
-            tabela_var = lista_tabela[1]
-            tabela_var.columns = tabela_var.iloc[20] #Muda o cabachalho da tabela
+            tabela_var = lista_tabela[16]
+            #tabela_var.columns = tabela_var.iloc[20] #Muda o cabachalho da tabela
+
+
+
             print("\n INICIO DOS TESTE DE EXTRAÇÃO DE DADOS SEPARADOS\n")
+            print(tabela_var)
             return nome_interno
 
         except:
