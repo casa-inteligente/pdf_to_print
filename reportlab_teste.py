@@ -23,7 +23,7 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Image
 from reportlab.lib.units import cm
 
 ##abre pdf
-arquivo = "FECHADO.pdf" #Nome do arquivo pdf
+arquivo = "ESTE.pdf" #Nome do arquivo pdf
 paginas = 'all' #quais paginas a serem lidas
 
 lista_tabela = tabula.io.read_pdf(arquivo, pages=paginas)
@@ -33,7 +33,8 @@ print(len(lista_tabela))
 for tabela in lista_tabela:
         #print(tabela, "\n +++++++++++++++++++++\n")
         stop_d = tabela.index.stop
-        print(stop_d)
+        #print(stop_d)
+        print(tabela.index)
 tabela2 = lista_tabela[1]
 tabela3 = lista_tabela[2]
 
@@ -43,10 +44,7 @@ tabela_var.columns = tabela_var.iloc[20]
 print("\n INICIO DOS TESTE DE EXTRAÇÃO DE DADOS SEPARADOS\n")
 #print(tabela_var.columns)
 
-#print(lista_tabela)
-teste_maluco = tabela2.loc[1:25]
-print(teste_maluco)
-
+#print(tabela2)
 
 
 
