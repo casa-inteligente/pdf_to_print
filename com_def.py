@@ -154,17 +154,21 @@ class Le_pdf:
             numero_tabelas = len(lista_tabela)
             print('Possui {} tabelas' .format(numero_tabelas))
 
-            for tabela in lista_tabela:
-                # print(tabela, "\n +++++++++++++++++++++\n")
+            for tabela in lista_tabela: #grava as tabelas em tabela
+                #print(tabela, "\n +++++++++++++++++++++\n")
                 stop_d = tabela.index.stop
-                # print(stop_d)
                 print(tabela.index)
-            tabela2 = lista_tabela[1]
-            tabela3 = lista_tabela[2]
+
+            tabela2 = lista_tabela[5]
+            tabela3 = lista_tabela[6]
+
+            #print(tabela2)
+            #tabela[[0 ,1]] = tabela["coloca_aqui_nome_coluna"].str.split("\r", expend=True)
+
 
             # print(tabela3)
             tabela_var = lista_tabela[1]
-            tabela_var.columns = tabela_var.iloc[20]
+            tabela_var.columns = tabela_var.iloc[20] #Muda o cabachalho da tabela
             print("\n INICIO DOS TESTE DE EXTRAÇÃO DE DADOS SEPARADOS\n")
             return nome_interno
 
