@@ -25,6 +25,8 @@ Possui várias tabelas, sendo a 1° cabeçalho (lixo), possui uma única coluna 
 [Documentação PyPDF2](https://pypdf2.readthedocs.io/en/3.0.0/user/forms.html) <br>
 [medium gera pdf](https://medium.com/@habbema/criando-arquivos-pdf-com-python-0eb5229c4a70) <br>
 [usandopy](https://www.usandopy.com/pt/artigo/reportlab-em-python-como-criar-documentos-pdf-personalizado-em-python-automacao-em-python/) <br>
+[para consultar a biblioteca PDFMiner](https://www.brasilcode.com.br/15-pacotes-python-para-automacao/)<br>
+
 https://www.youtube.com/watch?v=JQoPGhVVPJk <br>
 
 camelot <br>
