@@ -14,6 +14,8 @@ import datetime as dd
 from reportlab.lib.pagesizes import A4
 import tabula
 from tabula.io import read_pdf
+import pandas as pd
+
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm
 
@@ -144,7 +146,7 @@ class Le_pdf:
             pass
 
         except:
-            print('m')
+            print('Não foi possuvel extrair tabelas.')
 
     def abre_pdf(self, arquivo='TESTE', paginas='all'):
         try:
@@ -156,28 +158,35 @@ class Le_pdf:
 
             #Para apagar Linha: axis=0
             #Para apagar Coluna: axis=1
-            lista_tabela = lista_tabela.drop("TRABALHO EXTERNO", axis=0) # eixo 0 linha; eixo 1 coluna
+            #lista_tabela = lista_tabela.drop("691874", axis=0) # eixo 0 linha; eixo 1 coluna
 
-            for tabela in lista_tabela: #grava as tabelas em tabela
-                #print(tabela, "\n +++++++++++++++++++++\n")
-                stop_d = tabela.index.stop
-                print(tabela.index)
+            #tabula.io.convert_into(arquivo, 'imprimir/ds.csv', pages='all') #Exporta para .csv
 
-            tabela2 = lista_tabela[5]
-            tabela3 = lista_tabela[6]
+            #dados = pd.read_csv('imprimir/ds.csv')
+
+
+            # re =  lista_tabela[0].index
+            # print(re)
+            # for tabela in lista_tabela: #grava as tabelas em tabela
+            #     #print(tabela, "\n +++++++++++++++++++++\n")
+            #     print(tabela.index)
+
+            #lista_tabela.remove('DENTRO DA REGRA')
+            tabela1 = lista_tabela[0]
+            tabela2 = lista_tabela[1]
+            print(tabela2)
+            #tabela2 = tabela2.drop('TRABALHO INTERNO157, 157, 61, 61, 61,553362 JOEL DE OLIVEIRA155, 121, 33 | COM FOTO,TRABALHO INTERNODENTRO DA REGRA', axis=0)
+            #print( tabela2.head())
 
             #print(tabela2)
-            #tabela[[0 ,1]] = tabela["coloca_aqui_nome_coluna"].str.split("\r", expend=True)
+            #tabela2[[0 ,1]] = tabela["coloca_aqui_nome_coluna"].str.split("\r", expend=True)
 
-
-            # print(tabela3)
-            tabela_var = lista_tabela[16]
             #tabela_var.columns = tabela_var.iloc[20] #Muda o cabachalho da tabela
 
 
 
             print("\n INICIO DOS TESTE DE EXTRAÇÃO DE DADOS SEPARADOS\n")
-            print(tabela_var)
+            #print(tabela_var)
             return nome_interno
 
         except:

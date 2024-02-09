@@ -1,7 +1,7 @@
-jpype1
-jupyter
-notebook
 tabula-py
 IPython
 PyPDF2
+reportlab
+tabula.io
+datetime
 reportlab
