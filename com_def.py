@@ -141,9 +141,31 @@ class Template:
 
 class Le_pdf:
 
-    def extrai_tabela(self, tabela):
+    def extrai_tabela(self, lista_tabela):
         try:
-            pass
+            tabela1 = lista_tabela[1]
+            tabela2 = lista_tabela[2]
+            tabela3 = lista_tabela[3]
+            tabela4 = lista_tabela[4]
+            tabela5 = lista_tabela[5]
+            tabela6 = lista_tabela[6]
+            tabela7 = lista_tabela[7]
+            tabela8 = lista_tabela[8]
+            tabela9 = lista_tabela[9]
+            tabela10 = lista_tabela[10]
+            tabela11 = lista_tabela[11]
+            tabela12 = lista_tabela[12]
+            tabela13 = lista_tabela[13]
+            tabela14 = lista_tabela[14]
+            tabela15 = lista_tabela[15]
+            tabela16 = lista_tabela[16]
+            tabela17 = lista_tabela[17]
+
+            #print(tabela17)
+
+            tabela_nova = tabela15
+
+            return tabela_nova
 
         except:
             print('Não foi possuvel extrair tabelas.')
@@ -170,11 +192,10 @@ class Le_pdf:
             # for tabela in lista_tabela: #grava as tabelas em tabela
             #     #print(tabela, "\n +++++++++++++++++++++\n")
             #     print(tabela.index)
-
+            #Le_pdf.extrai_tabela(lista_tabela)
             #lista_tabela.remove('DENTRO DA REGRA')
-            tabela1 = lista_tabela[0]
-            tabela2 = lista_tabela[1]
-            print(tabela2)
+            #A lista_tabela[0] é o cabelçhalho do documento i index inicia em [ZERO]
+
             #tabela2 = tabela2.drop('TRABALHO INTERNO157, 157, 61, 61, 61,553362 JOEL DE OLIVEIRA155, 121, 33 | COM FOTO,TRABALHO INTERNODENTRO DA REGRA', axis=0)
             #print( tabela2.head())
 
@@ -187,7 +208,7 @@ class Le_pdf:
 
             print("\n INICIO DOS TESTE DE EXTRAÇÃO DE DADOS SEPARADOS\n")
             #print(tabela_var)
-            return nome_interno
+            return lista_tabela
 
         except:
             print('Erro ao abrir o arquivo {}'.format(arquivo))
@@ -198,6 +219,6 @@ class Le_pdf:
 template = Template() #Instancia o template do termo
 le_pdf = Le_pdf()
 
-nomes_internos = le_pdf.abre_pdf('ESTE')
-
-template.GeneratePDF(nomes_internos)
+lista_tabela = le_pdf.abre_pdf('ESTE')
+nome_interno = le_pdf.extrai_tabela(lista_tabela)
+template.GeneratePDF(nome_interno)
