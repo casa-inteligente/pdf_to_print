@@ -14,7 +14,7 @@ import datetime as dd
 from reportlab.lib.pagesizes import A4
 import tabula
 from tabula.io import read_pdf
-import pandas as pd
+import pandas
 
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm

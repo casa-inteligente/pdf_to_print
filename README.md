@@ -30,3 +30,7 @@ Possui várias tabelas, sendo a 1° cabeçalho (lixo), possui uma única coluna 
 https://www.youtube.com/watch?v=JQoPGhVVPJk <br>
 
 camelot <br>
+
+veja este (https://www.youtube.com/watch?v=S_tH-wtXoN4) <br>
+https://medium.com/@pymupdf/table-recognition-and-extraction-with-pymupdf-54e54b40b760 <br>
+https://medium.com/@dr.booma19/extracting-text-from-pdf-files-using-ocr-a-step-by-step-guide-with-python-code-becf221529ef <br>
