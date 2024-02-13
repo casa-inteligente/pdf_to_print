@@ -162,3 +162,4 @@ cython_debug/
 
 #ignora o arquivo pdf
 *.pdf
+*.csv
