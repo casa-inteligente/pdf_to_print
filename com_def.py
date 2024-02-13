@@ -11,6 +11,8 @@
 
 
 import datetime as dd
+
+import spacy.strings
 from reportlab.lib.pagesizes import A4
 import tabula
 from tabula.io import read_pdf
@@ -161,9 +163,13 @@ class Le_pdf:
             tabela16 = lista_tabela[16]
             tabela17 = lista_tabela[17]
 
-            #print(tabela17)
-
-            tabela_nova = tabela15
+            #print(tabela1)
+            #tabela1.drop_duplicates(ignore_index=True, keep=False)
+            print("NOVA--------------")
+            #print(tabela1.head(20))#Imprimi as primeiras posições setadas
+            tabela1 = tabela1.dropna()#Exclui as Linhas vazias
+            print(tabela1)
+            tabela_nova = lista_tabela[1]
 
             return tabela_nova
 
@@ -221,4 +227,8 @@ le_pdf = Le_pdf()
 
 lista_tabela = le_pdf.abre_pdf('ESTE')
 nome_interno = le_pdf.extrai_tabela(lista_tabela)
-template.GeneratePDF(nome_interno)
+# for x in nome_interno:
+#     print(nome_interno[x])
+#     print("=======================")
+
+template.GeneratePDF()
