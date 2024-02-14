@@ -225,7 +225,7 @@ class Le_pdf:
 template = Template() #Instancia o template do termo
 le_pdf = Le_pdf()
 
-lista_tabela = le_pdf.abre_pdf('ESTE')
+lista_tabela = le_pdf.abre_pdf('Arquivo_analisado/ESTE')
 #nome_interno = le_pdf.extrai_tabela(lista_tabela)
 # for x in nome_interno:
 #     print(nome_interno[x])

@@ -26,9 +26,10 @@ import re
 import PyPDF2
 from reportlab.pdfgen import canvas
 
-def extrair_nomes(texto):
+def extrair_numero(texto):
     # Esta é uma expressão regular simples para identificar nomes. Pode precisar ser ajustada.
-    return re.findall(r'\b[A-Z][a-z]*\b', texto)
+    #return re.findall(r'\b[A-Z][a-z]*\b', texto)
+    return re.findall(r'\b[0-9]*\b', texto)
 
 def criar_pdf(nome, termo):
     c = canvas.Canvas(f"imprimir/{nome}.pdf")
@@ -46,10 +47,12 @@ with open('ESTE.pdf', 'rb') as arquivo:
 # Extraindo os nomes
 nomes = extrair_nomes(texto)
 
-# Lendo o termo de compromisso
-with open('termo_de_compromisso.txt', 'r') as arquivo:
-    termo = arquivo.read()
+print(nomes)
 
-# Criando um PDF para cada nome
-for nome in nomes:
-    criar_pdf(nome, termo)
+def extrair_numero(texto):
+    # Esta é uma expressão regular simples para identificar nomes. Pode precisar ser ajustada.
+    #return re.findall(r'\b[A-Z][a-z]*\b', texto)
+    return re.findall(r'\b[0-9]*\b', texto)
+
+numeros = extrair_numero(tabela_1)
+print(numeros)

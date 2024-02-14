@@ -36,3 +36,16 @@ https://medium.com/@pymupdf/table-recognition-and-extraction-with-pymupdf-54e54b
 https://medium.com/@dr.booma19/extracting-text-from-pdf-files-using-ocr-a-step-by-step-guide-with-python-code-becf221529ef <br>
 
 [o proximo](https://www.youtube.com/watch?v=k1zi4EwIXoc&list=PLyqOvdQmGdTR46HUxDA6Ymv4DGsIjvTQ-&index=23)<br>
+
+
+```python
+def extrair_numero(texto):
+    # Esta é uma expressão regular simples para identificar nomes. Pode precisar ser ajustada.
+    #return re.findall(r'\b[A-Z][a-z]*\b', texto)
+    return re.findall(r'\b[0-9]*\b', texto)
+
+numeros = extrair_numero(tabela_1)
+print(numeros)
+
+
+```
