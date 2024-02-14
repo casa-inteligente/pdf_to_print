@@ -2,8 +2,12 @@
 Lê dados no arquivo em .pdf e imprime na declaração
 ## Uso
 -  instale as dependências do *requirements.txt*</br>
+No Win11, vá até a pasta do programa e com o botão direito do mouse, clique na opção *Abrir no terminal* e cole o comando abaixo.
+
+![terminal](figure/abri_terminal.png) 
+
 ```markdown
-pip instal -r requirements.txt
+pip instal -r .\requirements.txt
 ```
 #### Situações especiais do arquivo .pdf a ser lido
 Possui várias tabelas, sendo a 1° cabeçalho (lixo), possui uma única coluna com diversas ou únicas linhas e várias informações dentro da linha, das quais apenas desejo duas delas.
@@ -36,3 +40,16 @@ https://medium.com/@pymupdf/table-recognition-and-extraction-with-pymupdf-54e54b
 https://medium.com/@dr.booma19/extracting-text-from-pdf-files-using-ocr-a-step-by-step-guide-with-python-code-becf221529ef <br>
 
 [o proximo](https://www.youtube.com/watch?v=k1zi4EwIXoc&list=PLyqOvdQmGdTR46HUxDA6Ymv4DGsIjvTQ-&index=23)<br>
+
+
+```python
+def extrair_numero(texto):
+    # Esta é uma expressão regular simples para identificar nomes. Pode precisar ser ajustada.
+    #return re.findall(r'\b[A-Z][a-z]*\b', texto)
+    return re.findall(r'\b[0-9]*\b', texto)
+
+numeros = extrair_numero(tabela_1)
+print(numeros)
+
+
+```

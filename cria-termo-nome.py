@@ -22,34 +22,50 @@
 # create_pdf_for_each_name(names)
 
 
-import re
-import PyPDF2
-from reportlab.pdfgen import canvas
+import spacy
+from PyPDF2 import PdfFileReader
+from pathlib import Path
 
-def extrair_nomes(texto):
-    # Esta é uma expressão regular simples para identificar nomes. Pode precisar ser ajustada.
-    return re.findall(r'\b[A-Z][a-z]*\b', texto)
+# Carregando o modelo spaCy
+nlp = spacy.load("pt_core_news_sm")
 
-def criar_pdf(nome, termo):
-    c = canvas.Canvas(f"imprimir/{nome}.pdf")
-    c.drawString(100, 750, f"Termo de Compromisso para {nome}")
-    c.drawString(100, 730, termo)
-    c.save()
+# Definindo o diretório de entrada e saída
+diretorio_entrada = Path("C:/Users/AULA-1/Documents/GitHub/pdf_to_print/Arquivo_analisado/")
+diretorio_saida = Path("C:/Users/AULA-1/Documents/GitHub/pdf_to_print/imprimir/")
 
-# Lendo o arquivo PDF
-with open('ESTE.pdf', 'rb') as arquivo:
-    leitor = PyPDF2.PdfFileReader(arquivo)
-    texto = ''
-    for pagina in range(leitor.numPages):
-        texto += leitor.getPage(pagina).extractText()
+# Criando o diretório de saída caso não exista
+diretorio_saida.mkdir(parents=True, exist_ok=True)
 
-# Extraindo os nomes
-nomes = extrair_nomes(texto)
+# Processando cada arquivo PDF no diretório de entrada
+for arquivo_pdf in diretorio_entrada.glob("*.pdf"):
+    # Lendo o arquivo PDF
+    arquivo_pdf = "ESTE.pdf" #Comentar esta linha
+    with open(arquivo_pdf, "rb") as f:
+        pdf_reader = PdfFileReader(f)
 
-# Lendo o termo de compromisso
-with open('termo_de_compromisso.txt', 'r') as arquivo:
-    termo = arquivo.read()
+    # Extraindo o texto do PDF
+    texto_pdf = ""
+    for pagina in pdf_reader.pages:
+        texto_pdf += pagina.extractText()
 
-# Criando um PDF para cada nome
-for nome in nomes:
-    criar_pdf(nome, termo)
+    # Identificando nomes no texto
+    nomes = [entidade.text for entidade in nlp(texto_pdf).ents if entidade.label_ == "PER"]
+
+    # Gerando o termo de compromisso para cada nome
+    for nome in nomes:
+        termo_compromisso = f"""
+        TERMO DE COMPROMISSO
+
+        Eu, {nome}, declaro que estou ciente dos termos e condições do presente acordo.
+
+        Assinado em {data.strftime("%d/%m/%Y")}.
+
+        ___________________
+        {nome}
+        """
+
+        # Salvando o termo de compromisso em um arquivo PDF
+        with open(diretorio_saida / f"{nome}_termo_compromisso.pdf", "wb") as f:
+            f.write(termo_compromisso.encode("utf-8"))
+
+    print(f"Termos de compromisso gerados para {arquivo_pdf.name}")

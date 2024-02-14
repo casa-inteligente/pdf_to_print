@@ -2,6 +2,6 @@ tabula-py
 IPython
 PyPDF2
 reportlab
-tabula.io
+tabula
 datetime
 reportlab
