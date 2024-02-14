@@ -2,8 +2,9 @@
 Lê dados no arquivo em .pdf e imprime na declaração
 ## Uso
 -  instale as dependências do *requirements.txt*</br>
+No Win11, vá atá a pasta do programa e com o botão direito do mouse, clique na opção *Abrir no terminal* e cole o comando abaixo.
 ```markdown
-pip instal -r requirements.txt
+pip instal -r .\requirements.txt
 ```
 #### Situações especiais do arquivo .pdf a ser lido
 Possui várias tabelas, sendo a 1° cabeçalho (lixo), possui uma única coluna com diversas ou únicas linhas e várias informações dentro da linha, das quais apenas desejo duas delas.
