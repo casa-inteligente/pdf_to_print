@@ -167,7 +167,7 @@ class Le_pdf:
             #tabela1.drop_duplicates(ignore_index=True, keep=False)
             print("NOVA--------------")
             #print(tabela1.head(20))#Imprimi as primeiras posições setadas
-            tabela1 = tabela1.dropna()#Exclui as Linhas vazias
+            #tabela1 = tabela1.dropna()#Exclui as Linhas vazias
             print(tabela1)
             tabela_nova = lista_tabela[1]
 
@@ -226,7 +226,7 @@ template = Template() #Instancia o template do termo
 le_pdf = Le_pdf()
 
 lista_tabela = le_pdf.abre_pdf('ESTE')
-nome_interno = le_pdf.extrai_tabela(lista_tabela)
+#nome_interno = le_pdf.extrai_tabela(lista_tabela)
 # for x in nome_interno:
 #     print(nome_interno[x])
 #     print("=======================")
