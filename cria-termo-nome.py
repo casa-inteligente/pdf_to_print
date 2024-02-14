@@ -22,3 +22,34 @@
 # create_pdf_for_each_name(names)
 
 
+import re
+import PyPDF2
+from reportlab.pdfgen import canvas
+
+def extrair_nomes(texto):
+    # Esta é uma expressão regular simples para identificar nomes. Pode precisar ser ajustada.
+    return re.findall(r'\b[A-Z][a-z]*\b', texto)
+
+def criar_pdf(nome, termo):
+    c = canvas.Canvas(f"imprimir/{nome}.pdf")
+    c.drawString(100, 750, f"Termo de Compromisso para {nome}")
+    c.drawString(100, 730, termo)
+    c.save()
+
+# Lendo o arquivo PDF
+with open('ESTE.pdf', 'rb') as arquivo:
+    leitor = PyPDF2.PdfFileReader(arquivo)
+    texto = ''
+    for pagina in range(leitor.numPages):
+        texto += leitor.getPage(pagina).extractText()
+
+# Extraindo os nomes
+nomes = extrair_nomes(texto)
+
+# Lendo o termo de compromisso
+with open('termo_de_compromisso.txt', 'r') as arquivo:
+    termo = arquivo.read()
+
+# Criando um PDF para cada nome
+for nome in nomes:
+    criar_pdf(nome, termo)
