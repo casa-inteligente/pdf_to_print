@@ -174,9 +174,9 @@ class Le_pdf:
             return tabela_nova
 
         except:
-            print('Não foi possuvel extrair tabelas.')
+            print('Não foi possível extrair tabelas.')
 
-    def abre_pdf(self, arquivo='TESTE', paginas='all'):
+    def abre_pdf(self, arquivo='ESTE', paginas='all'):
         try:
             arquivo = arquivo+'.pdf'
             lista_tabela = tabula.io.read_pdf(arquivo, pages=paginas)
