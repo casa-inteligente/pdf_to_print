@@ -6,8 +6,8 @@ from pathlib import Path
 nlp = spacy.load("pt_core_news_sm")
 
 # Definindo o diretório de entrada e saída
-diretorio_entrada = Path("C:/Users/AULA-1/Documents/GitHub/pdf_to_print/Arquivo_analisado/")
-diretorio_saida = Path("C:/Users/AULA-1/Documents/GitHub/pdf_to_print/imprimir/")
+diretorio_entrada = Path(r"C:/Users/AULA-1/Documents/GitHub/pdf_to_print/Arquivo_analisado/")
+diretorio_saida = Path(r"C:/Users/AULA-1/Documents/GitHub/pdf_to_print/imprimir/")
 
 # Criando o diretório de saída caso não exista
 diretorio_saida.mkdir(parents=True, exist_ok=True)
