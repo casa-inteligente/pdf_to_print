@@ -9,7 +9,8 @@
 #####	LICENÇA:			MIT license
 #####	PROJETO:			https://github.com/casa-inteligente/pdf_to_print
 
-
+import win32api
+import win32print
 import datetime as dd
 import os
 import spacy.strings
@@ -18,13 +19,17 @@ import tabula
 from tabula.io import read_pdf
 from pathlib import Path
 import pandas
-
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm
 
 
 class Template:
-
+    def Imprimi_usada(self):
+        lista_impressora = win32print.EnumPrinters(2)# Lista de impressoras no PC
+        for impressora in lista_impressora:
+            print(f'Lista a impressora {impressora}')#indice 0 da impressora
+        myImpressora = lista_impressora[0]
+        win32print.SetDefaultPrinter(myImpressora[3])
     def GeneratePDF(self, nome_interno='TESTE', numero_ipen = 123456):
          try:
 
@@ -236,5 +241,5 @@ dados = le_pdf.extrai_tabela(lista_tabela)
 #     print("=======================")
 
 
-
+template.Imprimi_usada()
 template.GeneratePDF("MACIEL KAMINSKI DA SILVA", 561934)
