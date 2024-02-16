@@ -36,8 +36,6 @@ class Template:
 
              #print("dir_saida: \t" + self.nome_arq_out)
 
-
-
              c = canvas.Canvas(self.nome_arq_out, pagesize=self.page_size)
              c.setTitle("Termo de Recebimento")
              c.setAuthor("Natan Ogliari")
@@ -82,13 +80,13 @@ class Template:
              # print(hoje_br)
              # Componente no nome
              c.rect(2 * cm, 19 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
-             c.drawString(2 * cm, 19.1 * cm, '  INTERNO:       ' + nome_interno)
+             c.drawString(2 * cm, 19.1 * cm, f'  INTERNO: {nome_interno}')
              # Componente Ipem
              c.rect(2 * cm, 18.5 * cm, 8.5 * cm, .5 * cm, fill=0)  # para criar retangulo
-             c.drawString(2 * cm, 18.6 * cm, '  IPEN:       ' + numero_ipen)
+             c.drawString(2 * cm, 18.6 * cm, f'  IPEN:      {numero_ipen}')
              # Componente data
              c.rect(10.5 * cm, 18.5 * cm, 8.5 * cm, .5 * cm, fill=0)  # para criar retangulo
-             c.drawString(10.5 * cm, 18.6 * cm, '  DATA:       ' + hoje_br)
+             c.drawString(10.5 * cm, 18.6 * cm, f'    DATA:  {hoje_br}')
              ## Componentes das informaçõe das coisas entregues
              ## Componente do kit higiene
              c.rect(2 * cm, 18 * cm, 4 * cm, .5 * cm, fill=0)  # para criar retangulo
@@ -198,6 +196,8 @@ class Le_pdf:
             numero_tabelas = len(lista_tabela)
             print('Possui {} tabelas' .format(numero_tabelas))
 
+            print(lista_tabela[0].index)
+
             #Para apagar Linha: axis=0
             #Para apagar Coluna: axis=1
             #lista_tabela = lista_tabela.drop("691874", axis=0) # eixo 0 linha; eixo 1 coluna
@@ -205,7 +205,7 @@ class Le_pdf:
             #tabula.io.convert_into(arquivo, 'imprimir/ds.csv', pages='all') #Exporta para .csv
 
             #dados = pd.read_csv('imprimir/ds.csv')
-
+            #print(dados)
 
             # re =  lista_tabela[0].index
             # print(re)
