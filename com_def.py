@@ -29,13 +29,21 @@ class Template:
         for impressora in lista_impressora:
             print(f'Lista a impressora {impressora}')#indice 0 da impressora
         myImpressora = lista_impressora[0]
-        win32print.SetDefaultPrinter(myImpressora[3])
+        win32print.SetDefaultPrinter(myImpressora[2])
+
+        #seta a pasta e impressão
+        caminho = r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/"
+        lista_arq_print = os.listdir(caminho)
+        for arquivo in lista_arq_print:
+            pass
+            #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
+
     def GeneratePDF(self, nome_interno='TESTE', numero_ipen = 123456):
          try:
 
              self.diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
              #para remover os arquivos velhos
-             dir_rm = os.listdir(self.diretorio_saida)
+             #dir_rm = os.listdir(self.diretorio_saida)
 
 
              self.diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True)  # Cria diretorio caso não exista
