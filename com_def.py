@@ -16,6 +16,7 @@ import spacy.strings
 from reportlab.lib.pagesizes import A4
 import tabula
 from tabula.io import read_pdf
+from pathlib import Path
 import pandas
 
 from reportlab.pdfgen import canvas
@@ -178,7 +179,13 @@ class Le_pdf:
 
     def abre_pdf(self, arquivo='ESTE', paginas='all'):
         try:
-            arquivo = arquivo+'.pdf'
+            self.diretorio_entrada = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/")
+            # diretorio_saida = Path("C:/Users/AULA-1/Documents/GitHub/pdf_to_print/imprimir/")
+            diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
+
+            for arquivo in self.diretorio_entrada.glob('*.pdf'):
+                print(arquivo)
+
             lista_tabela = tabula.io.read_pdf(arquivo, pages=paginas)
             nome_interno = 'FULANO'
             numero_tabelas = len(lista_tabela)
