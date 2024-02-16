@@ -158,6 +158,8 @@ class Le_pdf:
     def extrai_tabela(self, lista_tabela):
         try:
             tabela1 = lista_tabela[0]
+            self.tabela1_stop = (lista_tabela[0].index.stop)
+            print(f"Numero de linhas da tabela 1 é: {self.tabela1_stop}")
             tabela2 = lista_tabela[1]
 
             #print(tabela1)
@@ -165,10 +167,10 @@ class Le_pdf:
             print("NOVA--------------")
             #print(tabela1.head(20))#Imprimi as primeiras posições setadas
             #tabela1 = tabela1.dropna()#Exclui as Linhas vazias
-            print(tabela1)
-            tabela_nova = lista_tabela[1]
 
-            return tabela_nova
+            self.lista_dados = 0
+
+            return self.lista_dados
 
         except:
             print('Não foi possível extrair tabelas.')
@@ -185,9 +187,7 @@ class Le_pdf:
             numero_tabelas = len(lista_tabela)
             print('Possui {} tabelas' .format(numero_tabelas))
 
-            print(lista_tabela[0].index)
-            print(lista_tabela)
-
+            #le_pdf.extrai_tabela(lista_tabela)
             #Para apagar Linha: axis=0
             #Para apagar Coluna: axis=1
             #lista_tabela = lista_tabela.drop("691874", axis=0) # eixo 0 linha; eixo 1 coluna
@@ -230,9 +230,11 @@ template = Template() #Instancia o template do termo
 le_pdf = Le_pdf()
 
 lista_tabela = le_pdf.abre_pdf()# não precisa passar o nome do documentos, pois ele acha um pdf na pasta
-#nome_interno = le_pdf.extrai_tabela(lista_tabela)
+dados = le_pdf.extrai_tabela(lista_tabela)
 # for x in nome_interno:
 #     print(nome_interno[x])
 #     print("=======================")
+
+
 
 template.GeneratePDF("MACIEL KAMINSKI DA SILVA", 561934)
