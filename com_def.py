@@ -11,7 +11,7 @@
 
 
 import datetime as dd
-
+import os
 import spacy.strings
 from reportlab.lib.pagesizes import A4
 import tabula
@@ -25,11 +25,15 @@ from reportlab.lib.units import cm
 
 class Template:
 
-    def GeneratePDF(self, nome_interno='TESTE', numero_ipen = '123456'):
+    def GeneratePDF(self, nome_interno='TESTE', numero_ipen = 123456):
          try:
 
              self.diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
-             self.diretorio_saida.mkdir(parents=True, exist_ok=True)  # Cria diretorio caso não exista
+             #para remover os arquivos velhos
+             dir_rm = os.listdir(self.diretorio_saida)
+
+
+             self.diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True)  # Cria diretorio caso não exista
              self.pdf_filename = nome_interno + ".pdf"
              self.page_size = A4
              self.nome_arq_out = f'{self.diretorio_saida}\{self.pdf_filename}' #Concatena o diretorio de saida dos termos
@@ -153,23 +157,8 @@ class Le_pdf:
 
     def extrai_tabela(self, lista_tabela):
         try:
-            tabela1 = lista_tabela[1]
-            tabela2 = lista_tabela[2]
-            tabela3 = lista_tabela[3]
-            tabela4 = lista_tabela[4]
-            tabela5 = lista_tabela[5]
-            tabela6 = lista_tabela[6]
-            tabela7 = lista_tabela[7]
-            tabela8 = lista_tabela[8]
-            tabela9 = lista_tabela[9]
-            tabela10 = lista_tabela[10]
-            tabela11 = lista_tabela[11]
-            tabela12 = lista_tabela[12]
-            tabela13 = lista_tabela[13]
-            tabela14 = lista_tabela[14]
-            tabela15 = lista_tabela[15]
-            tabela16 = lista_tabela[16]
-            tabela17 = lista_tabela[17]
+            tabela1 = lista_tabela[0]
+            tabela2 = lista_tabela[1]
 
             #print(tabela1)
             #tabela1.drop_duplicates(ignore_index=True, keep=False)
@@ -197,6 +186,7 @@ class Le_pdf:
             print('Possui {} tabelas' .format(numero_tabelas))
 
             print(lista_tabela[0].index)
+            print(lista_tabela)
 
             #Para apagar Linha: axis=0
             #Para apagar Coluna: axis=1
@@ -226,8 +216,8 @@ class Le_pdf:
 
 
 
-            print("\n INICIO DOS TESTE DE EXTRAÇÃO DE DADOS SEPARADOS\n")
-            #print(tabela_var)
+            #print("\n INICIO DOS TESTE DE EXTRAÇÃO DE DADOS SEPARADOS\n")
+
             return lista_tabela
 
         except:
@@ -239,10 +229,10 @@ class Le_pdf:
 template = Template() #Instancia o template do termo
 le_pdf = Le_pdf()
 
-lista_tabela = le_pdf.abre_pdf('Arquivo_analisado/ESTE')
+lista_tabela = le_pdf.abre_pdf()# não precisa passar o nome do documentos, pois ele acha um pdf na pasta
 #nome_interno = le_pdf.extrai_tabela(lista_tabela)
 # for x in nome_interno:
 #     print(nome_interno[x])
 #     print("=======================")
 
-template.GeneratePDF()
+template.GeneratePDF("MACIEL KAMINSKI DA SILVA", 561934)
