@@ -11,11 +11,12 @@
 
 
 import datetime as dd
-
+import os
 import spacy.strings
 from reportlab.lib.pagesizes import A4
 import tabula
 from tabula.io import read_pdf
+from pathlib import Path
 import pandas
 
 from reportlab.pdfgen import canvas
@@ -24,18 +25,29 @@ from reportlab.lib.units import cm
 
 class Template:
 
-    def GeneratePDF(self, nome_interno='TESTE', numero_ipen = '123456'):
+    def GeneratePDF(self, nome_interno='TESTE', numero_ipen = 123456):
          try:
-             pdf_filename = nome_interno + ".pdf"
-             page_size = A4
-             c = canvas.Canvas('imprimir/' + pdf_filename, pagesize=page_size)
+
+             self.diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
+             #para remover os arquivos velhos
+             dir_rm = os.listdir(self.diretorio_saida)
+
+
+             self.diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True)  # Cria diretorio caso não exista
+             self.pdf_filename = nome_interno + ".pdf"
+             self.page_size = A4
+             self.nome_arq_out = f'{self.diretorio_saida}\{self.pdf_filename}' #Concatena o diretorio de saida dos termos
+
+             #print("dir_saida: \t" + self.nome_arq_out)
+
+             c = canvas.Canvas(self.nome_arq_out, pagesize=self.page_size)
              c.setTitle("Termo de Recebimento")
              c.setAuthor("Natan Ogliari")
 
              ### Cabeçalho
              c.setFillColor(aColor='gray')  # Cor Cinza
              c.setFont("Helvetica-Oblique", 10)
-             c.drawImage('logo.png', 2 * cm, 760, width=60, height=60)
+             c.drawImage('figure/logo.png', 2 * cm, 760, width=60, height=60) #Logo do estado
              c.drawString(4.5 * cm, 800, "ESTADO DE SANTA CATARINA")
              c.drawString(4.5 * cm, 785, "SECRETARIA DE ESTADO DA ADMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
              c.drawString(4.5 * cm, 770, 'PRESÍDIO MARAVILHA')
@@ -72,13 +84,13 @@ class Template:
              # print(hoje_br)
              # Componente no nome
              c.rect(2 * cm, 19 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
-             c.drawString(2 * cm, 19.1 * cm, '  INTERNO:       ' + nome_interno)
+             c.drawString(2 * cm, 19.1 * cm, f'  INTERNO: {nome_interno}')
              # Componente Ipem
              c.rect(2 * cm, 18.5 * cm, 8.5 * cm, .5 * cm, fill=0)  # para criar retangulo
-             c.drawString(2 * cm, 18.6 * cm, '  IPEN:       ' + numero_ipen)
+             c.drawString(2 * cm, 18.6 * cm, f'  IPEN:      {numero_ipen}')
              # Componente data
              c.rect(10.5 * cm, 18.5 * cm, 8.5 * cm, .5 * cm, fill=0)  # para criar retangulo
-             c.drawString(10.5 * cm, 18.6 * cm, '  DATA:       ' + hoje_br)
+             c.drawString(10.5 * cm, 18.6 * cm, f'    DATA:  {hoje_br}')
              ## Componentes das informaçõe das coisas entregues
              ## Componente do kit higiene
              c.rect(2 * cm, 18 * cm, 4 * cm, .5 * cm, fill=0)  # para criar retangulo
@@ -145,45 +157,37 @@ class Le_pdf:
 
     def extrai_tabela(self, lista_tabela):
         try:
-            tabela1 = lista_tabela[1]
-            tabela2 = lista_tabela[2]
-            tabela3 = lista_tabela[3]
-            tabela4 = lista_tabela[4]
-            tabela5 = lista_tabela[5]
-            tabela6 = lista_tabela[6]
-            tabela7 = lista_tabela[7]
-            tabela8 = lista_tabela[8]
-            tabela9 = lista_tabela[9]
-            tabela10 = lista_tabela[10]
-            tabela11 = lista_tabela[11]
-            tabela12 = lista_tabela[12]
-            tabela13 = lista_tabela[13]
-            tabela14 = lista_tabela[14]
-            tabela15 = lista_tabela[15]
-            tabela16 = lista_tabela[16]
-            tabela17 = lista_tabela[17]
+            tabela1 = lista_tabela[0]
+            self.tabela1_stop = (lista_tabela[0].index.stop)
+            print(f"Numero de linhas da tabela 1 é: {self.tabela1_stop}")
+            tabela2 = lista_tabela[1]
 
             #print(tabela1)
             #tabela1.drop_duplicates(ignore_index=True, keep=False)
             print("NOVA--------------")
             #print(tabela1.head(20))#Imprimi as primeiras posições setadas
             #tabela1 = tabela1.dropna()#Exclui as Linhas vazias
-            print(tabela1)
-            tabela_nova = lista_tabela[1]
 
-            return tabela_nova
+            self.lista_dados = 0
+
+            return self.lista_dados
 
         except:
             print('Não foi possível extrair tabelas.')
 
     def abre_pdf(self, arquivo='ESTE', paginas='all'):
         try:
-            arquivo = arquivo+'.pdf'
+            self.diretorio_entrada = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/")
+
+            for arquivo in self.diretorio_entrada.glob('*.pdf'):
+                print(arquivo)
+
             lista_tabela = tabula.io.read_pdf(arquivo, pages=paginas)
             nome_interno = 'FULANO'
             numero_tabelas = len(lista_tabela)
             print('Possui {} tabelas' .format(numero_tabelas))
 
+            #le_pdf.extrai_tabela(lista_tabela)
             #Para apagar Linha: axis=0
             #Para apagar Coluna: axis=1
             #lista_tabela = lista_tabela.drop("691874", axis=0) # eixo 0 linha; eixo 1 coluna
@@ -191,7 +195,7 @@ class Le_pdf:
             #tabula.io.convert_into(arquivo, 'imprimir/ds.csv', pages='all') #Exporta para .csv
 
             #dados = pd.read_csv('imprimir/ds.csv')
-
+            #print(dados)
 
             # re =  lista_tabela[0].index
             # print(re)
@@ -212,8 +216,8 @@ class Le_pdf:
 
 
 
-            print("\n INICIO DOS TESTE DE EXTRAÇÃO DE DADOS SEPARADOS\n")
-            #print(tabela_var)
+            #print("\n INICIO DOS TESTE DE EXTRAÇÃO DE DADOS SEPARADOS\n")
+
             return lista_tabela
 
         except:
@@ -225,10 +229,12 @@ class Le_pdf:
 template = Template() #Instancia o template do termo
 le_pdf = Le_pdf()
 
-lista_tabela = le_pdf.abre_pdf('Arquivo_analisado/ESTE')
-#nome_interno = le_pdf.extrai_tabela(lista_tabela)
+lista_tabela = le_pdf.abre_pdf()# não precisa passar o nome do documentos, pois ele acha um pdf na pasta
+dados = le_pdf.extrai_tabela(lista_tabela)
 # for x in nome_interno:
 #     print(nome_interno[x])
 #     print("=======================")
 
-template.GeneratePDF()
+
+
+template.GeneratePDF("MACIEL KAMINSKI DA SILVA", 561934)
