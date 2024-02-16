@@ -27,9 +27,18 @@ class Template:
 
     def GeneratePDF(self, nome_interno='TESTE', numero_ipen = '123456'):
          try:
-             pdf_filename = nome_interno + ".pdf"
-             page_size = A4
-             c = canvas.Canvas('imprimir/' + pdf_filename, pagesize=page_size)
+
+             self.diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
+             self.diretorio_saida.mkdir(parents=True, exist_ok=True)  # Cria diretorio caso não exista
+             self.pdf_filename = nome_interno + ".pdf"
+             self.page_size = A4
+             self.nome_arq_out = f'{self.diretorio_saida}\{self.pdf_filename}' #Concatena o diretorio de saida dos termos
+
+             #print("dir_saida: \t" + self.nome_arq_out)
+
+
+
+             c = canvas.Canvas(self.nome_arq_out, pagesize=self.page_size)
              c.setTitle("Termo de Recebimento")
              c.setAuthor("Natan Ogliari")
 
@@ -180,8 +189,6 @@ class Le_pdf:
     def abre_pdf(self, arquivo='ESTE', paginas='all'):
         try:
             self.diretorio_entrada = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/")
-            # diretorio_saida = Path("C:/Users/AULA-1/Documents/GitHub/pdf_to_print/imprimir/")
-            diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
 
             for arquivo in self.diretorio_entrada.glob('*.pdf'):
                 print(arquivo)
