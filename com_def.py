@@ -47,7 +47,7 @@ class Template:
              ### Cabeçalho
              c.setFillColor(aColor='gray')  # Cor Cinza
              c.setFont("Helvetica-Oblique", 10)
-             c.drawImage('logo.png', 2 * cm, 760, width=60, height=60)
+             c.drawImage('figure/logo.png', 2 * cm, 760, width=60, height=60) #Logo do estado
              c.drawString(4.5 * cm, 800, "ESTADO DE SANTA CATARINA")
              c.drawString(4.5 * cm, 785, "SECRETARIA DE ESTADO DA ADMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
              c.drawString(4.5 * cm, 770, 'PRESÍDIO MARAVILHA')
