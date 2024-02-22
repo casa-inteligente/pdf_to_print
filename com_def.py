@@ -9,7 +9,8 @@
 #####	LICENÇA:			MIT license
 #####	PROJETO:			https://github.com/casa-inteligente/pdf_to_print
 
-
+import win32api
+import win32print
 import datetime as dd
 import os
 import spacy.strings
@@ -18,19 +19,31 @@ import tabula
 from tabula.io import read_pdf
 from pathlib import Path
 import pandas
-
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm
 
 
 class Template:
+    def Imprimi_usada(self):
+        lista_impressora = win32print.EnumPrinters(2)# Lista de impressoras no PC
+        for impressora in lista_impressora:
+            print(f'Lista a impressora {impressora}')#indice 0 da impressora
+        myImpressora = lista_impressora[0]
+        win32print.SetDefaultPrinter(myImpressora[2])
+
+        #seta a pasta e impressão
+        caminho = r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/"
+        lista_arq_print = os.listdir(caminho)
+        for arquivo in lista_arq_print:
+            pass
+            #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
 
     def GeneratePDF(self, nome_interno='TESTE', numero_ipen = 123456):
          try:
 
              self.diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
              #para remover os arquivos velhos
-             dir_rm = os.listdir(self.diretorio_saida)
+             #dir_rm = os.listdir(self.diretorio_saida)
 
 
              self.diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True)  # Cria diretorio caso não exista
@@ -236,5 +249,5 @@ dados = le_pdf.extrai_tabela(lista_tabela)
 #     print("=======================")
 
 
-
+template.Imprimi_usada()
 template.GeneratePDF("MACIEL KAMINSKI DA SILVA", 561934)
