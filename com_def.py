@@ -38,15 +38,21 @@ class Template:
             pass
             #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
 
-    def GeneratePDF(self, nome_interno='TESTE', numero_ipen = 123456):
+    def GeneratePDF(self, dados):
          try:
+             print("Esta dentro do termo")
+             #self.size_dados =
+             print(dados)
+             #print(dados[:2])
+
+             nome_interno = "Fulano"
+             numero_ipen = "123456"
 
              self.diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
              #para remover os arquivos velhos
              #dir_rm = os.listdir(self.diretorio_saida)
-
-
              self.diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True)  # Cria diretorio caso não exista
+
              self.pdf_filename = nome_interno + ".pdf"
              self.page_size = A4
              self.nome_arq_out = f'{self.diretorio_saida}\{self.pdf_filename}' #Concatena o diretorio de saida dos termos
@@ -153,12 +159,6 @@ class Template:
              c.drawString(2 * cm, 110, '___________________________________')
              c.drawString(2 * cm, 95, 'Assinatura do servidor (nome completo).')
 
-             # #para teste maluco
-             # xlist = [2*cm , 10*cm ]
-             # ylist = [2*cm , 20*cm ]
-             #
-             # c.grid(xlist, ylist)
-
              c.showPage()
              c.save()  # Salva o documento e fecha
 
@@ -175,16 +175,10 @@ class Le_pdf:
             print(f"Numero de linhas da tabela 1 é: {self.tabela2_stop}")
             tabela2 = lista_tabela[1]
 
-            #print(tabela1)
-            #tabela1.drop_duplicates(ignore_index=True, keep=False)
             print("NOVA--------------")
 
             #print(tabela2)
-            self.numeros_tabela2 = le_pdf.extrai_numero(tabela2)
-            #print(tabela2.head(20))#Imprimi as primeiras posições setadas
-            #tabela1 = tabela1.dropna()#Exclui as Linhas vazias
-
-            self.lista_dados = 0
+            self.lista_dados = le_pdf.extrai_numero(tabela2)
 
             return self.lista_dados
 
@@ -193,9 +187,11 @@ class Le_pdf:
     def extrai_numero(self, texto):
         try:
             print("Entrou na extração de numeros.")
-            #texto['PRONTUÁRIO | NOME'].str.split(' - ')
             print(texto['PRONTUÁRIO | NOME'])
-            return 0#re.findall(r'\b[0-9]*\b', texto)
+            self.aux = texto['PRONTUÁRIO | NOME'].str.split(' - ', expand=True)
+            print(self.aux)
+
+            return self.aux#re.findall(r'\b[0-9]*\b', texto)
         except:
             print("Error ao extrair numeros da tabela")
     def abre_pdf(self, paginas='all'):
@@ -258,7 +254,5 @@ dados = le_pdf.extrai_tabela(lista_tabela)
 #     print(nome_interno[x])
 #     print("=======================")
 
-
-
-template.GeneratePDF("MACIEL KAMINSKI DA SILVA", 561934)
+template.GeneratePDF(dados)
 #template.Imprimi_usada()
