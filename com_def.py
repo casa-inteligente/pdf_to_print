@@ -41,9 +41,16 @@ class Template:
     def GeneratePDF(self, dados):
          try:
              print("Esta dentro do termo")
-             #self.size_dados =
-             print(dados)
+             self.size_dados = dados.index.stop
+             print(f'O criterio de parada é {self.size_dados}')
+             #print(dados[[0,1]])
              #print(dados[:2])
+             dados = dados.rename(columns={0: 'IPEM'})
+             dados = dados.rename(columns={1: 'Nomes'})
+             print(dados[0:2])
+             print("____________________")
+             print(dados['IPEM'].str.len()) #CONTINUA AQUI
+
 
              nome_interno = "Fulano"
              numero_ipen = "123456"
@@ -175,7 +182,7 @@ class Le_pdf:
             print(f"Numero de linhas da tabela 1 é: {self.tabela2_stop}")
             tabela2 = lista_tabela[1]
 
-            print("NOVA--------------")
+            #print("NOVA--------------")
 
             #print(tabela2)
             self.lista_dados = le_pdf.extrai_numero(tabela2)
@@ -187,9 +194,9 @@ class Le_pdf:
     def extrai_numero(self, texto):
         try:
             print("Entrou na extração de numeros.")
-            print(texto['PRONTUÁRIO | NOME'])
+            #print(texto['PRONTUÁRIO | NOME'])
             self.aux = texto['PRONTUÁRIO | NOME'].str.split(' - ', expand=True)
-            print(self.aux)
+            #print(self.aux)
 
             return self.aux#re.findall(r'\b[0-9]*\b', texto)
         except:

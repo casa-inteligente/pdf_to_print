@@ -4,7 +4,7 @@ Lê dados no arquivo em .pdf e imprime na declaração
 -  instale as dependências do *requirements.txt*</br>
 No Win11, vá até a pasta do programa e com o botão direito do mouse, clique na opção *Abrir no terminal* e cole o comando abaixo.
 
-![terminal](figure/abri_terminal.png) 
+![terminal](figure/abri_terminal.png)
 
 ```markdown
 pip instal -r .\requirements.txt
@@ -55,3 +55,14 @@ print(numeros)
 
 
 ```
+
+
+
+
+
+<br>
+
+
+
+
+https://medium.com/@vanleiko/pandas-dataframe-com-dados-textuais-algumas-dicas-de-como-manipul%C3%A1-los-15da774d72c  <br>
