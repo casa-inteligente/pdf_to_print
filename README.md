@@ -4,13 +4,15 @@ Lê dados no arquivo em .pdf e imprime na declaração
 -  instale as dependências do *requirements.txt*</br>
 No Win11, vá até a pasta do programa e com o botão direito do mouse, clique na opção *Abrir no terminal* e cole o comando abaixo.
 
-![terminal](figure/abri_terminal.png) 
+![terminal](figure/abri_terminal.png)
 
 ```markdown
 pip instal -r .\requirements.txt
 ```
 #### Situações especiais do arquivo .pdf a ser lido
 Possui várias tabelas, sendo a 1° cabeçalho (lixo), possui uma única coluna com diversas ou únicas linhas e várias informações dentro da linha, das quais apenas desejo duas delas.
+
+* Precisa ter o java instalado.
 
 
 ## Funcionalidades
@@ -53,3 +55,14 @@ print(numeros)
 
 
 ```
+
+
+
+
+
+<br>
+
+
+
+
+https://medium.com/@vanleiko/pandas-dataframe-com-dados-textuais-algumas-dicas-de-como-manipul%C3%A1-los-15da774d72c  <br>

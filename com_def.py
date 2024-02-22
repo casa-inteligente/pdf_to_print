@@ -13,7 +13,7 @@ import win32api
 import win32print
 import datetime as dd
 import os
-import spacy.strings
+#import spacy.strings
 from reportlab.lib.pagesizes import A4
 import tabula
 from tabula.io import read_pdf
@@ -38,15 +38,28 @@ class Template:
             pass
             #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
 
-    def GeneratePDF(self, nome_interno='TESTE', numero_ipen = 123456):
+    def GeneratePDF(self, dados):
          try:
+             print("Esta dentro do termo")
+             self.size_dados = dados.index.stop
+             print(f'O criterio de parada é {self.size_dados}')
+             #print(dados[[0,1]])
+             #print(dados[:2])
+             dados = dados.rename(columns={0: 'IPEM'})
+             dados = dados.rename(columns={1: 'Nomes'})
+             print(dados[0:2])
+             print("____________________")
+             print(dados['IPEM'].str.len()) #CONTINUA AQUI
+
+
+             nome_interno = "Fulano"
+             numero_ipen = "123456"
 
              self.diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
              #para remover os arquivos velhos
              #dir_rm = os.listdir(self.diretorio_saida)
-
-
              self.diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True)  # Cria diretorio caso não exista
+
              self.pdf_filename = nome_interno + ".pdf"
              self.page_size = A4
              self.nome_arq_out = f'{self.diretorio_saida}\{self.pdf_filename}' #Concatena o diretorio de saida dos termos
@@ -153,12 +166,6 @@ class Template:
              c.drawString(2 * cm, 110, '___________________________________')
              c.drawString(2 * cm, 95, 'Assinatura do servidor (nome completo).')
 
-             # #para teste maluco
-             # xlist = [2*cm , 10*cm ]
-             # ylist = [2*cm , 20*cm ]
-             #
-             # c.grid(xlist, ylist)
-
              c.showPage()
              c.save()  # Salva o documento e fecha
 
@@ -171,24 +178,30 @@ class Le_pdf:
     def extrai_tabela(self, lista_tabela):
         try:
             tabela1 = lista_tabela[0]
-            self.tabela1_stop = (lista_tabela[0].index.stop)
-            print(f"Numero de linhas da tabela 1 é: {self.tabela1_stop}")
+            self.tabela2_stop = (lista_tabela[1].index.stop)
+            print(f"Numero de linhas da tabela 1 é: {self.tabela2_stop}")
             tabela2 = lista_tabela[1]
 
-            #print(tabela1)
-            #tabela1.drop_duplicates(ignore_index=True, keep=False)
-            print("NOVA--------------")
-            #print(tabela1.head(20))#Imprimi as primeiras posições setadas
-            #tabela1 = tabela1.dropna()#Exclui as Linhas vazias
+            #print("NOVA--------------")
 
-            self.lista_dados = 0
+            #print(tabela2)
+            self.lista_dados = le_pdf.extrai_numero(tabela2)
 
             return self.lista_dados
 
         except:
             print('Não foi possível extrair tabelas.')
+    def extrai_numero(self, texto):
+        try:
+            print("Entrou na extração de numeros.")
+            #print(texto['PRONTUÁRIO | NOME'])
+            self.aux = texto['PRONTUÁRIO | NOME'].str.split(' - ', expand=True)
+            #print(self.aux)
 
-    def abre_pdf(self, arquivo='ESTE', paginas='all'):
+            return self.aux#re.findall(r'\b[0-9]*\b', texto)
+        except:
+            print("Error ao extrair numeros da tabela")
+    def abre_pdf(self, paginas='all'):
         try:
             self.diretorio_entrada = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/")
 
@@ -248,6 +261,5 @@ dados = le_pdf.extrai_tabela(lista_tabela)
 #     print(nome_interno[x])
 #     print("=======================")
 
-
-template.Imprimi_usada()
-template.GeneratePDF("MACIEL KAMINSKI DA SILVA", 561934)
+template.GeneratePDF(dados)
+#template.Imprimi_usada()
