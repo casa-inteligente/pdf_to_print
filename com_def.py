@@ -13,7 +13,7 @@ import win32api
 import win32print
 import datetime as dd
 import os
-import spacy.strings
+#import spacy.strings
 from reportlab.lib.pagesizes import A4
 import tabula
 from tabula.io import read_pdf
@@ -171,14 +171,17 @@ class Le_pdf:
     def extrai_tabela(self, lista_tabela):
         try:
             tabela1 = lista_tabela[0]
-            self.tabela1_stop = (lista_tabela[0].index.stop)
-            print(f"Numero de linhas da tabela 1 é: {self.tabela1_stop}")
+            self.tabela2_stop = (lista_tabela[1].index.stop)
+            print(f"Numero de linhas da tabela 1 é: {self.tabela2_stop}")
             tabela2 = lista_tabela[1]
 
             #print(tabela1)
             #tabela1.drop_duplicates(ignore_index=True, keep=False)
             print("NOVA--------------")
-            #print(tabela1.head(20))#Imprimi as primeiras posições setadas
+
+            #print(tabela2)
+            self.numeros_tabela2 = le_pdf.extrai_numero(tabela2)
+            #print(tabela2.head(20))#Imprimi as primeiras posições setadas
             #tabela1 = tabela1.dropna()#Exclui as Linhas vazias
 
             self.lista_dados = 0
@@ -187,8 +190,15 @@ class Le_pdf:
 
         except:
             print('Não foi possível extrair tabelas.')
-
-    def abre_pdf(self, arquivo='ESTE', paginas='all'):
+    def extrai_numero(self, texto):
+        try:
+            print("Entrou na extração de numeros.")
+            #texto['PRONTUÁRIO | NOME'].str.split(' - ')
+            print(texto['PRONTUÁRIO | NOME'])
+            return 0#re.findall(r'\b[0-9]*\b', texto)
+        except:
+            print("Error ao extrair numeros da tabela")
+    def abre_pdf(self, paginas='all'):
         try:
             self.diretorio_entrada = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/")
 
@@ -249,5 +259,6 @@ dados = le_pdf.extrai_tabela(lista_tabela)
 #     print("=======================")
 
 
-template.Imprimi_usada()
+
 template.GeneratePDF("MACIEL KAMINSKI DA SILVA", 561934)
+#template.Imprimi_usada()
