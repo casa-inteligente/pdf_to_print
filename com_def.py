@@ -8,20 +8,17 @@
 #####	DISTRO:				Ubuntu GNU/Linux 22.04
 #####	LICENÇA:			MIT license
 #####	PROJETO:			https://github.com/casa-inteligente/pdf_to_print
-import pandas as pd
+
 import win32api
 import win32print
 import datetime as dd
 import os
-#import spacy.strings
 from reportlab.lib.pagesizes import A4
 import tabula
 from tabula.io import read_pdf
 from pathlib import Path
-import pandas
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm
-import numpy as np
 
 
 class Template:
@@ -33,7 +30,8 @@ class Template:
         win32print.SetDefaultPrinter(myImpressora[2])
 
         #seta a pasta e impressão
-        caminho = r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/"
+        caminho = r"\\10.40.22.35\Plantão\Para Impressão do termo de recebimento\Imprimir"
+        print(caminho)
         lista_arq_print = os.listdir(caminho)
         for arquivo in lista_arq_print:
             win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
@@ -188,15 +186,12 @@ class Le_pdf:
             return self.lista_dados
 
         except:
-            print('Não foi possível extrair tabelas.')
+            print('Não foi possível extrair as tabelas.')
     def extrai_numero(self, texto):
         try:
-            print("Entrou na extração de numeros.")
-            #print(texto['PRONTUÁRIO | NOME'])
-            self.aux = texto['PRONTUÁRIO | NOME'].str.split(' - ', expand=True)
-            #print(self.aux)
-
-            return self.aux#re.findall(r'\b[0-9]*\b', texto)
+            #print("Entrou na extração de numeros.")
+            #self.aux = texto['PRONTUÁRIO | NOME'].str.split(' - ', expand=True)
+            return texto['PRONTUÁRIO | NOME'].str.split(' - ', expand=True)
         except:
             print("Error ao extrair numeros da tabela")
     def abre_pdf(self, paginas='all'):
@@ -207,57 +202,21 @@ class Le_pdf:
                 print(arquivo)
 
             lista_tabela = tabula.io.read_pdf(arquivo, pages=paginas)
-            nome_interno = 'FULANO'
-            numero_tabelas = len(lista_tabela)
-            print('Possui {} tabelas' .format(numero_tabelas))
-
-            #le_pdf.extrai_tabela(lista_tabela)
-            #Para apagar Linha: axis=0
-            #Para apagar Coluna: axis=1
-            #lista_tabela = lista_tabela.drop("691874", axis=0) # eixo 0 linha; eixo 1 coluna
-
-            #tabula.io.convert_into(arquivo, 'imprimir/ds.csv', pages='all') #Exporta para .csv
-
-            #dados = pd.read_csv('imprimir/ds.csv')
-            #print(dados)
-
-            # re =  lista_tabela[0].index
-            # print(re)
-            # for tabela in lista_tabela: #grava as tabelas em tabela
-            #     #print(tabela, "\n +++++++++++++++++++++\n")
-            #     print(tabela.index)
-            #Le_pdf.extrai_tabela(lista_tabela)
-            #lista_tabela.remove('DENTRO DA REGRA')
-            #A lista_tabela[0] é o cabelçhalho do documento i index inicia em [ZERO]
-
-            #tabela2 = tabela2.drop('TRABALHO INTERNO157, 157, 61, 61, 61,553362 JOEL DE OLIVEIRA155, 121, 33 | COM FOTO,TRABALHO INTERNODENTRO DA REGRA', axis=0)
-            #print( tabela2.head())
-
-            #print(tabela2)
-            #tabela2[[0 ,1]] = tabela["coloca_aqui_nome_coluna"].str.split("\r", expend=True)
-
-            #tabela_var.columns = tabela_var.iloc[20] #Muda o cabachalho da tabela
-
-
-
-            #print("\n INICIO DOS TESTE DE EXTRAÇÃO DE DADOS SEPARADOS\n")
-
+            self.numero_de_tabelas = len(lista_tabela)
+            print('Possui {} tabelas' .format(self.numero_de_tabelas))
             return lista_tabela
 
         except:
             print('Erro ao abrir o arquivo {}'.format(arquivo))
 
 
-
+#### Chamamento das funções
 
 template = Template() #Instancia o template do termo
 le_pdf = Le_pdf()
 
 lista_tabela = le_pdf.abre_pdf()# não precisa passar o nome do documentos, pois ele acha um pdf na pasta
 dados = le_pdf.extrai_tabela(lista_tabela)
-# for x in nome_interno:
-#     print(nome_interno[x])
-#     print("=======================")
 
 template.GeneratePDF(dados)
 #template.Imprimi_usada()
