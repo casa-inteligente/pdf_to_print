@@ -8,7 +8,7 @@
 #####	DISTRO:				Ubuntu GNU/Linux 22.04
 #####	LICENÇA:			MIT license
 #####	PROJETO:			https://github.com/casa-inteligente/pdf_to_print
-
+import pandas as pd
 import win32api
 import win32print
 import datetime as dd
@@ -21,6 +21,7 @@ from pathlib import Path
 import pandas
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm
+import numpy as np
 
 
 class Template:
@@ -47,13 +48,21 @@ class Template:
              #print(dados[:2])
              dados = dados.rename(columns={0: 'IPEM'})
              dados = dados.rename(columns={1: 'Nomes'})
-             print(dados[0:2])
-             print("____________________")
-             print(dados['IPEM'].str.len()) #CONTINUA AQUI
+
+             self.var_nomes = dados['Nomes'].str.split('\n') #Extrai o nome dos internos
+             self.var_ipem = dados['IPEM'].str.split('\n')# Extrai o numero do IPEM dos internos
+             x = 2
+             #nome_interno = self.var_nomes[x]
+             #numero_ipen = self.var_ipem[x]
+
+             #wofn = dados['Nomes'][x]
+             #print(wofn)
+
+             nome_interno = dados['Nomes'][x]
+             numero_ipen = dados['IPEM'][x]
 
 
-             nome_interno = "Fulano"
-             numero_ipen = "123456"
+             ############################################################################
 
              self.diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
              #para remover os arquivos velhos
