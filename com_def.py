@@ -55,11 +55,11 @@ class Template:
              #nome_interno = self.var_nomes[x]
              #numero_ipen = self.var_ipem[x]
 
-             #wofn = pandas.Series.get(dados, 'Nomes')
+             #wofn = dados['Nomes'][x]
              #print(wofn)
-             print(self.var_nomes[x].get() + self.var_ipem[x].get())
-             nome_interno = "self.var_nomes[x]"
-             numero_ipen = "self.var_ipem[x]"
+
+             nome_interno = dados['Nomes'][x]
+             numero_ipen = dados['IPEM'][x]
 
 
              ############################################################################
