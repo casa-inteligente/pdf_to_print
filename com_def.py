@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #####	NOME:				com_def.py
-#####	VERSÃO:				1.0
+#####	VERSÃO:				1.0.1
 #####	DESCRIÇÃO:			Coleta informações de um arquivo em pdf e imprime em uma declaração
 #####	DATA DA CRIAÇÃO:	31/01/2024
 #####	ESCRITO POR:		Natan Ogliari
@@ -36,8 +36,7 @@ class Template:
         caminho = r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/"
         lista_arq_print = os.listdir(caminho)
         for arquivo in lista_arq_print:
-            pass
-            #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
+            win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
 
     def GeneratePDF(self, dados):
          try:
@@ -52,26 +51,19 @@ class Template:
              dados['Nomes'] = dados['Nomes'].replace(to_replace=r'\r', value=' ', regex=True) #Remove o carecter \r
              #print(dados['Nomes'])
 
-
-             x = 15
+             self.page_size = A4
+             self.diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
+             self.diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True)  # Cria diretorio caso não exista
+             x = 1
 
              nome_interno = dados['Nomes'][x]
              numero_ipen = dados['IPEM'][x]
-
-
              ############################################################################
 
-             self.diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
-             #para remover os arquivos velhos
-             #dir_rm = os.listdir(self.diretorio_saida)
-             self.diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True)  # Cria diretorio caso não exista
-
              self.pdf_filename = nome_interno + ".pdf"
-             self.page_size = A4
              self.nome_arq_out = f'{self.diretorio_saida}\{self.pdf_filename}' #Concatena o diretorio de saida dos termos
 
-             #print("dir_saida: \t" + self.nome_arq_out)
-
+             ########## Inicio das configu9raçõe do termo de entrega
              c = canvas.Canvas(self.nome_arq_out, pagesize=self.page_size)
              c.setTitle("Termo de Recebimento")
              c.setAuthor("Natan Ogliari")
@@ -185,7 +177,7 @@ class Le_pdf:
         try:
             tabela1 = lista_tabela[0]
             self.tabela2_stop = (lista_tabela[1].index.stop)
-            print(f"Numero de linhas da tabela 1 é: {self.tabela2_stop}")
+            print(f"Numero de linhas da tabela é: {self.tabela2_stop}")
             tabela2 = lista_tabela[1]
 
             #print("NOVA--------------")
