@@ -52,10 +52,14 @@ class Template:
              self.var_nomes = dados['Nomes'].str.split('\n') #Extrai o nome dos internos
              self.var_ipem = dados['IPEM'].str.split('\n')# Extrai o numero do IPEM dos internos
              x = 2
-             nome_interno = self.var_nomes[x]
-             numero_ipen = self.var_ipem[x]
+             #nome_interno = self.var_nomes[x]
+             #numero_ipen = self.var_ipem[x]
 
-
+             #wofn = pandas.Series.get(dados, 'Nomes')
+             #print(wofn)
+             print(self.var_nomes[x].get() + self.var_ipem[x].get())
+             nome_interno = "self.var_nomes[x]"
+             numero_ipen = "self.var_ipem[x]"
 
 
              ############################################################################
