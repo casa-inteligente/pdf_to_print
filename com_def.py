@@ -51,15 +51,9 @@ class Template:
              #print(dados['Nomes'])
              dados['Nomes'] = dados['Nomes'].replace(to_replace=r'\r', value=' ', regex=True) #Remove o carecter \r
              #print(dados['Nomes'])
-             #self.var_nomes = dados['Nomes'].str.split('\n') #Extrai o nome dos internos
-             #self.var_ipem = dados['IPEM'].str.split('\n')# Extrai o numero do IPEM dos internos
 
-             #nome_interno = self.var_nomes[x]
-             #numero_ipen = self.var_ipem[x]
 
-             #wofn = dados['Nomes'][x]
-             #print(wofn)
-             x = 1
+             x = 5
 
              nome_interno = dados['Nomes'][x]
              numero_ipen = dados['IPEM'][x]
