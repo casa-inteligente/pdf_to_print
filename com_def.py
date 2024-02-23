@@ -27,6 +27,15 @@ class Template:
         for impressora in lista_impressora:
             print(f'Lista a impressora {impressora}')#indice 0 da impressora
         myImpressora = lista_impressora[0]
+        ### Adicionado para pagar a bandeja manual
+
+        handle = win32print.OpenPrinter(myImpressora)
+        properties = win32print.GetPrinter(handle, 2) #Usualmente '2' é a bandeja manual
+        properties['pDevMode'].BinSelection = 2
+        win32print.SetPrinter(handle, 2, properties, 0)
+
+        win32print.ClosePrinter(handle) #Fecha a configuração
+        ### Fim da bandeja manual
         win32print.SetDefaultPrinter(myImpressora[2])
 
         #seta a pasta e impressão
