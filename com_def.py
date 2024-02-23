@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #####	NOME:				com_def.py
-#####	VERSÃO:				1.0
+#####	VERSÃO:				1.0.1
 #####	DESCRIÇÃO:			Coleta informações de um arquivo em pdf e imprime em uma declaração
 #####	DATA DA CRIAÇÃO:	31/01/2024
 #####	ESCRITO POR:		Natan Ogliari
@@ -8,20 +8,17 @@
 #####	DISTRO:				Ubuntu GNU/Linux 22.04
 #####	LICENÇA:			MIT license
 #####	PROJETO:			https://github.com/casa-inteligente/pdf_to_print
-import pandas as pd
+
 import win32api
 import win32print
 import datetime as dd
 import os
-#import spacy.strings
 from reportlab.lib.pagesizes import A4
 import tabula
 from tabula.io import read_pdf
 from pathlib import Path
-import pandas
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm
-import numpy as np
 
 
 class Template:
@@ -30,18 +27,27 @@ class Template:
         for impressora in lista_impressora:
             print(f'Lista a impressora {impressora}')#indice 0 da impressora
         myImpressora = lista_impressora[0]
+        ### Adicionado para pagar a bandeja manual
+
+        handle = win32print.OpenPrinter(myImpressora)
+        properties = win32print.GetPrinter(handle, 2) #Usualmente '2' é a bandeja manual
+        properties['pDevMode'].BinSelection = 2
+        win32print.SetPrinter(handle, 2, properties, 0)
+
+        win32print.ClosePrinter(handle) #Fecha a configuração
+        ### Fim da bandeja manual
         win32print.SetDefaultPrinter(myImpressora[2])
 
         #seta a pasta e impressão
-        caminho = r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/"
+        caminho = r"\\10.40.22.35\Plantão\Para Impressão do termo de recebimento\Imprimir"
+        print(caminho)
         lista_arq_print = os.listdir(caminho)
         for arquivo in lista_arq_print:
-            pass
-            #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
+            win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
 
     def GeneratePDF(self, dados):
          try:
-             print("Esta dentro do termo")
+             #print("Esta dentro do termo")
              self.size_dados = dados.index.stop
              print(f'O criterio de parada é {self.size_dados}')
              #print(dados[[0,1]])
@@ -52,26 +58,19 @@ class Template:
              dados['Nomes'] = dados['Nomes'].replace(to_replace=r'\r', value=' ', regex=True) #Remove o carecter \r
              #print(dados['Nomes'])
 
-
-             x = 5
+             self.page_size = A4
+             self.diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
+             self.diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True)  # Cria diretorio caso não exista
+             x = 1
 
              nome_interno = dados['Nomes'][x]
              numero_ipen = dados['IPEM'][x]
-
-
              ############################################################################
 
-             self.diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
-             #para remover os arquivos velhos
-             #dir_rm = os.listdir(self.diretorio_saida)
-             self.diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True)  # Cria diretorio caso não exista
-
              self.pdf_filename = nome_interno + ".pdf"
-             self.page_size = A4
              self.nome_arq_out = f'{self.diretorio_saida}\{self.pdf_filename}' #Concatena o diretorio de saida dos termos
 
-             #print("dir_saida: \t" + self.nome_arq_out)
-
+             ########## Inicio das configu9raçõe do termo de entrega
              c = canvas.Canvas(self.nome_arq_out, pagesize=self.page_size)
              c.setTitle("Termo de Recebimento")
              c.setAuthor("Natan Ogliari")
@@ -185,7 +184,7 @@ class Le_pdf:
         try:
             tabela1 = lista_tabela[0]
             self.tabela2_stop = (lista_tabela[1].index.stop)
-            print(f"Numero de linhas da tabela 1 é: {self.tabela2_stop}")
+            print(f"Numero de linhas da tabela é: {self.tabela2_stop}")
             tabela2 = lista_tabela[1]
 
             #print("NOVA--------------")
@@ -196,15 +195,12 @@ class Le_pdf:
             return self.lista_dados
 
         except:
-            print('Não foi possível extrair tabelas.')
+            print('Não foi possível extrair as tabelas.')
     def extrai_numero(self, texto):
         try:
-            print("Entrou na extração de numeros.")
-            #print(texto['PRONTUÁRIO | NOME'])
-            self.aux = texto['PRONTUÁRIO | NOME'].str.split(' - ', expand=True)
-            #print(self.aux)
-
-            return self.aux#re.findall(r'\b[0-9]*\b', texto)
+            #print("Entrou na extração de numeros.")
+            #self.aux = texto['PRONTUÁRIO | NOME'].str.split(' - ', expand=True)
+            return texto['PRONTUÁRIO | NOME'].str.split(' - ', expand=True)
         except:
             print("Error ao extrair numeros da tabela")
     def abre_pdf(self, paginas='all'):
@@ -215,57 +211,21 @@ class Le_pdf:
                 print(arquivo)
 
             lista_tabela = tabula.io.read_pdf(arquivo, pages=paginas)
-            nome_interno = 'FULANO'
-            numero_tabelas = len(lista_tabela)
-            print('Possui {} tabelas' .format(numero_tabelas))
-
-            #le_pdf.extrai_tabela(lista_tabela)
-            #Para apagar Linha: axis=0
-            #Para apagar Coluna: axis=1
-            #lista_tabela = lista_tabela.drop("691874", axis=0) # eixo 0 linha; eixo 1 coluna
-
-            #tabula.io.convert_into(arquivo, 'imprimir/ds.csv', pages='all') #Exporta para .csv
-
-            #dados = pd.read_csv('imprimir/ds.csv')
-            #print(dados)
-
-            # re =  lista_tabela[0].index
-            # print(re)
-            # for tabela in lista_tabela: #grava as tabelas em tabela
-            #     #print(tabela, "\n +++++++++++++++++++++\n")
-            #     print(tabela.index)
-            #Le_pdf.extrai_tabela(lista_tabela)
-            #lista_tabela.remove('DENTRO DA REGRA')
-            #A lista_tabela[0] é o cabelçhalho do documento i index inicia em [ZERO]
-
-            #tabela2 = tabela2.drop('TRABALHO INTERNO157, 157, 61, 61, 61,553362 JOEL DE OLIVEIRA155, 121, 33 | COM FOTO,TRABALHO INTERNODENTRO DA REGRA', axis=0)
-            #print( tabela2.head())
-
-            #print(tabela2)
-            #tabela2[[0 ,1]] = tabela["coloca_aqui_nome_coluna"].str.split("\r", expend=True)
-
-            #tabela_var.columns = tabela_var.iloc[20] #Muda o cabachalho da tabela
-
-
-
-            #print("\n INICIO DOS TESTE DE EXTRAÇÃO DE DADOS SEPARADOS\n")
-
+            self.numero_de_tabelas = len(lista_tabela)
+            print('Possui {} tabelas' .format(self.numero_de_tabelas))
             return lista_tabela
 
         except:
             print('Erro ao abrir o arquivo {}'.format(arquivo))
 
 
-
+#### Chamamento das funções
 
 template = Template() #Instancia o template do termo
 le_pdf = Le_pdf()
 
 lista_tabela = le_pdf.abre_pdf()# não precisa passar o nome do documentos, pois ele acha um pdf na pasta
 dados = le_pdf.extrai_tabela(lista_tabela)
-# for x in nome_interno:
-#     print(nome_interno[x])
-#     print("=======================")
 
 template.GeneratePDF(dados)
 #template.Imprimi_usada()
