@@ -12,6 +12,10 @@ pip instal -r .\requirements.txt
 #### Situações especiais do arquivo .pdf a ser lido
 Possui várias tabelas, sendo a 1° cabeçalho (lixo), possui uma única coluna com diversas ou únicas linhas e várias informações dentro da linha, das quais apenas desejo duas delas.
 
+* Gerar um relatório no __IPEN__, na secção 1.8 e escolha a opcção de ordenação por __NOMES__.
+* Salvar este arquivo na pasta __Plantão/Para Impressão do termo de recebimento__.
+* Os arquivos gerados serão impressos automaticamente.
+
 * Precisa ter o java instalado.
 
 

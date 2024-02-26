@@ -61,8 +61,8 @@ class Template:
              self.page_size = A4
              self.diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
              self.diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True)  # Cria diretorio caso não exista
-             x = 1
 
+             x = 48
              nome_interno = dados['Nomes'][x]
              numero_ipen = dados['IPEM'][x]
              ############################################################################
@@ -228,4 +228,4 @@ lista_tabela = le_pdf.abre_pdf()# não precisa passar o nome do documentos, pois
 dados = le_pdf.extrai_tabela(lista_tabela)
 
 template.GeneratePDF(dados)
-#template.Imprimi_usada()
+#template.Imprimi_usada() # Descomentar para imprimir 
