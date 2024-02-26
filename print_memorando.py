@@ -79,18 +79,23 @@ class Le_pdf:
     def extrai_tabela(self, tabela):
         
         try:
+            tabela = tabela.dropna()
             self._crit_stop = tabela.index.stop
             print(f'O numero de linhas da tabela é {self._crit_stop}')
             #implemantar limpa tabela
-            tabela = tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True)
-            print(tabela)
+            tabela = tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True) #Cria duas colunas 
+            tabela = tabela.rename(columns={0: 'IPEN'})#Altera o nome da coluna
+            tabela = tabela.rename(columns={1: 'Nomes'})#Altera o nome da coluna
+            tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
+            #print(tabela)
 
-            #for x in range(self._crit_stop): #Intera sobre todas as linha
-            for x in range(2):
-                print(f"linha {x}")
+            for x in range(self._crit_stop): #Intera sobre todas as linha
+            #for x in range(2):
+                print(f"Nomes do interno: {tabela['Nomes'][x]}")
+                print(f"Numero do prontuario: {tabela['IPEN'][x]}")
             
         except:
-            print(f'Erro ao extrair dados da tabela {tabela}')
+            print(f'Erro ao extrair dados da tabela {TypeError} e {ValueError}')
 
 #Inicio do "main"
 #print(sys.executable) #Imprimi o local do interpretador
