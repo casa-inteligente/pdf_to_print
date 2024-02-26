@@ -78,7 +78,9 @@ class Le_pdf:
 
     def extrai_tabela(self, lista_tabela):
         try:
-            pass
+            lista_tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True)
+
+            print(lista_tabela)
         except:
             print(f'Erro ao extrair daods da tabela {lista_tabela}')
 
@@ -88,10 +90,10 @@ template = Template() #Instancia a classe Template
 le_pdf = Le_pdf()
 
 tabelas_lida = le_pdf.abre_pdf()
-var_vezes = len(tabelas_lida)
+var_vezes = len(tabelas_lida) - 1 #Remove o cabechalho 
 for x in range(var_vezes):
-    print(tabelas_lida[x])
-    #dados_impri = le_pdf.extrai_tabela(tabelas_lida[x+1])
+    #print(tabelas_lida[x+1])
+    dados_impri = le_pdf.extrai_tabela(tabelas_lida[x+1])
 
 
 template.Imprimi_nova()
