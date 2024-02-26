@@ -2,5 +2,6 @@
 
 pip install -r requirements.txt
 
-sudo chmod u+x pdf_to_print.py
-./pdf_to_print.py
+sudo chmod u+x com_def.py
+sudo chmod u+x print_memorando.py
+./com_def.py
