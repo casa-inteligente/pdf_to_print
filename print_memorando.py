@@ -20,6 +20,7 @@ from pathlib import Path
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm
 import sys
+import pandas as pd
 
 class Template:
     def Imprimi_nova(self):
@@ -79,18 +80,20 @@ class Le_pdf:
     def extrai_tabela(self, tabela):
         
         try:
-            tabela = tabela.dropna()
-            self._crit_stop = tabela.index.stop
-            print(f'O numero de linhas da tabela é {self._crit_stop}')
+            
+           
+            
             #implemantar limpa tabela
+            
             tabela = tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True) #Cria duas colunas 
             tabela = tabela.rename(columns={0: 'IPEN'})#Altera o nome da coluna
             tabela = tabela.rename(columns={1: 'Nomes'})#Altera o nome da coluna
             tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
-            #print(tabela)
-
-            for x in range(self._crit_stop): #Intera sobre todas as linha
-            #for x in range(2):
+            
+            self._crit_stop = tabela.index.stop
+            print(f'O numero de linhas da tabela é {self._crit_stop}')
+            #for x in range(self._crit_stop): #Intera sobre todas as linha
+            for x in range(2):
                 print(f"Nomes do interno: {tabela['Nomes'][x]}")
                 print(f"Numero do prontuario: {tabela['IPEN'][x]}")
             
@@ -100,11 +103,15 @@ class Le_pdf:
 #Inicio do "main"
 #print(sys.executable) #Imprimi o local do interpretador
 
-template = Template() #Instancia a classe Template
+template = Template() #Instância a classe Template
 le_pdf = Le_pdf()
 
 tabelas_lida = le_pdf.abre_pdf()
+
+print(tabelas_lida)
+
 var_vezes = len(tabelas_lida) - 1 #Remove o cabechalho 
+
 #for x in range(var_vezes): #Intera sobre todas as tabelas
 for x in range(1):
     #print(tabelas_lida[x+1])
