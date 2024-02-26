@@ -70,3 +70,9 @@ print(numeros)
 
 
 https://medium.com/@vanleiko/pandas-dataframe-com-dados-textuais-algumas-dicas-de-como-manipul%C3%A1-los-15da774d72c  <br>
+
+
+#### Instalar modulos no interpretador expecifico
+
+```C:/Users/AULA-1/.conda/envs/applications-with-kivy-in-python/python.exe -m pip install JPype1
+```
