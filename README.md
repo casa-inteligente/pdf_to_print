@@ -74,5 +74,6 @@ https://medium.com/@vanleiko/pandas-dataframe-com-dados-textuais-algumas-dicas-d
 
 #### Instalar modulos no interpretador expecifico
 
-```C:/Users/AULA-1/.conda/envs/applications-with-kivy-in-python/python.exe -m pip install JPype1
+```
+C:/Users/AULA-1/.conda/envs/applications-with-kivy-in-python/python.exe -m pip install JPype1
 ```

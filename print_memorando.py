@@ -25,7 +25,15 @@ class Template:
     def Imprimi_nova(self):
         self._lista_impressora = win32print.EnumPrinters(2) #Lista impressoras conectadas ao computador
         for impressora in self._lista_impressora:
-            print("lsita")
+            print(f'Lita as impressoras {impressora}')
+            #Lista as impressoras intaladas no computador
+        
+        self._myImpressora = self._lista_impressora[0]#indici inicia em zero
+
+        #configuração para pegar a folha usada
+        self._handle = win32print.OpenPrinter(self._myImpressora)
+        properties['pDevMode'].BinSelection = 2 #Usualmente 2 é a bandeja manual, isso depende de cada impressora e do driver usado em cada computador.
+        win32print.SetPrinter(self._handle, 2, properties, 0)
 
 #print(sys.executable) #Imprimi o local do interpretador
 
