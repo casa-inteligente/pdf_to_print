@@ -19,9 +19,9 @@ Possui várias tabelas, sendo a 1° cabeçalho (lixo), possui uma única coluna 
 - [x] Lê arquivo .pdf <br>
 - [x] Termo de entrega <br>
 - [x] Limpas as tabelas.<br>
-- [ ] Uso de NPL (spacy)
-- [ ] Gera os termos de compromissos de cada um e salva em uma pasta com .pdf.<br>
-- [ ] [Imprime na impressora em folha usada.](https://www.youtube.com/watch?v=EQlXQsYeoUI) <br>
+- [ ] Uso de NPL (spacy) <br>
+- [x] Gera os termos de compromissos de cada um e salva em uma pasta com .pdf.<br>
+- [ ] Imprime na impressora em folha usada.<br>
 
 ### Algumas referências consultadas
 
