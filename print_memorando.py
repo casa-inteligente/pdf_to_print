@@ -23,17 +23,35 @@ import sys
 
 class Template:
     def Imprimi_nova(self):
-        self._lista_impressora = win32print.EnumPrinters(2) #Lista impressoras conectadas ao computador
-        for impressora in self._lista_impressora:
-            print(f'Lita as impressoras {impressora}')
-            #Lista as impressoras intaladas no computador
+        lista_impressora = win32print.EnumPrinters(2)# Lista de impressoras no PC
+        for impressora in lista_impressora:
+            print(f'Lista a impressora {impressora}')#indice 0 da impressora
+        myImpressora = lista_impressora[0]
+        print(type(myImpressora))
+        print(myImpressora[2])
+        ### Adicionado para pagar a bandeja manual
+        handle = win32print.OpenPrinter(myImpressora[2])
+        print(type(handle)
         
-        self._myImpressora = self._lista_impressora[0]#indici inicia em zero
+        #properties = win32print.GetPrinter(handle, 2) #Usualmente '2' é a bandeja manual
+        #properties['pDevMode'].__dict__['BinSelection'] = 2
+       
+        #properties['pDevMode'].BinSelection = 2
 
-        #configuração para pegar a folha usada
-        self._handle = win32print.OpenPrinter(self._myImpressora)
-        properties['pDevMode'].BinSelection = 2 #Usualmente 2 é a bandeja manual, isso depende de cada impressora e do driver usado em cada computador.
-        win32print.SetPrinter(self._handle, 2, properties, 0)
+        #win32print.SetPrinter(handle, 2, properties, 0)
+
+        win32print.ClosePrinter(handle) #Fecha a configuração
+        ### Fim da bandeja manual
+        win32print.SetDefaultPrinter(myImpressora[2])
+
+        #seta a pasta e impressão
+        caminho = r"\\10.40.22.35\Plantão\Para Impressão do termo de recebimento\Imprimir"
+        #print(caminho)
+        lista_arq_print = os.listdir(caminho)
+        for arquivo in lista_arq_print:
+            print("d")
+            #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
+    ### FIM ### def Imprimi_nova(self):
 
 #print(sys.executable) #Imprimi o local do interpretador
 

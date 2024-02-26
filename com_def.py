@@ -62,7 +62,7 @@ class Template:
              self.diretorio_saida = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/")
              self.diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True)  # Cria diretorio caso não exista
 
-             x = 48
+             x = 18
              nome_interno = dados['Nomes'][x]
              numero_ipen = dados['IPEM'][x]
              ############################################################################
