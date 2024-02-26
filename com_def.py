@@ -70,7 +70,7 @@ class Template:
              self.pdf_filename = nome_interno + ".pdf"
              self.nome_arq_out = f'{self.diretorio_saida}\{self.pdf_filename}' #Concatena o diretorio de saida dos termos
 
-             ########## Inicio das configu9raçõe do termo de entrega
+             ########## Início das configurações do termo de entrega
              c = canvas.Canvas(self.nome_arq_out, pagesize=self.page_size)
              c.setTitle("Termo de Recebimento")
              c.setAuthor("Natan Ogliari")

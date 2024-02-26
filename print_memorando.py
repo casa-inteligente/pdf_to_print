@@ -20,6 +20,7 @@ from pathlib import Path
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm
 import sys
+import pandas as pd
 
 class Template:
     def Imprimi_nova(self):
@@ -76,22 +77,43 @@ class Le_pdf:
             print('Erro ao abrir o arquivo {}'.format(arquivo))
 
 
-    def extrai_tabela(self, lista_tabela):
+    def extrai_tabela(self, tabela):
+        
         try:
-            lista_tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True)
-
-            print(lista_tabela)
+            
+           
+            
+            #implemantar limpa tabela
+            
+            tabela = tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True) #Cria duas colunas 
+            tabela = tabela.rename(columns={0: 'IPEN'})#Altera o nome da coluna
+            tabela = tabela.rename(columns={1: 'Nomes'})#Altera o nome da coluna
+            tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
+            
+            self._crit_stop = tabela.index.stop
+            print(f'O numero de linhas da tabela é {self._crit_stop}')
+            #for x in range(self._crit_stop): #Intera sobre todas as linha
+            for x in range(2):
+                print(f"Nomes do interno: {tabela['Nomes'][x]}")
+                print(f"Numero do prontuario: {tabela['IPEN'][x]}")
+            
         except:
-            print(f'Erro ao extrair daods da tabela {lista_tabela}')
+            print(f'Erro ao extrair dados da tabela {TypeError} e {ValueError}')
 
+#Inicio do "main"
 #print(sys.executable) #Imprimi o local do interpretador
 
-template = Template() #Instancia a classe Template
+template = Template() #Instância a classe Template
 le_pdf = Le_pdf()
 
 tabelas_lida = le_pdf.abre_pdf()
+
+print(tabelas_lida)
+
 var_vezes = len(tabelas_lida) - 1 #Remove o cabechalho 
-for x in range(var_vezes):
+
+#for x in range(var_vezes): #Intera sobre todas as tabelas
+for x in range(1):
     #print(tabelas_lida[x+1])
     dados_impri = le_pdf.extrai_tabela(tabelas_lida[x+1])
 
