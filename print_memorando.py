@@ -76,14 +76,23 @@ class Le_pdf:
             print('Erro ao abrir o arquivo {}'.format(arquivo))
 
 
-    def extrai_tabela(self, lista_tabela):
+    def extrai_tabela(self, tabela):
+        
         try:
-            lista_tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True)
+            self._crit_stop = tabela.index.stop
+            print(f'O numero de linhas da tabela é {self._crit_stop}')
+            #implemantar limpa tabela
+            tabela = tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True)
+            print(tabela)
 
-            print(lista_tabela)
+            #for x in range(self._crit_stop): #Intera sobre todas as linha
+            for x in range(2):
+                print(f"linha {x}")
+            
         except:
-            print(f'Erro ao extrair daods da tabela {lista_tabela}')
+            print(f'Erro ao extrair dados da tabela {tabela}')
 
+#Inicio do "main"
 #print(sys.executable) #Imprimi o local do interpretador
 
 template = Template() #Instancia a classe Template
@@ -91,7 +100,8 @@ le_pdf = Le_pdf()
 
 tabelas_lida = le_pdf.abre_pdf()
 var_vezes = len(tabelas_lida) - 1 #Remove o cabechalho 
-for x in range(var_vezes):
+#for x in range(var_vezes): #Intera sobre todas as tabelas
+for x in range(1):
     #print(tabelas_lida[x+1])
     dados_impri = le_pdf.extrai_tabela(tabelas_lida[x+1])
 
