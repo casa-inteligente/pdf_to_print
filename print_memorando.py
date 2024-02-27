@@ -74,58 +74,66 @@ class Template:
             c.drawString(4.5 * cm, 770, 'PRESÍDIO MARAVILHA')
             c.drawString(4.5 * cm, 755, 'Setor - Coordenação Penal')
             ################ 
-
-            ### Titulo do documento
-            c.setFillColor(aColor='black')  # Cor preto
-            c.setFont("Helvetica-Oblique", 12, leading=1)
-            c.drawCentredString(10.5 * cm, 730, 'TERMO DE RECEBIMENTO')
             
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
-            c.rect(5.5 * cm, 0.5 * cm, 13 * cm, 14 * cm, fill=0)  # para criar retangulo
+            ##INICIO DO SEGUNDO MEMORaNDO
+            ##Componente cabechalho
+            c.rotate(90)
+            c.drawImage('figure/logo.png', 0.2 * cm, -3 * cm, width=2*cm, height=2*cm)
+            c.rotate(270)
             
-            #Componente Nome
-            c.rect(2.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            #Componente Nome e Matricula
+            c.rect(3.5 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(3.5 * cm, 0.2 * cm, 1 * cm, 11 * cm, fill=0)  # para criar retangulo
+            c.rect(2.5 * cm, 11.2 * cm, 1 * cm, 3.3 * cm, fill=0)  # para criar retangulo periiodo
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.rotate(90)
-            c.drawString(0.8 * cm, -2.8 * cm, 'NOME')
-            c.setFont("Helvetica-Oblique", 18, leading=1)  # Fonte normal
-            c.drawCentredString(7 * cm, -3.2 * cm, f'{le_pdf.get_nome_interno()}')
+            c.drawString(0.8 * cm, -3.8 * cm, 'NOME')
+            c.drawString(11.5 * cm, -3.8 * cm, 'MATRÍCULA')
+            c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
+            c.drawCentredString(6 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
+            c.drawRightString(14.3 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
+            c.drawCentredString(12.8 * cm, -3.3 * cm, 'março/abril')
+            c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
+            c.drawRightString(11 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
 
 
             #Componente setor
-            c.rect(4 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rect(4.8 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.rotate(90)
-            c.drawString(0.8 * cm, -4.3 * cm, 'AO SETOR')
-            c.setFont("Helvetica-Oblique", 18, leading=1)  # Fonte normal
-            c.drawCentredString(7 * cm, -4.8 * cm, 'PENAL')
+            c.drawString(0.8 * cm, -5.2 * cm, 'AO SETOR')
+            c.setFont("Helvetica-Oblique", 14.3, leading=1)  # Fonte normal
+            c.drawCentredString(7 * cm, -5.5 * cm, 'PENAL')
             c.rotate(270)
+
             ##Componente linhas para escrever o memorando
-            
-            c.rect(19 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
-            c.rect(17.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
-            c.rect(16.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
-            c.rect(15.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
-            c.rect(14.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
-            c.rect(13.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
-            c.rect(12.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
-            c.rect(11.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
-            c.rect(10.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
-            c.rect(9.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
-            c.rect(8.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
-            c.rect(7.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
-            c.rect(6.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            #c.rect(6 * cm, 0.2 * cm, 13 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(18 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(17 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(16 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(15 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(14 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(13 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(12 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(11 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(10 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(9 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(8 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(7 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(6 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             
             
             #Componente de data e assinatura
-            c.rect(19 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
-            c.rect(19 * cm, 0.5 * cm, 1 * cm, 3 * cm, fill=0)  # para criar retangulo
+            #c.rect(19.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rect(19.5 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(19.5 * cm, 0.2 * cm, 1 * cm, 3 * cm, fill=0)  # para criar retangulo
             c.rotate(90)
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
-            c.drawString(0.5 * cm, -18.8 * cm, 'APENADO')
-            c.drawCentredString(1.1 * cm, -19.3 * cm, 'DATA')
-            c.drawCentredString(4.5 * cm, -19.3 * cm, 'ASSINATURA')
+            c.drawString(0.2 * cm, -19.3 * cm, 'APENADO')
+            c.drawCentredString(1.1 * cm, -19.8 * cm, 'DATA')
+            c.drawCentredString(4.5 * cm, -19.8 * cm, 'ASSINATURA')
             c.rotate(270)
             ##FIM componente data e assinatura
             c.showPage()
