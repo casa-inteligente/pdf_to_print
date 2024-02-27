@@ -85,15 +85,29 @@ class Template:
             c.rect(6 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             
             ##Componente assinatura e data
-            c.rect(19.5 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            
-            
+            c.rect(19.5 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo            
             c.rect(19.5 * cm, 15 * cm, 1 * cm, 3 * cm, fill=0)  # para criar retangulo
             c.rotate(90)
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.drawString(15 * cm, -19.3 * cm, 'APENADO')
             c.drawCentredString(15.5 * cm, -19.8 * cm, 'DATA')
             c.drawCentredString(19 * cm, -19.8 * cm, 'ASSINATURA')
+            c.rotate(270)
+
+            #Componente Nome e Matricula
+            #c.rect(19 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            #c.rect(22 * cm, 0.2 * cm, 1 * cm, 11 * cm, fill=0)  # para criar retangulo
+            c.rect(20 * cm, 11.2 * cm, 1 * cm, 5 * cm, fill=0)  # para criar retangulo periiodo
+            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
+            c.rotate(90)
+            c.drawString(17 * cm, -3.8 * cm, 'NOME')
+            c.drawString(26 * cm, -3.8 * cm, 'MATRÍCULA')
+            c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
+            c.drawCentredString(21 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
+            c.drawRightString(28 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
+            c.drawCentredString(26 * cm, -3.3 * cm, 'março/abril')
+            c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
+            c.drawRightString(22 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
 
 
@@ -158,8 +172,8 @@ class Template:
             c.rotate(90)
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.drawString(0.2 * cm, -19.3 * cm, 'APENADO')
-            c.drawCentredString(1.1 * cm, -19.8 * cm, 'DATA')
-            c.drawCentredString(4.5 * cm, -19.8 * cm, 'ASSINATURA')
+            c.drawCentredString(.8 * cm, -19.8 * cm, 'DATA')
+            c.drawCentredString(4.2 * cm, -19.8 * cm, 'ASSINATURA')
             c.rotate(270)
             ##FIM componente data e assinatura
             c.showPage()
