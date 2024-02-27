@@ -54,12 +54,57 @@ class Template:
             #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
     ### FIM ### def Imprimi_nova(self):
             
-    def GeneratePDF(self, nome_interno, numero_ipen):
+    def GeneratePDF(self):
         try:
-            pass
+            self._page_size = A4 # Define o tamenho da folha
+            self.pdf_filename = le_pdf.get_nome_interno() + ".pdf"
+            self.nome_arq_out = f'{le_pdf.get_dir_saida()}\{self.pdf_filename}'
+            #print(self.nome_arq_out)
+            c = canvas.Canvas(self.nome_arq_out, pagesize=self._page_size)
+            c.setTitle("Momorando de apenado")
+            c.setAuthor("Natan Ogliari")
+
+            ##
+            ### Cabeçalho
+            c.setFillColor(aColor='black', alpha=.8)  # Cor Cinza
+            c.setFont("Helvetica-Oblique", 10)
+            c.drawImage('figure/logo.png', 2 * cm, 750, width=60, height=60) #Logo do estado
+            c.drawString(4.5 * cm, 800, "ESTADO DE SANTA CATARINA")
+            c.drawString(4.5 * cm, 785, "SECRETARIA DE ESTADO DA ADMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
+            c.drawString(4.5 * cm, 770, 'PRESÍDIO MARAVILHA')
+            c.drawString(4.5 * cm, 755, 'Setor - Coordenação Penal')
+            ################ 
+
+            ### Titulo do documento
+            c.setFillColor(aColor='black')  # Cor preto
+            c.setFont("Helvetica-Oblique", 10, leading=1)
+            c.drawCentredString(10.5 * cm, 730, 'TERMO DE RECEBIMENTO')
+            
+            c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
+            c.rect(5.5 * cm, 0.5 * cm, 13 * cm, 14 * cm, fill=0)  # para criar retangulo
+            #c.drawBoundary()
+            c.rotate(90)
+            c.rect(19 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rotate(270)
+            c.rect(19 * cm, 0.5 * cm, 1 * cm, 3 * cm, fill=0)  # para criar retangulo
+
+
+            c.showPage()
+            c.save()
+                    
+
         except:
-            print(f'Erro ao gerar o memorando.pdf')
+            print(f'Erro ao gerar o memorando {self.pdf_filename}.pdf', sys.exc_info()[0])
+    
 class Le_pdf:
+
+    def get_nome_interno(self):
+        #print(self._nome_interno)
+        return self._nome_interno
+    def get_numero_ipen(self):
+        return self._numero_ipen
+    def get_dir_saida(self):
+        return self._diretorio_saida
 
     def abre_pdf(self, paginas='all'):
         try:
@@ -89,7 +134,7 @@ class Le_pdf:
             #tabela = tabela.dropna()
             self._crit_stop = tabela.index.stop # Criterio de parada do for
             print(f'O numero de linhas da tabela é {self._crit_stop}')
-            self._page_size = A4 # Define o tamenho dafolha
+            
             self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
             self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
             
@@ -99,7 +144,7 @@ class Le_pdf:
                 #print(f"Numero do prontuario: {tabela['IPEN'][x]}")
                 self._nome_interno = tabela['Nomes'][x]
                 self._numero_ipen = tabela['IPEN'][x]
-                template.GeneratePDF(self._nome_interno, self._numero_ipen)
+                template.GeneratePDF()
                                 
             
         except :
