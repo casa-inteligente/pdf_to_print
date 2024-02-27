@@ -54,11 +54,11 @@ class Template:
             #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
     ### FIM ### def Imprimi_nova(self):
             
-    def GeneratePDF(self, dados):
+    def GeneratePDF(self, nome_interno, numero_ipen):
         try:
             pass
         except:
-            print(f'Erro ao gerar o memorando {nome_interno}.pdf')
+            print(f'Erro ao gerar o memorando.pdf')
 class Le_pdf:
 
     def abre_pdf(self, paginas='all'):
@@ -87,15 +87,26 @@ class Le_pdf:
             tabela = tabela.rename(columns={1: 'Nomes'})#Altera o nome da coluna
             tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
             #tabela = tabela.dropna()
-            self._crit_stop = tabela.index.stop
+            self._crit_stop = tabela.index.stop # Criterio de parada do for
             print(f'O numero de linhas da tabela é {self._crit_stop}')
-            for x in range(self._crit_stop): #Intera sobre todas as linha
-            #for x in range(2):
-                print(f"Nomes do interno: {tabela['Nomes'][x]}")
-                print(f"Numero do prontuario: {tabela['IPEN'][x]}")
+            self._page_size = A4 # Define o tamenho dafolha
+            self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
+            self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
             
-        except:
-            print(f'Erro ao extrair dados da tabela {tabela}')
+            #for x in range(self._crit_stop): #Intera sobre todas as linha
+            for x in range(1):
+                #print(f"Nomes do interno: {tabela['Nomes'][x]}")
+                #print(f"Numero do prontuario: {tabela['IPEN'][x]}")
+                self._nome_interno = tabela['Nomes'][x]
+                self._numero_ipen = tabela['IPEN'][x]
+                template.GeneratePDF(self._nome_interno, self._numero_ipen)
+                                
+            
+        except :
+            print('Erro ao extrair dados da tabela ', sys.exc_info()[0])
+        
+        #finally: 
+            #print("Programa encerrado devido a erros")
 
 #Inicio do "main"
 #print(sys.executable) #Imprimi o local do interpretador
