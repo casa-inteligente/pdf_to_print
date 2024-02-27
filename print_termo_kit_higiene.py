@@ -134,7 +134,8 @@ class Template:
             c.rect(2 * cm, 16 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
             c.drawString(2 * cm, 16.1 * cm, '  Se uniforme, quantidade e tamanho.')
             c.rect(2 * cm, 15.5 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
-            c.drawAlignedString(2 * cm, 17 * cm, "fghdgfudgfu")
+            c.drawAlignedString(15 * cm, 15.6 * cm, "KIT DE HIGIENE: 01 ESCOVA DE DENTE, 01 CREME DENTAL, 03 ROLOS DE PAPEL")
+            c.drawAlignedString(15 * cm, 15.1 * cm, "HIGIÊNICO, 04 BARBEADORES, 01 DESODORANTE LIQUIDO E 01 SABONETE LIQUIDO")
             c.rect(2 * cm, 15 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
             c.rect(2 * cm, 14.5 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
             c.rect(2 * cm, 14 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
