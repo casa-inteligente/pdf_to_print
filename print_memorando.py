@@ -95,7 +95,7 @@ class Template:
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.drawString(0.5 * cm, -18.8 * cm, 'APENADO')
             c.drawCentredString(1.1 * cm, -19.3 * cm, 'DATA')
-            c.drawCentredString(4.5 * cm, -19.3 * cm, f'ASSINATURA{le_pdf.get_nome_interno}')
+            c.drawCentredString(4.5 * cm, -19.3 * cm, 'ASSINATURA')
             c.rotate(270)
             ##FIM componente data e assinatura
             c.showPage()
