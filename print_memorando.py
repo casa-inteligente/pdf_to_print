@@ -83,17 +83,21 @@ class Template:
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.rect(5.5 * cm, 0.5 * cm, 13 * cm, 14 * cm, fill=0)  # para criar retangulo
             
-            #c.rotate(90)
+            ##COmponente linhas para escrever o memorando
             c.rect(19 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rect(17.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rect(16.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
             
+            #Componente de data e assinatura
+            c.rect(19 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
             c.rect(19 * cm, 0.5 * cm, 1 * cm, 3 * cm, fill=0)  # para criar retangulo
             c.rotate(90)
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
-            #c.rect(5 * cm, -5 * cm, -5 * cm, 2 * cm, fill=0)  # para criar retangulo
             c.drawString(0.5 * cm, -18.8 * cm, 'APENADO')
             c.drawCentredString(1.1 * cm, -19.3 * cm, 'DATA')
-            c.drawCentredString(4.5 * cm, -19.3 * cm, 'ASSINATURA')
-
+            c.drawCentredString(4.5 * cm, -19.3 * cm, f'ASSINATURA{le_pdf.get_nome_interno}')
+            c.rotate(270)
+            ##FIM componente data e assinatura
             c.showPage()
             c.save()
                     
