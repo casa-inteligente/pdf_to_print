@@ -83,10 +83,40 @@ class Template:
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.rect(5.5 * cm, 0.5 * cm, 13 * cm, 14 * cm, fill=0)  # para criar retangulo
             
-            ##COmponente linhas para escrever o memorando
+            #Componente Nome
+            c.rect(2.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
+            c.rotate(90)
+            c.drawString(0.8 * cm, -2.8 * cm, 'NOME')
+            c.setFont("Helvetica-Oblique", 18, leading=1)  # Fonte normal
+            c.drawCentredString(7 * cm, -3.2 * cm, f'{le_pdf.get_nome_interno()}')
+            c.rotate(270)
+
+
+            #Componente setor
+            c.rect(4 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
+            c.rotate(90)
+            c.drawString(0.8 * cm, -4.3 * cm, 'AO SETOR')
+            c.setFont("Helvetica-Oblique", 18, leading=1)  # Fonte normal
+            c.drawCentredString(7 * cm, -4.8 * cm, 'PENAL')
+            c.rotate(270)
+            ##Componente linhas para escrever o memorando
+            
             c.rect(19 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
             c.rect(17.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
             c.rect(16.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rect(15.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rect(14.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rect(13.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rect(12.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rect(11.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rect(10.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rect(9.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rect(8.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rect(7.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rect(6.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            
             
             #Componente de data e assinatura
             c.rect(19 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
