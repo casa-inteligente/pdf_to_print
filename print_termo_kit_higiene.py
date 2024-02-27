@@ -135,7 +135,7 @@ class Template:
             c.drawString(2 * cm, 16.1 * cm, '  Se uniforme, quantidade e tamanho.')
             c.rect(2 * cm, 15.5 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
             c.drawAlignedString(15 * cm, 15.6 * cm, "KIT DE HIGIENE: 01 ESCOVA DE DENTE, 01 CREME DENTAL, 03 ROLOS DE PAPEL")
-            c.drawAlignedString(15 * cm, 15.1 * cm, "HIGIÊNICO, 04 BARBEADORES, 01 DESODORANTE LIQUIDO E 01 SABONETE LIQUIDO")
+            c.drawAlignedString(18.5 * cm, 15.1 * cm, "HIGIÊNICO, 04 BARBEADORES, 01 DESODORANTE LIQUIDO E 01 SABONETE.    ")
             c.rect(2 * cm, 15 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
             c.rect(2 * cm, 14.5 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
             c.rect(2 * cm, 14 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
@@ -180,12 +180,12 @@ class Le_pdf:
         try:
             self._diretorio_entrada = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/")
 
-            for arquivo in self._diretorio_entrada.glob('*.pdf'):
+            for arquivo in self._diretorio_entrada.glob('*.pdf'):#Arquivo .pdf a ser analisado
                 print(arquivo)
 
             self._lista_tabela = tabula.io.read_pdf(arquivo, pages=paginas)
             self.numero_de_tabelas = len(self._lista_tabela)
-            print('Possui {} tabelas para uso e um cabechalho' .format(self.numero_de_tabelas-1))
+            #print('Possui {} tabelas para uso e um cabechalho' .format(self.numero_de_tabelas-1))
             return self._lista_tabela
 
         except:
@@ -203,7 +203,7 @@ class Le_pdf:
             tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
             #tabela = tabela.dropna()
             self._crit_stop = tabela.index.stop # Criterio de parada do for
-            print(f'O numero de linhas da tabela é {self._crit_stop}')
+            #print(f'O numero de linhas da tabela é {self._crit_stop}')
             
             self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
             self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
