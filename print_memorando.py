@@ -50,7 +50,7 @@ class Template:
         #print(caminho)
         lista_arq_print = os.listdir(caminho)
         for arquivo in lista_arq_print:
-            print("Remover este a habilitar a linha abaixo para imprimir")
+            print("Remover este e habilitar a linha abaixo para imprimir")
             #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
     ### FIM ### def Imprimi_nova(self):
             
@@ -202,7 +202,7 @@ class Template:
                     
 
         except:
-            print(f'Erro ao gerar o memorando {self.pdf_filename}.pdf', sys.exc_info()[0])
+            print(f'Erro ao gerar o memorando {self.pdf_filename}')
     
 class Le_pdf:
 
@@ -246,8 +246,8 @@ class Le_pdf:
             self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
             self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
             
-            #for x in range(self._crit_stop): #Intera sobre todas as linha
-            for x in range(1):
+            for x in range(self._crit_stop): #Intera sobre todas as linha
+            #for x in range(1):
                 #print(f"Nomes do interno: {tabela['Nomes'][x]}")
                 #print(f"Numero do prontuario: {tabela['IPEN'][x]}")
                 self._nome_interno = tabela['Nomes'][x]
