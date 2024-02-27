@@ -92,7 +92,7 @@ class Template:
             c.rotate(90)
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.drawString(15 * cm, -19.3 * cm, 'APENADO')
-            c.drawCentredString(16 * cm, -19.8 * cm, 'DATA')
+            c.drawCentredString(15.5 * cm, -19.8 * cm, 'DATA')
             c.drawCentredString(19 * cm, -19.8 * cm, 'ASSINATURA')
             c.rotate(270)
 
