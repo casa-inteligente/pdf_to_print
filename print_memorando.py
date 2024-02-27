@@ -63,23 +63,49 @@ class Template:
             c = canvas.Canvas(self.nome_arq_out, pagesize=self._page_size)
             c.setTitle("Momorando de apenado")
             c.setAuthor("Natan Ogliari")
-
-            ##
-            ### Cabeçalho
-            c.setFillColor(aColor='black', alpha=.8)  # Cor Cinza
-            c.setFont("Helvetica-Oblique", 10)
-            c.drawImage('figure/logo.png', 2 * cm, 750, width=60, height=60) #Logo do estado
-            c.drawString(4.5 * cm, 800, "ESTADO DE SANTA CATARINA")
-            c.drawString(4.5 * cm, 785, "SECRETARIA DE ESTADO DA ADMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
-            c.drawString(4.5 * cm, 770, 'PRESÍDIO MARAVILHA')
-            c.drawString(4.5 * cm, 755, 'Setor - Coordenação Penal')
-            ################ 
             
+
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
-            ##INICIO DO SEGUNDO MEMORaNDO
+            c.setFillColor(aColor='black')  # Cor preto
+            #INICIO PRIMEIRO MEMORANDO
+
+            ##Componente ESCRITA 
+            c.rect(18 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(17 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(16 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(15 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(14 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(13 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(12 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(11 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(10 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(9 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(8 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(7 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(6 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            
+            ##Componente assinatura e data
+            c.rect(19.5 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            
+            
+            c.rect(19.5 * cm, 15 * cm, 1 * cm, 3 * cm, fill=0)  # para criar retangulo
+            c.rotate(90)
+            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
+            c.drawString(15 * cm, -19.3 * cm, 'APENADO')
+            c.drawCentredString(16 * cm, -19.8 * cm, 'DATA')
+            c.drawCentredString(19 * cm, -19.8 * cm, 'ASSINATURA')
+            c.rotate(270)
+
+
+            ############################################################################
+            ##INICIO DO SEGUNDO MEMORANDO
             ##Componente cabechalho
+            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.rotate(90)
             c.drawImage('figure/logo.png', 0.2 * cm, -3 * cm, width=2*cm, height=2*cm)
+            c.drawString(2.5 * cm, -1.5 * cm, "ESTADO DE SANTA CATARINA")
+            c.drawString(2.5 * cm, -1.9 * cm, "SECRETARIA DE ESTADO DA ADIMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
+            c.drawString(2.5 * cm, -2.3 * cm, "PRESÍDIO DE MARAVILHA")
             c.rotate(270)
             
             #Componente Nome e Matricula
