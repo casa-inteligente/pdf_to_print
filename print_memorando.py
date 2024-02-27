@@ -68,6 +68,16 @@ class Template:
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.setFillColor(aColor='black')  # Cor preto
             #INICIO PRIMEIRO MEMORANDO
+            #Componente Cabechalho
+            c.setFont("Helvetica-Oblique", 11, leading=1)  # Fonte normal
+            c.rotate(90)
+            c.drawImage('figure/logo.png', 15 * cm, -3 * cm, width=2*cm, height=2*cm)
+            c.drawString(17.5 * cm, -1.5 * cm, "ESTADO DE SANTA CATARINA")
+            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
+            c.drawString(17.5 * cm, -1.9 * cm, "SECRETARIA DE ESTADO DA ADIMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
+            c.drawString(17.5 * cm, -2.3 * cm, "PRESÍDIO DE MARAVILHA")
+            c.rotate(270)
+
 
             ##Componente ESCRITA 
             c.rect(18 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
@@ -85,9 +95,7 @@ class Template:
             c.rect(6 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             
             ##Componente assinatura e data
-            c.rect(19.5 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            
-            
+            c.rect(19.5 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo            
             c.rect(19.5 * cm, 15 * cm, 1 * cm, 3 * cm, fill=0)  # para criar retangulo
             c.rotate(90)
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
@@ -96,14 +104,41 @@ class Template:
             c.drawCentredString(19 * cm, -19.8 * cm, 'ASSINATURA')
             c.rotate(270)
 
+            #Componente Nome e Matricula
+            c.rect(4.8 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo "ao setor"
+            c.rect(3.5 * cm, 15 * cm, 1 * cm, 11 * cm, fill=0)  # para criar retangulo "NOME"
+            c.rect(3.5 * cm, 26 * cm, 1 * cm, 3.3 * cm) # para criar retangulo "Matricula"
+            c.rect(2.5 * cm, 26 * cm, 1 * cm, 3.3 * cm, fill=0)  # para criar retangulo periiodo
+            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
+            c.rotate(90)
+            c.drawString(15.5 * cm, -3.8 * cm, 'NOME')
+            c.drawString(26.2 * cm, -3.8 * cm, 'MATRÍCULA')
+            c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
+            c.drawCentredString(20 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
+            c.drawRightString(28.5 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
+            c.drawCentredString(27.5 * cm, -3.3 * cm, 'março/abril')
+            c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
+            c.drawRightString(25.8 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
+            c.rotate(270)
+
+            ## Componente ao setor
+            #Componente setor
+            c.rect(4.8 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
+            c.rotate(90)
+            c.drawString(15.8 * cm, -5.2 * cm, 'AO SETOR')
+            c.setFont("Helvetica-Oblique", 14.3, leading=1)  # Fonte normal
+            c.drawCentredString(20 * cm, -5.5 * cm, 'SOCIAL')
+            c.rotate(270)
 
             ############################################################################
             ##INICIO DO SEGUNDO MEMORANDO
             ##Componente cabechalho
-            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
+            c.setFont("Helvetica-Oblique", 11, leading=1)  # Fonte normal
             c.rotate(90)
             c.drawImage('figure/logo.png', 0.2 * cm, -3 * cm, width=2*cm, height=2*cm)
             c.drawString(2.5 * cm, -1.5 * cm, "ESTADO DE SANTA CATARINA")
+            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.drawString(2.5 * cm, -1.9 * cm, "SECRETARIA DE ESTADO DA ADIMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
             c.drawString(2.5 * cm, -2.3 * cm, "PRESÍDIO DE MARAVILHA")
             c.rotate(270)
@@ -158,8 +193,8 @@ class Template:
             c.rotate(90)
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.drawString(0.2 * cm, -19.3 * cm, 'APENADO')
-            c.drawCentredString(1.1 * cm, -19.8 * cm, 'DATA')
-            c.drawCentredString(4.5 * cm, -19.8 * cm, 'ASSINATURA')
+            c.drawCentredString(.8 * cm, -19.8 * cm, 'DATA')
+            c.drawCentredString(4.2 * cm, -19.8 * cm, 'ASSINATURA')
             c.rotate(270)
             ##FIM componente data e assinatura
             c.showPage()
