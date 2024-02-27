@@ -75,6 +75,20 @@ class Template:
             c.drawString(4.5 * cm, 755, 'Setor - Coordenação Penal')
             ################ 
 
+            ### Titulo do documento
+            c.setFillColor(aColor='black')  # Cor preto
+            c.setFont("Helvetica-Oblique", 10, leading=1)
+            c.drawCentredString(10.5 * cm, 730, 'TERMO DE RECEBIMENTO')
+            c.drawString(2 * cm, 680, 'Instruções:')
+            c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
+            c.rect(5.5 * cm, 0.5 * cm, 13 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.drawBoundary()
+            c.rotate(90)
+            c.rect(19 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
+            c.rotate(270)
+            c.rect(19 * cm, 0.5 * cm, 1 * cm, 3 * cm, fill=0)  # para criar retangulo
+
+
             c.showPage()
             c.save()
                     
