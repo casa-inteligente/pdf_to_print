@@ -241,4 +241,4 @@ for x in range(var_vezes): #Intera sobre todas as tabelas
     dados_impri = le_pdf.extrai_tabela(tabelas_lida[x+1])
 
 
-template.Imprimi_nova()
+#template.Imprimi_nova()

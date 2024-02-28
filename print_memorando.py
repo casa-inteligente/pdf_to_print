@@ -50,7 +50,8 @@ class Template:
         #print(caminho)
         lista_arq_print = os.listdir(caminho)
         for arquivo in lista_arq_print:
-            print("Remover este e habilitar a linha abaixo para imprimir")
+            pass
+            #print("Remover este e habilitar a linha abaixo para imprimir")
             #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
     ### FIM ### def Imprimi_nova(self):
             
@@ -219,11 +220,11 @@ class Le_pdf:
             self._diretorio_entrada = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/")
 
             for arquivo in self._diretorio_entrada.glob('*.pdf'):
-                print(arquivo)
+                print(f'O .pdf lido é: {arquivo}')
 
             self._lista_tabela = tabula.io.read_pdf(arquivo, pages=paginas)
             self.numero_de_tabelas = len(self._lista_tabela)
-            print('Possui {} tabelas para uso e um cabechalho' .format(self.numero_de_tabelas-1))
+            #print('Possui {} tabelas para uso e um cabechalho' .format(self.numero_de_tabelas-1))
             return self._lista_tabela
 
         except:
@@ -241,7 +242,7 @@ class Le_pdf:
             tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
             #tabela = tabela.dropna()
             self._crit_stop = tabela.index.stop # Criterio de parada do for
-            print(f'O numero de linhas da tabela é {self._crit_stop}')
+            #print(f'O numero de linhas da tabela é {self._crit_stop}')
             
             self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
             self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
@@ -278,4 +279,4 @@ for x in range(var_vezes): #Intera sobre todas as tabelas
     dados_impri = le_pdf.extrai_tabela(tabelas_lida[x+1])
 
 
-template.Imprimi_nova()
+#template.Imprimi_nova()
