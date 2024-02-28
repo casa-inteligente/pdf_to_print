@@ -50,7 +50,8 @@ class Template:
         #print(caminho)
         lista_arq_print = os.listdir(caminho)
         for arquivo in lista_arq_print:
-            print("Remover este e habilitar a linha abaixo para imprimir")
+            pass
+            #print("Remover este e habilitar a linha abaixo para imprimir")
             #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
     ### FIM ### def Imprimi_nova(self):
             
