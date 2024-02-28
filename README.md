@@ -25,8 +25,9 @@ Possui várias tabelas, sendo a 1° cabeçalho (lixo), possui uma única coluna 
 
 
 ## Funcionalidades
-- [x] Lê arquivo .pdf <br>
+- [x] Busca e lê arquivo .pdf <br>
 - [x] Termo de entrega <br>
+- [x] Memorandos <br>
 - [x] Limpas as tabelas.<br>
 - [ ] Uso de NPL (spacy) <br>
 - [x] Gera os termos de compromissos de cada um e salva em uma pasta com .pdf.<br>
@@ -41,10 +42,8 @@ Possui várias tabelas, sendo a 1° cabeçalho (lixo), possui uma única coluna 
 [medium gera pdf](https://medium.com/@habbema/criando-arquivos-pdf-com-python-0eb5229c4a70) <br>
 [usandopy](https://www.usandopy.com/pt/artigo/reportlab-em-python-como-criar-documentos-pdf-personalizado-em-python-automacao-em-python/) <br>
 [para consultar a biblioteca PDFMiner](https://www.brasilcode.com.br/15-pacotes-python-para-automacao/)<br>
-
 https://www.youtube.com/watch?v=JQoPGhVVPJk <br>
 
-camelot <br>
 
 [extrai e concatena](https://www.youtube.com/watch?v=S_tH-wtXoN4) <br>
 [Estrutura de tabelas lidas](https://medium.com/@pymupdf/table-recognition-and-extraction-with-pymupdf-54e54b40b760) <br>
