@@ -56,3 +56,15 @@ https://www.youtube.com/watch?v=JQoPGhVVPJk <br>
 ```
 C:/Users/AULA-1/.conda/envs/applications-with-kivy-in-python/python.exe -m pip install JPype1
 ```
+
+* Para usar a aréa de trabalho da estação de trabalho local, caso a estação de trabalho não possua acesso ao __servidor__, viabiliza o laboral. (Melhoria futura)
+
+```python
+import os
+
+# Obter o caminho para a Área de Trabalho
+desktop_path = os.path.join(os.environ['USERPROFILE'], 'Área de Trabalho')
+
+print(desktop_path)
+
+```
