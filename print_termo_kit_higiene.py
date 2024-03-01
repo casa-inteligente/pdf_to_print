@@ -165,7 +165,7 @@ class Template:
                     
 
         except:
-            print(f'Erro ao gerar o memorando {self.pdf_filename}')
+            print(f'Erro ao gerar o Termo de Kit de higiene {self.pdf_filename}')
     
 class Le_pdf:
 
