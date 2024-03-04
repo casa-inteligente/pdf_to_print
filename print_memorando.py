@@ -93,7 +93,7 @@ class Template:
             c.rect(9 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             c.rect(8 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             c.rect(7 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(6 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            #c.rect(6 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             
             ##Componente assinatura e data
             c.rect(19.5 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo            
@@ -117,23 +117,25 @@ class Template:
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
             c.drawCentredString(20 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
             c.drawRightString(28.5 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(27.5 * cm, -3.3 * cm, 'março/abril')
+            c.drawCentredString(27.5 * cm, -3.3 * cm, 'março')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(25.8 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
 
             ## Componente ao setor
             #Componente setor
-            c.rect(4.8 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(4.8 * cm, 15 * cm, 2 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            #c.rect(5.8 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.rotate(90)
             c.drawString(15.8 * cm, -5.2 * cm, 'AO SETOR')
-            c.setFont("Helvetica-Oblique", 14.3, leading=1)  # Fonte normal
-            c.drawCentredString(20 * cm, -5.5 * cm, 'SOCIAL')
+            c.setFont("Helvetica-Oblique", 13, leading=1)  # Fonte normal
+            c.drawString(15.8 * cm, -5.6 * cm, '( )SOCIAL; ( )DIRETOR; ( )CHEFE DE SEGURANÇA;')
+            c.drawString(15.8 * cm, -6.6 * cm, '( )PSICÓLOGA; ( )PECÚLIO e ( )EDUCAÇÃO')
             c.rotate(270)
 
             ############################################################################
-            ##INICIO DO SEGUNDO MEMORANDO
+            ##INICIO DO SEGUNDO MEMORANDO (PENAL)
             ##Componente cabechalho
             c.setFont("Helvetica-Oblique", 11, leading=1)  # Fonte normal
             c.rotate(90)
