@@ -130,8 +130,8 @@ class Template:
             c.rotate(90)
             c.drawString(15.8 * cm, -5.2 * cm, 'AO SETOR')
             c.setFont("Helvetica-Oblique", 13, leading=1)  # Fonte normal
-            c.drawString(15.8 * cm, -5.6 * cm, '(  ) SOCIAL; (  ) DIRETOR; (  ) CHEFE DE SEGURANÇA;')
-            c.drawString(15.8 * cm, -6.6 * cm, '(  ) PSICÓLOGA; (  ) PECÚLIO e (  ) EDUCAÇÃO')
+            c.drawString(15.8 * cm, -5.6 * cm, '(  )SOCIAL; (  )DIRETOR; (  )CHEFE DE SEGURANÇA;')
+            c.drawString(15.8 * cm, -6.6 * cm, '(  )PSICÓLOGA; (  )PECÚLIO; (  )EDUCAÇÃO e (  )OUTROS:__________')
             c.rotate(270)
 
             ############################################################################
