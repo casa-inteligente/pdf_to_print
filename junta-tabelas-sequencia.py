@@ -196,39 +196,52 @@ class Le_pdf:
     def extrai_tabela(self, tabela):
         
         try:
+            
+            #print('--esta na função extrai_tabelas----')
+            
             if tabela.empty:
-                print('Erro: A tabela está vazia.')
-                return None
-            if 'PRONTUÁRIO | NOME' in tabela.columns:
+                                print('Erro: A tabela está vazia.')
+                #return None
+            if 'PRONTUÁRIO | NOME' not in tabela.columns:
+                # Adiciona uma nova linha com valores padrão
+                print('=====================================')
+                print('++++Esta no adiciona linha nova++++++')
+                print('===================================')
+                print(tabela)
+                
+                #ADICIONAR CODIFICAÇÃO AQUI
+                
+                
+                new_row = {'PRONTUÁRIO | NOME': '123456 - Não Usar'}
+                print(new_row)
+                tabela = tabela.append(new_row, ignore_index=True)
+                print(tabela)
                 tabela = tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True) #Cria duas colunas 
                 tabela = tabela.rename(columns={0: 'IPEN'})#Altera o nome da coluna
                 tabela = tabela.rename(columns={1: 'Nomes'})#Altera o nome da coluna
                 tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
             else:
-                print(f'Erro: A coluna "PRONTUÁRIO | NOME" não existe na tabela.')
-                # Adiciona a coluna com valor padrão
-                tabela['PRONTUÁRIO | NOME'] = 'Valor padrão'
-                #return tabela
-            
+                print("Entro na tabela que contem o cabechalho")
+                tabela = tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True) #Cria duas colunas 
+                tabela = tabela.rename(columns={0: 'IPEN'})#Altera o nome da coluna
+                tabela = tabela.rename(columns={1: 'Nomes'})#Altera o nome da coluna
+                tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
 
             self._crit_stop = tabela.index.stop # Criterio de parada do for
-            #print(f'O numero de linhas da tabela é {self._crit_stop}')
-            
-            self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
+            self._diretorio_saida = Path(r'\\\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
             self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
-            
+        
             for x in range(self._crit_stop): #Intera sobre todas as linha
-            #for x in range(1):
-                #print(f"Nomes do interno: {tabela['Nomes'][x]}")
-                #print(f"Numero do prontuario: {tabela['IPEN'][x]}")
                 self._nome_interno = tabela['Nomes'][x]
                 self._numero_ipen = tabela['IPEN'][x]
                 template.GeneratePDF()
+
             return tabela
 
         except :
             print('Erro ao extrair dados da tabela ', sys.exc_info()[0])
             return None
+
         
         #finally: 
             #print("Programa encerrado devido a erros")
@@ -244,22 +257,10 @@ tabelas_lida = le_pdf.abre_pdf()
 
 var_vezes = len(tabelas_lida) - 1 #Remove o cabechalho 
 
-todas_as_tabelas = []
+
 for x in range(var_vezes): #Intera sobre todas as tabelas
 #for x in range(1):
     #print(tabelas_lida[x+1])
     dados_impri = le_pdf.extrai_tabela(tabelas_lida[x+1])
-    todas_as_tabelas.append(dados_impri)
-tabelas_final = pd.concat(todas_as_tabelas)
-#print(tabelas_final)
 
-
-
-#or x in range(var_vezes): #Intera sobre todas as tabelas
-#for x in range(1):
-    #print(tabelas_lida[x+1])
-    #dados_impri = le_pdf.extrai_tabela(tabelas_lida[x+1])
-    #todas_as_tabelas.append(dados_impri)
-#tabelas_final = pd.concat(todas_as_tabelas)
-#print(tabelas_final)
 #template.Imprimi_nova()
