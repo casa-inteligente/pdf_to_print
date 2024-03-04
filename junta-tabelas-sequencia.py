@@ -196,17 +196,16 @@ class Le_pdf:
     def extrai_tabela(self, tabela):
         
         try:
-            
-            
             if 'PRONTUÁRIO | NOME' in tabela.columns:
                 tabela = tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True) #Cria duas colunas 
                 tabela = tabela.rename(columns={0: 'IPEN'})#Altera o nome da coluna
                 tabela = tabela.rename(columns={1: 'Nomes'})#Altera o nome da coluna
                 tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
-                return tabela
             else:
                 print(f'Erro: A coluna "PRONTUÁRIO | NOME" não existe na tabela.')
-                return None
+                # Adiciona a coluna com valor padrão
+                tabela['PRONTUÁRIO | NOME'] = 'Valor padrão'
+                return tabela
         except :
             print('Erro ao extrair dados da tabela ', sys.exc_info()[0])
             return None
@@ -232,7 +231,7 @@ for x in range(var_vezes): #Intera sobre todas as tabelas
     dados_impri = le_pdf.extrai_tabela(tabelas_lida[x+1])
     todas_as_tabelas.append(dados_impri)
 tabelas_final = pd.concat(todas_as_tabelas)
-print(tabelas_final)
+#print(tabelas_final)
 
 
 
