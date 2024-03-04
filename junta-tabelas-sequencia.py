@@ -196,6 +196,9 @@ class Le_pdf:
     def extrai_tabela(self, tabela):
         
         try:
+            if tabela.empty:
+                print('Erro: A tabela está vazia.')
+                return None
             if 'PRONTUÁRIO | NOME' in tabela.columns:
                 tabela = tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True) #Cria duas colunas 
                 tabela = tabela.rename(columns={0: 'IPEN'})#Altera o nome da coluna
@@ -205,7 +208,24 @@ class Le_pdf:
                 print(f'Erro: A coluna "PRONTUÁRIO | NOME" não existe na tabela.')
                 # Adiciona a coluna com valor padrão
                 tabela['PRONTUÁRIO | NOME'] = 'Valor padrão'
-                return tabela
+                #return tabela
+            
+
+            self._crit_stop = tabela.index.stop # Criterio de parada do for
+            #print(f'O numero de linhas da tabela é {self._crit_stop}')
+            
+            self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
+            self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
+            
+            for x in range(self._crit_stop): #Intera sobre todas as linha
+            #for x in range(1):
+                #print(f"Nomes do interno: {tabela['Nomes'][x]}")
+                #print(f"Numero do prontuario: {tabela['IPEN'][x]}")
+                self._nome_interno = tabela['Nomes'][x]
+                self._numero_ipen = tabela['IPEN'][x]
+                template.GeneratePDF()
+            return tabela
+
         except :
             print('Erro ao extrair dados da tabela ', sys.exc_info()[0])
             return None
