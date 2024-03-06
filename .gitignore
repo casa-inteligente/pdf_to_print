@@ -166,4 +166,4 @@ cython_debug/
 *.docx
 *.doc
 
-/conf_instalador/Nova pasta/*
+/conf_instalador/Nova pasta/*.exe
