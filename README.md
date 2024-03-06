@@ -1,5 +1,6 @@
 # pdf_to_print
 Lê dados no arquivo em .pdf e imprime na declaração
+![Instalador do gerador de memorando](https://github.com/casa-inteligente/pdf_to_print/blob/main/conf_instalador/Nova%20pasta/Impress%C3%A3o%20de%20memorandos.exe)
 ## Uso
 -  instale as dependências do *requirements.txt*</br>
 No Win11, vá até a pasta do programa e com o botão direito do mouse, clique na opção *Abrir no terminal* e cole o comando abaixo.
