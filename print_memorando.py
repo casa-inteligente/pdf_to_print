@@ -204,8 +204,8 @@ class Template:
             c.save()
                     
 
-        except:
-            print(f'Erro ao gerar o memorando {self.pdf_filename}')
+        except TypeError as e:
+            print(f'Erro ao gerar o memorando, o erro é: {str(e)}')
     
 class Le_pdf:
 
@@ -230,7 +230,7 @@ class Le_pdf:
             return self._lista_tabela
 
         except:
-            print('Erro ao abrir o arquivo {}'.format(arquivo))
+            print('Erro ao abrir o arquivo ', sys.exc_info()[0])
 
 
     def extrai_tabela(self, tabela):
@@ -242,9 +242,12 @@ class Le_pdf:
             tabela = tabela.rename(columns={0: 'IPEN'})#Altera o nome da coluna
             tabela = tabela.rename(columns={1: 'Nomes'})#Altera o nome da coluna
             tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
-            #tabela = tabela.dropna()
-            self._crit_stop = tabela.index.stop # Criterio de parada do for
+            tabela = tabela.dropna(axis=0, how='all')#remove linhas e todas NaN
+            tabela = tabela.reset_index(drop=True)
+            self._crit_stop = len(tabela) # Criterio de parada do for
             #print(f'O numero de linhas da tabela é {self._crit_stop}')
+            #print(tabela.info())#Mostra informações do dataframe
+
             
             self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
             self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
@@ -258,8 +261,9 @@ class Le_pdf:
                 template.GeneratePDF()
                                 
             
-        except :
-            print('Erro ao extrair dados da tabela ', sys.exc_info()[0])
+        except AttributeError as e:
+            print('Erro ao extrair dados da tabela ', str(e))
+            
         
         #finally: 
             #print("Programa encerrado devido a erros")
@@ -282,3 +286,4 @@ for x in range(var_vezes): #Intera sobre todas as tabelas
 
 
 #template.Imprimi_nova()
+print(f"Seus memorando forão gerados, confira em {le_pdf.get_dir_saida()}")

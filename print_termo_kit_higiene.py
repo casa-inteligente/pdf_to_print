@@ -225,7 +225,7 @@ class Le_pdf:
                                 
             
         except AttributeError as e:
-            print('Erro ao extrair dados da tabela ', str(e))
+            print('Erro ao extrair dados da tabela, o erro é: ', str(e))
         
         #finally: 
             #print("Programa encerrado devido a erros")
