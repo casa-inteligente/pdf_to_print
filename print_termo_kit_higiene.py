@@ -163,9 +163,12 @@ class Template:
             c.save()  # Salva o documento e fecha
             ##################################################################################################
                     
+        except TypeError as e:
+            print(f'Erro ao gerar os termos, o erro é {str(e)}')
 
-        except: 
-            print(f'Erro ao gerar o Termo de Kit de higiene {self.pdf_filename}')
+        except : 
+            print(f'Erro ao gerar o Termo de Kit de higiene {sys.exc_info()[0]}')
+        
     
 class Le_pdf:
 

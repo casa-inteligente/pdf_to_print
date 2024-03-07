@@ -206,6 +206,9 @@ class Template:
 
         except TypeError as e:
             print(f'Erro ao gerar o memorando, o erro é: {str(e)}')
+
+        except : 
+            print(f'Erro ao gerar o memorando {sys.exc_info()[0]}')
     
 class Le_pdf:
 
@@ -241,9 +244,19 @@ class Le_pdf:
             tabela = tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True) #Cria duas colunas 
             tabela = tabela.rename(columns={0: 'IPEN'})#Altera o nome da coluna
             tabela = tabela.rename(columns={1: 'Nomes'})#Altera o nome da coluna
+            tabela = tabela.dropna(axis=0, how='all')#remove linhas e todas NaN
+            #print(tabela)
             tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
+            ##################
+            # Fazer um for que veifica se a coluna nome é nula 
+            # e concatena a coluna PRONTUARIO+1 na anterior
+            # posterior remove qualquer linha Nula
+            #
+
+
             tabela = tabela.dropna(axis=0, how='all')#remove linhas e todas NaN
             tabela = tabela.reset_index(drop=True)
+            print(tabela)
             self._crit_stop = len(tabela) # Criterio de parada do for
             #print(f'O numero de linhas da tabela é {self._crit_stop}')
             #print(tabela.info())#Mostra informações do dataframe
