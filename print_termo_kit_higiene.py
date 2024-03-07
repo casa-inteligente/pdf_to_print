@@ -234,7 +234,7 @@ tabelas_lida = le_pdf.abre_pdf()
 
 
 var_vezes = len(tabelas_lida) - 1 #Remove o cabechalho 
-
+print("Aguarde seus Termos estão sendo gerados\n")
 for x in range(var_vezes): #Intera sobre todas as tabelas
 #for x in range(1):
     #print(tabelas_lida[x+1])
@@ -242,3 +242,4 @@ for x in range(var_vezes): #Intera sobre todas as tabelas
 
 
 #template.Imprimi_nova()
+print("Seus Termos forãom gerados")
