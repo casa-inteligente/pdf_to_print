@@ -113,7 +113,20 @@ class Le_pdf:
         try:
             df  = pd.concat([pd.DataFrame(tabela) for tabela in self._all_tables])
             self._frist_colu = df.iloc[:,0]
-            print(self._frist_colu)
+            self._frist_colu = self._frist_colu.reset_index(drop=True)
+            self._frist_colu = self._frist_colu.drop([0, 1, 2])
+            self._frist_colu = self._frist_colu.reset_index(drop=True)
+            
+            #print(self._frist_colu)
+            self._crit_stop = len(self._frist_colu)
+            print(f'O criterio de parada é:  {self._crit_stop}')
+            
+            #Implementar for
+            
+            self._numero_ipen, self._nome_interno = self._frist_colu[0].split('-',1)
+            print(f"Numero: {self._numero_ipen}, Nome: {self._nome_interno}")
+           
+
 
           
 
