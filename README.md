@@ -69,3 +69,8 @@ desktop_path = os.path.join(os.environ['USERPROFILE'], 'Área de Trabalho')
 print(desktop_path)
 
 ```
+
+
+
+
+** Após alguns testes percebo a necessidade de muda o uso da ```tabula``` para o ```pdfplumber```.
