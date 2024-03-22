@@ -6,3 +6,4 @@ tabula
 datetime
 reportlab
 os
+pdfplumber

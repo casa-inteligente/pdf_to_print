@@ -21,6 +21,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm
 import sys
 import pandas as pd
+import pdfplumber
 
 class Template:
     def Imprimi_nova(self):
@@ -62,7 +63,7 @@ class Template:
             self.nome_arq_out = f'{le_pdf.get_dir_saida()}\{self.pdf_filename}'
             #print(self.nome_arq_out)
             c = canvas.Canvas(self.nome_arq_out, pagesize=self._page_size)
-            c.setTitle("Momorando de apenado")
+            c.setTitle("Termo higiene")
             c.setAuthor("Natan Ogliari")
             #################################################################################################
             ### Cabeçalho
@@ -184,8 +185,17 @@ class Le_pdf:
             for arquivo in self._diretorio_entrada.glob('*.pdf'):#Arquivo .pdf a ser analisado
                 print(arquivo)
 
-            self._lista_tabela = tabula.io.read_pdf(arquivo, pages=paginas)
-            self.numero_de_tabelas = len(self._lista_tabela)
+            with pdfplumber.open(arquivo) as pdf:
+                 primeira_pagina = pdf.pages[0]
+
+                 tabelas = primeira_pagina.extract_tables()
+
+                 for tabela in tabelas:
+                    df = pd.DataFrame(tabela)
+                    print(df)
+            
+            #self._lista_tabela = tabula.io.read_pdf(arquivo, pages=paginas)
+            #self.numero_de_tabelas = len(self._lista_tabela)
             #print('Possui {} tabelas para uso e um cabechalho' .format(self.numero_de_tabelas-1))
             return self._lista_tabela
 
@@ -197,7 +207,7 @@ class Le_pdf:
         
         try:
             
-            #print('--esta na função extrai_tabelas----')
+            print('--esta na função extrai_tabelas----')
             
             if tabela.empty:
                                 print('Erro: A tabela está vazia.')
@@ -264,3 +274,7 @@ for x in range(var_vezes): #Intera sobre todas as tabelas
     dados_impri = le_pdf.extrai_tabela(tabelas_lida[x+1])
 
 #template.Imprimi_nova()
+    
+    #PDFPlumber
+
+    # converter a tabela em txt ou csv
