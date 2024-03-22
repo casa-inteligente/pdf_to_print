@@ -51,7 +51,7 @@ class Template:
         lista_arq_print = os.listdir(caminho)
         for arquivo in lista_arq_print:
             pass
-            #print("Remover este e habilitar a linha abaixo para imprimir")
+            #print("Remover este, e habilitar a linha abaixo para imprimir")
             #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
     ### FIM ### def Imprimi_nova(self):
             
@@ -93,7 +93,7 @@ class Template:
             c.rect(9 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             c.rect(8 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             c.rect(7 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(6 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            #c.rect(6 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             
             ##Componente assinatura e data
             c.rect(19.5 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo            
@@ -117,23 +117,25 @@ class Template:
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
             c.drawCentredString(20 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
             c.drawRightString(28.5 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(27.5 * cm, -3.3 * cm, 'março/abril')
+            c.drawCentredString(27.5 * cm, -3.3 * cm, 'março')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(25.8 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
 
             ## Componente ao setor
             #Componente setor
-            c.rect(4.8 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(4.8 * cm, 15 * cm, 2 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            #c.rect(5.8 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.rotate(90)
             c.drawString(15.8 * cm, -5.2 * cm, 'AO SETOR')
-            c.setFont("Helvetica-Oblique", 14.3, leading=1)  # Fonte normal
-            c.drawCentredString(20 * cm, -5.5 * cm, 'SOCIAL')
+            c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
+            c.drawString(15.8 * cm, -5.6 * cm, '(  )PSICÓLOGA; (  )DIRETOR; (  )PECÚLIO; (  )EDUCAÇÃO;')
+            c.drawString(15.7 * cm, -6.6 * cm, '(  )SOCIAL; (  )CHEFE DE SEGURANÇA e (  )OUTROS:__________')
             c.rotate(270)
 
             ############################################################################
-            ##INICIO DO SEGUNDO MEMORANDO
+            ##INICIO DO SEGUNDO MEMORANDO (PENAL)
             ##Componente cabechalho
             c.setFont("Helvetica-Oblique", 11, leading=1)  # Fonte normal
             c.rotate(90)
@@ -202,8 +204,11 @@ class Template:
             c.save()
                     
 
-        except:
-            print(f'Erro ao gerar o memorando {self.pdf_filename}')
+        except TypeError as e:
+            print(f'Erro ao gerar o memorando, o erro é: {str(e)}')
+
+        except : 
+            print(f'Erro ao gerar o memorando {sys.exc_info()[0]}')
     
 class Le_pdf:
 
@@ -228,7 +233,7 @@ class Le_pdf:
             return self._lista_tabela
 
         except:
-            print('Erro ao abrir o arquivo {}'.format(arquivo))
+            print('Erro ao abrir o arquivo ', sys.exc_info()[0])
 
 
     def extrai_tabela(self, tabela):
@@ -239,10 +244,23 @@ class Le_pdf:
             tabela = tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True) #Cria duas colunas 
             tabela = tabela.rename(columns={0: 'IPEN'})#Altera o nome da coluna
             tabela = tabela.rename(columns={1: 'Nomes'})#Altera o nome da coluna
+            tabela = tabela.dropna(axis=0, how='all')#remove linhas e todas NaN
+            #print(tabela)
             tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
-            #tabela = tabela.dropna()
-            self._crit_stop = tabela.index.stop # Criterio de parada do for
+            ##################
+            # Fazer um for que veifica se a coluna nome é nula 
+            # e concatena a coluna PRONTUARIO+1 na anterior
+            # posterior remove qualquer linha Nula
+            #
+
+
+            tabela = tabela.dropna(axis=0, how='all')#remove linhas e todas NaN
+            tabela = tabela.reset_index(drop=True)
+            print(tabela)
+            self._crit_stop = len(tabela) # Criterio de parada do for
             #print(f'O numero de linhas da tabela é {self._crit_stop}')
+            #print(tabela.info())#Mostra informações do dataframe
+
             
             self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
             self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
@@ -256,8 +274,9 @@ class Le_pdf:
                 template.GeneratePDF()
                                 
             
-        except :
-            print('Erro ao extrair dados da tabela ', sys.exc_info()[0])
+        except AttributeError as e:
+            print('Erro ao extrair dados da tabela ', str(e))
+            
         
         #finally: 
             #print("Programa encerrado devido a erros")
@@ -272,7 +291,7 @@ tabelas_lida = le_pdf.abre_pdf()
 
 
 var_vezes = len(tabelas_lida) - 1 #Remove o cabechalho 
-
+print("Esta sendo gerado os Memorandos")
 for x in range(var_vezes): #Intera sobre todas as tabelas
 #for x in range(1):
     #print(tabelas_lida[x+1])
@@ -280,3 +299,4 @@ for x in range(var_vezes): #Intera sobre todas as tabelas
 
 
 #template.Imprimi_nova()
+print(f"Seus memorando forão gerados, confira em {le_pdf.get_dir_saida()}")

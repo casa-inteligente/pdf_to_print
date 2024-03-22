@@ -1,5 +1,6 @@
 # pdf_to_print
-Lê dados no arquivo em .pdf e imprime na declaração
+Lê dados no arquivo em .pdf e imprime na declaração <br>
+
 ## Uso
 -  instale as dependências do *requirements.txt*</br>
 No Win11, vá até a pasta do programa e com o botão direito do mouse, clique na opção *Abrir no terminal* e cole o comando abaixo.

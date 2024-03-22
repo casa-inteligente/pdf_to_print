@@ -163,18 +163,20 @@ class Template:
             c.save()  # Salva o documento e fecha
             ##################################################################################################
                     
+        except TypeError as e:
+            print(f'Erro ao gerar os termos, o erro é {str(e)}')
 
-        except:
-            print(f'Erro ao gerar o Termo de Kit de higiene {self.pdf_filename}')
+        except : 
+            print(f'Erro ao gerar o Termo de Kit de higiene {sys.exc_info()[0]}')
+        
     
 class Le_pdf:
 
-    def get_nome_interno(self):
-        #print(self._nome_interno)
+    def get_nome_interno(self):#Obtem o nome do interno sem correr o risco de altera-lá
         return self._nome_interno
-    def get_numero_ipen(self):
+    def get_numero_ipen(self):#Obtem o numero do prontuario do interno sem correr o risco de altera-lá
         return self._numero_ipen
-    def get_dir_saida(self):
+    def get_dir_saida(self):#Obtem diretorio de saída para guardar os termos sem correr o risco de altera-lá
         return self._diretorio_saida
 
     def abre_pdf(self, paginas='all'):
@@ -202,15 +204,22 @@ class Le_pdf:
             tabela = tabela.rename(columns={0: 'IPEN'})#Altera o nome da coluna
             tabela = tabela.rename(columns={1: 'Nomes'})#Altera o nome da coluna
             tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
+            #print(tabela)
             #tabela = tabela.dropna()
-            self._crit_stop = tabela.index.stop # Criterio de parada do for
-            #print(f'O numero de linhas da tabela é {self._crit_stop}')
+            tabela = tabela.dropna(axis=0, how='all')#Linha axis=0
+            #print(tabela)
+            tabela = tabela.reset_index(drop=True)
+            #self._crit_stop = tabela.index.stop # Criterio de parada do for
+            #self._crit_stop1 = tabela.index.max()
+            self._crit_stop1 = len(tabela)
+            #print(f'O numero de linhas da tabela é {len(tabela)}')
+            #print(tabela.info())#Mostra informações do dataframe
             
             self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
             self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
             
-            for x in range(self._crit_stop): #Intera sobre todas as linha
-            #for x in range(1):
+            for x in range(self._crit_stop1): #Intera sobre todas as linha
+            #for x in range(12):
                 #print(f"Nomes do interno: {tabela['Nomes'][x]}")
                 #print(f"Numero do prontuario: {tabela['IPEN'][x]}")
                 self._nome_interno = tabela['Nomes'][x]
@@ -218,8 +227,8 @@ class Le_pdf:
                 template.GeneratePDF()
                                 
             
-        except :
-            print('Erro ao extrair dados da tabela ', sys.exc_info()[0])
+        except AttributeError as e:
+            print('Erro ao extrair dados da tabela, o erro é: ', str(e))
         
         #finally: 
             #print("Programa encerrado devido a erros")
@@ -234,7 +243,7 @@ tabelas_lida = le_pdf.abre_pdf()
 
 
 var_vezes = len(tabelas_lida) - 1 #Remove o cabechalho 
-
+print("Aguarde seus Termos estão sendo gerados\n")
 for x in range(var_vezes): #Intera sobre todas as tabelas
 #for x in range(1):
     #print(tabelas_lida[x+1])
@@ -242,3 +251,4 @@ for x in range(var_vezes): #Intera sobre todas as tabelas
 
 
 #template.Imprimi_nova()
+print("Seus Termos forãom gerados")
