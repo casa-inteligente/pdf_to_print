@@ -157,7 +157,3 @@ le_pdf.extrai_tabela(tabelas_lida)
     #dados_impri = le_pdf.extrai_tabela(tabelas_lida[x+1])
 
 #template.Imprimi_nova()
-    
-    #PDFPlumber
-
-    # converter a tabela em txt ou csv
