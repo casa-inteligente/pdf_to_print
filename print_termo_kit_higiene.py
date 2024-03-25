@@ -11,6 +11,7 @@
 
 import win32api
 import win32print
+import pywintypes
 import datetime as dd
 import os
 from reportlab.lib.pagesizes import A4
@@ -24,39 +25,64 @@ import pandas as pd
 
 class Template:
     def Imprimi_nova(self):
-        lista_impressora = win32print.EnumPrinters(2)# Lista de impressoras no PC
-        #for impressora in lista_impressora:
-            #print(f'Lista a impressora {impressora}')#indice 0 da impressora
-        myImpressora = lista_impressora[0]
-       
-        ### Adicionado para pagar a bandeja manual
-        handle = win32print.OpenPrinter(myImpressora[2])
-        
-        
-        #property = win32print.GetPrinter(handle, 2) #Usualmente '2' é a bandeja manual
-        #property['pDevMode'].__dict__['BinSelection'] = 2
-        #print(property['pDevMode'])
-        #property['pDevMode'].BinSelection = 2
+        try:
+            lista_impressora = win32print.EnumPrinters(2)# Lista de impressoras no PC
+            #for impressora in lista_impressora:
+              #print(f'Lista a impressora {impressora}')#indice 0 da impressora
+            myImpressora = lista_impressora[0]
 
-        #win32print.SetPrinter(handle, 2, property, 0)
-        #win32print.ClosePrinter(handle) #Fecha a configuração
-        ### Fim da bandeja manual
-
-
-        win32print.SetDefaultPrinter(myImpressora[2])
-
-        #seta a pasta e impressão
-        caminho = r"\\10.40.22.35\Plantão\Para Impressão do termo de recebimento\Imprimir"
-        #print(caminho)
-        lista_arq_print = os.listdir(caminho)
-        for arquivo in lista_arq_print:
-            #pass
-            #print("Remover este e habilitar a linha abaixo para imprimir")
-            #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
-            #print(f'o caminho é: {caminho} \n Os arquivo excluidos serão: {arquivo}')
-            os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
-    ### FIM ### def Imprimi_nova(self):
             
+            #print(dir(devmode))  # para listar todos os métodos e atributos
+            #print(PyDEVMODEW.__dict__)  # para ver os atributos e seus valores atuais
+            #help(PyDEVMODEW)  # para obter ajuda sobre o objeto
+            ### Adicionado para pagar a bandeja manual
+
+            
+            handle = win32print.OpenPrinter(myImpressora[2])
+            conf_atual = win32print.GetPrinter(handle, 2)
+            print(conf_atual)
+            print(dir(PyDEVMODE))  # para listar todos os métodos e atributos
+            nova_config = win32print.PyDEVMODE(conf_atual['pDevMode'])
+            
+            # Alterar a bandeja de papel
+            nova_config.DefaultSource = 2#Usualmente '2' é a bandeja manual
+
+            # Atualizar as configurações da impressora
+            win32print.DocumentProperties(None, handle, myImpressora, nova_config, conf_atual, win32print.DM_IN_BUFFER | win32print.DM_OUT_BUFFER)
+            
+            win32print.ClosePrinter(handle) #Fecha a configuração
+            print("Alterou as configuraçoes da impressora")
+            ### Fim da bandeja manual
+
+#https://blog.csdn.net/weixin_48970436/article/details/132737229
+            win32print.SetDefaultPrinter(myImpressora[2])
+
+            #seta a pasta e impressão
+            caminho = r"\\10.40.22.35\Plantão\Para Impressão do termo de recebimento\Imprimir"
+            #print(caminho)
+            lista_arq_print = os.listdir(caminho)
+            for arquivo in lista_arq_print:
+                #pass
+                #print("Remover este e habilitar a linha abaixo para imprimir")
+                #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
+                #print(f'o caminho é: {caminho} \n Os arquivo excluidos serão: {arquivo}')
+                os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
+        ### FIM ### def Imprimi_nova(self):
+        except AttributeError as j:
+            print(f"O erro da impressora é: {j}")
+            
+        
+        except NameError as n:
+            print(f'Erro do tipo NameError é: {n}')
+            
+
+        except : 
+            print(f'Erro da propriedade da impressora {sys.exc_info()[0]}')
+            
+
+
+
+
     def GeneratePDF(self):
         try:
             self._page_size = A4 # Define o tamenho da folha
@@ -229,7 +255,11 @@ class Le_pdf:
                 #print(f"Numero do prontuario: {tabela['IPEN'][x]}")
                 self._nome_interno = tabela['Nomes'][x]
                 self._numero_ipen = tabela['IPEN'][x]
-                template.GeneratePDF()
+                #template.GeneratePDF()
+                if self._nome_interno is None or self._numero_ipen is None:
+                    print('Sem nome e sem numero')
+                else:
+                    template.GeneratePDF()
                                 
             
         except AttributeError as e:
