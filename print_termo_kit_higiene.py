@@ -50,9 +50,11 @@ class Template:
         #print(caminho)
         lista_arq_print = os.listdir(caminho)
         for arquivo in lista_arq_print:
-            pass
+            #pass
             #print("Remover este e habilitar a linha abaixo para imprimir")
             #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
+            #print(f'o caminho é: {caminho} \n Os arquivo excluidos serão: {arquivo}')
+            os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
     ### FIM ### def Imprimi_nova(self):
             
     def GeneratePDF(self):
@@ -165,6 +167,9 @@ class Template:
                     
         except TypeError as e:
             print(f'Erro ao gerar os termos, o erro é {str(e)}')
+        
+        except PermissionError as a:
+            print(f'Erro ao gerar os termos, o erro é de permissão {str(a)}')
 
         except : 
             print(f'Erro ao gerar o Termo de Kit de higiene {sys.exc_info()[0]}')
@@ -250,5 +255,5 @@ for x in range(var_vezes): #Intera sobre todas as tabelas
     dados_impri = le_pdf.extrai_tabela(tabelas_lida[x+1])
 
 
-#template.Imprimi_nova()
+template.Imprimi_nova()
 print("Seus Termos forãom gerados")
