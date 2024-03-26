@@ -3,7 +3,8 @@
 
 #### Primeiro passo:
 rode o __pyinstaller__
-```pyinstaller your_program.py
+```
+pyinstaller your_program.py
 ```
 
 
@@ -18,3 +19,5 @@ Devemos empacotar a pasta print_termo_kit_higiene, que esta em __dist__ para iss
 
 
 ![figura_1](figure/inno/1.png)
+
+![terminal](figure/abri_terminal.png)
