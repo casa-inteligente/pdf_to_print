@@ -121,8 +121,8 @@ class Template:
             c.drawString(15.5 * cm, -3.8 * cm, 'NOME')
             c.drawString(26.2 * cm, -3.8 * cm, 'MATRÍCULA')
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
-            c.drawCentredString(20 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
-            c.drawRightString(28.5 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
+            c.drawCentredString(20 * cm, -4.3 * cm, f'{nome_interno}')
+            c.drawRightString(28.5 * cm, -4.3 * cm, f'{prontuario}')
             c.drawCentredString(27.5 * cm, -3.3 * cm, 'março')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(25.8 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
@@ -161,8 +161,8 @@ class Template:
             c.drawString(0.8 * cm, -3.8 * cm, 'NOME')
             c.drawString(11.5 * cm, -3.8 * cm, 'MATRÍCULA')
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
-            c.drawCentredString(6 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
-            c.drawRightString(14.3 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
+            c.drawCentredString(6 * cm, -4.3 * cm, f'{nome_interno}')
+            c.drawRightString(14.3 * cm, -4.3 * cm, f'{prontuario}')
             c.drawCentredString(12.8 * cm, -3.3 * cm, 'março/abril')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(11 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
@@ -208,11 +208,13 @@ class Template:
             ##FIM componente data e assinatura
             c.showPage()
             c.save()
-                    
+        except OSError as e:
+
+            print(f'Erro ao gerar o PDF, e erro é do tipo OSError\t{e}')            
 
         except:
             #print(f'Erro ao gerar o Termo de Kit de higiene {self.pdf_filename}')
-            print('Tipo de Erro ', sys.exc_info()[0])
+            print('Erro ao gerar o PDF, Tipo de Erro\t', sys.exc_info()[0])
     
 class Le_pdf:
 
@@ -273,6 +275,7 @@ class Le_pdf:
             #Gera os termos
             for x in range(self._crit_stop):
                 self._numero_ipen, self._nome_interno = self._frist_colu[x].split('-',1)
+                self._nome_interno = self._nome_interno.replace('\n', ' ') #Remove o \n
                 #print(f"Numero: {self._numero_ipen}, Nome: {self._nome_interno}")
                 template.GeneratePDF(self._nome_interno, self._numero_ipen, le_pdf.get_dir_saida())
                 
@@ -283,7 +286,7 @@ class Le_pdf:
         
         except :
             print('Erro ao extrair dados da tabela ', sys.exc_info()[0])
-            return None
+            
 
         
         #finally: 
