@@ -61,7 +61,7 @@ class Template:
             #os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
     ### FIM ### def Imprimi_nova(self):
             
-    def GeneratePDF(self, nome_interno, prontuario, diretorio_saida):
+    def GeneratePDF(self):
         try:
             self._page_size = A4 # Define o tamenho da folha
             self.pdf_filename = le_pdf.get_nome_interno() + ".pdf"
@@ -200,9 +200,9 @@ class Le_pdf:
 
             root.withdraw()
             self._arquivo = filedialog.askopenfilename() # escolhe o arquivo
-            print('=================')
-            print(self._arquivo)
-            print('==================')
+            #print('=================')
+            #print(self._arquivo)
+            #print('==================')
 
             with pdfplumber.open(self._arquivo) as pdf:
                  
@@ -232,15 +232,15 @@ class Le_pdf:
             
             #print(self._frist_colu)
             self._crit_stop = len(self._frist_colu)
-            print(f'O criterio de parada é:  {self._crit_stop}')
+            #print(f'O criterio de parada é:  {self._crit_stop}')
             
             #Gera os termos
             for x in range(self._crit_stop):
                 self._numero_ipen, self._nome_interno = self._frist_colu[x].split('-',1)
                 self._nome_interno = self._nome_interno.replace('\n', ' ') #Remove o \n
                 #print(f"Numero: {self._numero_ipen}, Nome: {self._nome_interno}")
-                template.GeneratePDF(self._nome_interno, self._numero_ipen, le_pdf.get_dir_saida())
-                
+                template.GeneratePDF()
+                print(f'Esta no número {x+1} de {self._crit_stop}, no Termo de Recebimento do: {le_pdf.get_nome_interno()}')
            
           
         except AttributeError as e:
@@ -265,4 +265,4 @@ tabelas_lida = le_pdf.abre_pdf()
 le_pdf.extrai_tabela(tabelas_lida)
 
 
-template.Imprimi_nova()
+#template.Imprimi_nova()#Para impressão dos memorandos

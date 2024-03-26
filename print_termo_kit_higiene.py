@@ -11,7 +11,6 @@
 
 import win32api
 import win32print
-import pywintypes
 import datetime as dd
 import os
 from reportlab.lib.pagesizes import A4
@@ -22,67 +21,46 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm
 import sys
 import pandas as pd
+import pdfplumber
+import tkinter as tk
+from tkinter import filedialog
 
 class Template:
     def Imprimi_nova(self):
-        try:
-            lista_impressora = win32print.EnumPrinters(2)# Lista de impressoras no PC
-            #for impressora in lista_impressora:
-              #print(f'Lista a impressora {impressora}')#indice 0 da impressora
-            myImpressora = lista_impressora[0]
-
-            
-            #print(dir(devmode))  # para listar todos os métodos e atributos
-            #print(PyDEVMODEW.__dict__)  # para ver os atributos e seus valores atuais
-            #help(PyDEVMODEW)  # para obter ajuda sobre o objeto
-            ### Adicionado para pagar a bandeja manual
-
-            
-            handle = win32print.OpenPrinter(myImpressora[2])
-            conf_atual = win32print.GetPrinter(handle, 2)
-            print(conf_atual)
-            print(dir(PyDEVMODE))  # para listar todos os métodos e atributos
-            nova_config = win32print.PyDEVMODE(conf_atual['pDevMode'])
-            
-            # Alterar a bandeja de papel
-            nova_config.DefaultSource = 2#Usualmente '2' é a bandeja manual
-
-            # Atualizar as configurações da impressora
-            win32print.DocumentProperties(None, handle, myImpressora, nova_config, conf_atual, win32print.DM_IN_BUFFER | win32print.DM_OUT_BUFFER)
-            
-            win32print.ClosePrinter(handle) #Fecha a configuração
-            print("Alterou as configuraçoes da impressora")
-            ### Fim da bandeja manual
-
-#https://blog.csdn.net/weixin_48970436/article/details/132737229
-            win32print.SetDefaultPrinter(myImpressora[2])
-
-            #seta a pasta e impressão
-            caminho = r"\\10.40.22.35\Plantão\Para Impressão do termo de recebimento\Imprimir"
-            #print(caminho)
-            lista_arq_print = os.listdir(caminho)
-            for arquivo in lista_arq_print:
-                #pass
-                #print("Remover este e habilitar a linha abaixo para imprimir")
-                #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
-                #print(f'o caminho é: {caminho} \n Os arquivo excluidos serão: {arquivo}')
-                os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
-        ### FIM ### def Imprimi_nova(self):
-        except AttributeError as j:
-            print(f"O erro da impressora é: {j}")
-            
+        lista_impressora = win32print.EnumPrinters(2)# Lista de impressoras no PC
+        #for impressora in lista_impressora:
+            #print(f'Lista a impressora {impressora}')#indice 0 da impressora
+        myImpressora = lista_impressora[0]
+       
+        ### Adicionado para pagar a bandeja manual
+        handle = win32print.OpenPrinter(myImpressora[2])
         
-        except NameError as n:
-            print(f'Erro do tipo NameError é: {n}')
+        
+        #property = win32print.GetPrinter(handle, 2) #Usualmente '2' é a bandeja manual
+        #property['pDevMode'].__dict__['BinSelection'] = 2
+        #print(property['pDevMode'])
+        #property['pDevMode'].BinSelection = 2
+
+        #win32print.SetPrinter(handle, 2, property, 0)
+        #win32print.ClosePrinter(handle) #Fecha a configuração
+        ### Fim da bandeja manual
+
+
+        win32print.SetDefaultPrinter(myImpressora[2])
+
+        #seta a pasta e impressão
+        caminho = r"\\10.40.22.35\Plantão\Para Impressão do termo de recebimento\Imprimir"
+        #print(caminho)
+        lista_arq_print = os.listdir(caminho)
+        
+        for arquivo in lista_arq_print:
+            pass
+            #print("Remover este e habilitar a linha abaixo para imprimir")
+            #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
+            #print(f'o caminho é: {caminho} \n Os arquivo excluidos serão: {arquivo}')
+            #os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
+    ### FIM ### def Imprimi_nova(self):
             
-
-        except : 
-            print(f'Erro da propriedade da impressora {sys.exc_info()[0]}')
-            
-
-
-
-
     def GeneratePDF(self):
         try:
             self._page_size = A4 # Define o tamenho da folha
@@ -90,7 +68,7 @@ class Template:
             self.nome_arq_out = f'{le_pdf.get_dir_saida()}\{self.pdf_filename}'
             #print(self.nome_arq_out)
             c = canvas.Canvas(self.nome_arq_out, pagesize=self._page_size)
-            c.setTitle("Momorando de apenado")
+            c.setTitle("Termo de Kit de higienes")
             c.setAuthor("Natan Ogliari")
             #################################################################################################
             ### Cabeçalho
@@ -199,71 +177,79 @@ class Template:
 
         except : 
             print(f'Erro ao gerar o Termo de Kit de higiene {sys.exc_info()[0]}')
-        
     
 class Le_pdf:
 
-    def get_nome_interno(self):#Obtem o nome do interno sem correr o risco de altera-lá
+    def get_nome_interno(self):
+        #print(self._nome_interno)
         return self._nome_interno
-    def get_numero_ipen(self):#Obtem o numero do prontuario do interno sem correr o risco de altera-lá
+    def get_numero_ipen(self):
         return self._numero_ipen
-    def get_dir_saida(self):#Obtem diretorio de saída para guardar os termos sem correr o risco de altera-lá
-        return self._diretorio_saida
+    def get_dir_saida(self):
+         self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
+         self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
+         return self._diretorio_saida
+    
 
     def abre_pdf(self, paginas='all'):
         try:
-            self._diretorio_entrada = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/")
+            #self._diretorio_entrada = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/")
 
-            for arquivo in self._diretorio_entrada.glob('*.pdf'):#Arquivo .pdf a ser analisado
-                print(arquivo)
+            #for arquivo in self._diretorio_entrada.glob('*.pdf'):#Arquivo .pdf a ser analisado
+                #print(arquivo)
 
-            self._lista_tabela = tabula.io.read_pdf(arquivo, pages=paginas)
-            self.numero_de_tabelas = len(self._lista_tabela)
-            #print('Possui {} tabelas para uso e um cabechalho' .format(self.numero_de_tabelas-1))
-            return self._lista_tabela
+            root.withdraw()
+            self._arquivo = filedialog.askopenfilename() # escolhe o arquivo
+            #print('=================')
+            #print(self._arquivo)
+            #print('==================')
+
+            with pdfplumber.open(self._arquivo) as pdf:
+                 
+                 self._all_tables = []
+
+                 for pagina in pdf.pages:
+                    self._tables = pagina.extract_tables()
+
+                    for table in self._tables:
+                        self._all_tables.append(table)
+            
+                 #print (self._all_tables)
+            return self._all_tables
 
         except:
-            print('Erro ao abrir o arquivo {}'.format(arquivo))
+            print('Erro ao abrir o arquivo {}'.format(self._arquivo))
 
 
     def extrai_tabela(self, tabela):
         
         try:
+            df  = pd.concat([pd.DataFrame(tabela) for tabela in self._all_tables])
+            self._frist_colu = df.iloc[:,0]
+            self._frist_colu = self._frist_colu.reset_index(drop=True)
+            self._frist_colu = self._frist_colu.drop([0, 1, 2])
+            self._frist_colu = self._frist_colu.reset_index(drop=True)
             
+            #print(self._frist_colu)
+            self._crit_stop = len(self._frist_colu)
+            #print(f'O criterio de parada é:  {self._crit_stop}')
             
-            tabela = tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True) #Cria duas colunas 
-            tabela = tabela.rename(columns={0: 'IPEN'})#Altera o nome da coluna
-            tabela = tabela.rename(columns={1: 'Nomes'})#Altera o nome da coluna
-            tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
-            #print(tabela)
-            #tabela = tabela.dropna()
-            tabela = tabela.dropna(axis=0, how='all')#Linha axis=0
-            #print(tabela)
-            tabela = tabela.reset_index(drop=True)
-            #self._crit_stop = tabela.index.stop # Criterio de parada do for
-            #self._crit_stop1 = tabela.index.max()
-            self._crit_stop1 = len(tabela)
-            #print(f'O numero de linhas da tabela é {len(tabela)}')
-            #print(tabela.info())#Mostra informações do dataframe
-            
-            self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
-            self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
-            
-            for x in range(self._crit_stop1): #Intera sobre todas as linha
-            #for x in range(12):
-                #print(f"Nomes do interno: {tabela['Nomes'][x]}")
-                #print(f"Numero do prontuario: {tabela['IPEN'][x]}")
-                self._nome_interno = tabela['Nomes'][x]
-                self._numero_ipen = tabela['IPEN'][x]
-                #template.GeneratePDF()
-                if self._nome_interno is None or self._numero_ipen is None:
-                    print('Sem nome e sem numero')
-                else:
-                    template.GeneratePDF()
-                                
-            
+            #Gera os termos
+            for x in range(self._crit_stop):
+                self._numero_ipen, self._nome_interno = self._frist_colu[x].split('-',1)
+                self._nome_interno = self._nome_interno.replace('\n', ' ') #Remove o \n
+                #print(f"Numero: {self._numero_ipen}, Nome: {self._nome_interno}")
+                template.GeneratePDF()
+                print(f'Esta no número {x+1} de {self._crit_stop}, no Termo de Recebimento do: {le_pdf.get_nome_interno()}')
+           
+          
         except AttributeError as e:
-            print('Erro ao extrair dados da tabela, o erro é: ', str(e))
+            print(f'O erro é {e}')
+        
+        except :
+            print('Erro ao extrair dados da tabela ', sys.exc_info()[0])
+            
+
         
         #finally: 
             #print("Programa encerrado devido a erros")
@@ -273,17 +259,10 @@ class Le_pdf:
 
 template = Template() #Instância a classe Template
 le_pdf = Le_pdf()
+root = tk.Tk()
 
 tabelas_lida = le_pdf.abre_pdf()
+le_pdf.extrai_tabela(tabelas_lida)
 
 
-var_vezes = len(tabelas_lida) - 1 #Remove o cabechalho 
-print("Aguarde seus Termos estão sendo gerados\n")
-for x in range(var_vezes): #Intera sobre todas as tabelas
-#for x in range(1):
-    #print(tabelas_lida[x+1])
-    dados_impri = le_pdf.extrai_tabela(tabelas_lida[x+1])
-
-
-template.Imprimi_nova()
-print("Seus Termos forãom gerados")
+#template.Imprimi_nova()#Para impressão dos memorandos
