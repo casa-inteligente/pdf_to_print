@@ -54,167 +54,129 @@ class Template:
         lista_arq_print = os.listdir(caminho)
         
         for arquivo in lista_arq_print:
-            #pass
+            pass
             #print("Remover este e habilitar a linha abaixo para imprimir")
             #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
-            print(f'o caminho é: {caminho} \n Os arquivo excluidos serão: {arquivo}')
+            #print(f'o caminho é: {caminho} \n Os arquivo excluidos serão: {arquivo}')
             #os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
     ### FIM ### def Imprimi_nova(self):
             
     def GeneratePDF(self, nome_interno, prontuario, diretorio_saida):
         try:
             self._page_size = A4 # Define o tamenho da folha
-            self.pdf_filename = nome_interno + ".pdf"
-            self.nome_arq_out = f'{diretorio_saida}\{self.pdf_filename}'
+            self.pdf_filename = le_pdf.get_nome_interno() + ".pdf"
+            self.nome_arq_out = f'{le_pdf.get_dir_saida()}\{self.pdf_filename}'
             #print(self.nome_arq_out)
             c = canvas.Canvas(self.nome_arq_out, pagesize=self._page_size)
-            c.setTitle("Momorando de apenado")
+            c.setTitle("Termo de Kit de higienes")
             c.setAuthor("Natan Ogliari")
             #################################################################################################
             ### Cabeçalho
-            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
+            c.setFillColor(aColor='black', alpha=.8)  # Cor Cinza
+            c.setFont("Helvetica-Oblique", 10)
+            c.drawImage('figure/logo.png', 2 * cm, 760, width=60, height=60) #Logo do estado
+            c.drawString(4.5 * cm, 800, "ESTADO DE SANTA CATARINA")
+            c.drawString(4.5 * cm, 785, "SECRETARIA DE ESTADO DA ADMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
+            c.drawString(4.5 * cm, 770, 'PRESÍDIO MARAVILHA')
+            ################
+            #### Rodapé
+            # c.setFillColor(aColor='gray')  # Cor Cinza
+            c.setFillColor(aColor='black', alpha=.8)
+            # c.setFillColorRGB(.662 ,.662, .662, 1)
+            c.setFont("Helvetica-Oblique", 8)
+            c.drawCentredString(300, 70, 'POLÍCIA PENAL DE SANTA CATARINA', mode=None, charSpace=0)
+            c.drawCentredString(300, 60, 'Presídio de Maravilha', mode=None, charSpace=0)
+            c.drawCentredString(300, 50, 'Av. Sul Brasil, n. 1607, centro - CEP 89874-000 - Maravilha/SC', mode=None, charSpace=0)
+            c.drawCentredString(300, 40, 'Fone: (49) 3664 - 6672 / e-mail: pr29@pp.sc.gov.br', mode=None, charSpace=0)
+
+            ### Titulo do documento
             c.setFillColor(aColor='black')  # Cor preto
-            #INICIO PRIMEIRO MEMORANDO
-            #Componente Cabechalho
-            c.setFont("Helvetica-Oblique", 11, leading=1)  # Fonte normal
-            c.rotate(90)
-            c.drawImage('figure/logo.png', 15 * cm, -3 * cm, width=2*cm, height=2*cm)
-            c.drawString(17.5 * cm, -1.5 * cm, "ESTADO DE SANTA CATARINA")
-            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
-            c.drawString(17.5 * cm, -1.9 * cm, "SECRETARIA DE ESTADO DA ADIMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
-            c.drawString(17.5 * cm, -2.3 * cm, "PRESÍDIO DE MARAVILHA")
-            c.rotate(270)
-
-
-            ##Componente ESCRITA 
-            c.rect(18 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(17 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(16 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(15 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(14 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(13 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(12 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(11 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(10 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(9 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(8 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(7 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            #c.rect(6 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            
-            ##Componente assinatura e data
-            c.rect(19.5 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo            
-            c.rect(19.5 * cm, 15 * cm, 1 * cm, 3 * cm, fill=0)  # para criar retangulo
-            c.rotate(90)
-            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
-            c.drawString(15 * cm, -19.3 * cm, 'APENADO')
-            c.drawCentredString(15.5 * cm, -19.8 * cm, 'DATA')
-            c.drawCentredString(19 * cm, -19.8 * cm, 'ASSINATURA')
-            c.rotate(270)
-
-            #Componente Nome e Matricula
-            c.rect(4.8 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo "ao setor"
-            c.rect(3.5 * cm, 15 * cm, 1 * cm, 11 * cm, fill=0)  # para criar retangulo "NOME"
-            c.rect(3.5 * cm, 26 * cm, 1 * cm, 3.3 * cm) # para criar retangulo "Matricula"
-            c.rect(2.5 * cm, 26 * cm, 1 * cm, 3.3 * cm, fill=0)  # para criar retangulo periiodo
-            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
-            c.rotate(90)
-            c.drawString(15.5 * cm, -3.8 * cm, 'NOME')
-            c.drawString(26.2 * cm, -3.8 * cm, 'MATRÍCULA')
-            c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
-            c.drawCentredString(20 * cm, -4.3 * cm, f'{nome_interno}')
-            c.drawRightString(28.5 * cm, -4.3 * cm, f'{prontuario}')
-            c.drawCentredString(27.5 * cm, -3.3 * cm, 'março')
+            c.setFont("Helvetica-Bold", 12)  # Negrito
+            c.drawCentredString(10.5 * cm, 730, 'TERMO DE RECEBIMENTO')
+            c.drawString(2 * cm, 680, 'Instruções:')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
-            c.drawRightString(25.8 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
-            c.rotate(270)
+            c.drawString(2 * cm, 650, '01) Os internos devem assinalar a opção com um "X";')
+            c.drawString(2 * cm, 630, '02) Na opção "Observação" descrever o que está sendo entregue (tamanho e quantidade')
+            c.drawString(2 * cm, 610, 'de uniforme);')
+            c.drawString(2 * cm, 590, '03) O termo de recebimento, devidamente assinado, deverá ser digitalizado e arquivado')
+            c.drawString(2 * cm, 570, 'no IPEN do interno;')
+            c.rect(2 * cm, 10 * cm, 17 * cm, 9 * cm, fill=0)  # para criar retangulo
 
-            ## Componente ao setor
-            #Componente setor
-            c.rect(4.8 * cm, 15 * cm, 2 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            #c.rect(5.8 * cm, 15 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
-            c.rotate(90)
-            c.drawString(15.8 * cm, -5.2 * cm, 'AO SETOR')
-            c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
-            c.drawString(15.8 * cm, -5.6 * cm, '(  )PSICÓLOGA; (  )DIRETOR; (  )PECÚLIO; (  )EDUCAÇÃO;')
-            c.drawString(15.7 * cm, -6.6 * cm, '(  )SOCIAL; (  )CHEFE DE SEGURANÇA e (  )OUTROS:__________')
-            c.rotate(270)
+            ## data do sistema no formato BR
+            hoje = dd.datetime.now()
+            hoje_br = hoje.strftime("%d/%m/%Y")
+            # print(hoje_br)
+            # Componente no nome
+            c.rect(2 * cm, 19 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
+            c.drawString(2 * cm, 19.1 * cm, f'  INTERNO: {le_pdf.get_nome_interno()}')
+            # Componente Ipem
+            c.rect(2 * cm, 18.5 * cm, 8.5 * cm, .5 * cm, fill=0)  # para criar retangulo
+            c.drawString(2 * cm, 18.6 * cm, f'  IPEN:      {le_pdf.get_numero_ipen()}')
+            # Componente data
+            c.rect(10.5 * cm, 18.5 * cm, 8.5 * cm, .5 * cm, fill=0)  # para criar retangulo
+            c.drawString(10.5 * cm, 18.6 * cm, f'    DATA:  {hoje_br}')
+            ## Componentes das informaçõe das coisas entregues
+            ## Componente do kit higiene
+            c.rect(2 * cm, 18 * cm, 4 * cm, .5 * cm, fill=0)  # para criar retangulo
+            c.rect(6 * cm, 18 * cm, 13 * cm, .5 * cm, fill=0)  # para criar retangulo
+            c.drawString(6 * cm, 18.1 * cm, ' Kit higiene')
+            ## Componente Uniforme
+            c.rect(2 * cm, 17.5 * cm, 4 * cm, .5 * cm, fill=0)  # para criar retangulo
+            c.rect(6 * cm, 17.5 * cm, 13 * cm, .5 * cm, fill=0)  # para criar retangulo
+            c.drawString(6 * cm, 17.6 * cm, ' Uniforme')
+            # Componente cobertor
+            c.rect(2 * cm, 17 * cm, 4 * cm, .5 * cm, fill=0)  # para criar retangulo
+            c.rect(6 * cm, 17 * cm, 13 * cm, .5 * cm, fill=0)  # para criar retangulo
+            c.drawString(6 * cm, 17.1 * cm, ' Cobertor')
 
-            ############################################################################
-            ##INICIO DO SEGUNDO MEMORANDO (PENAL)
-            ##Componente cabechalho
-            c.setFont("Helvetica-Oblique", 11, leading=1)  # Fonte normal
-            c.rotate(90)
-            c.drawImage('figure/logo.png', 0.2 * cm, -3 * cm, width=2*cm, height=2*cm)
-            c.drawString(2.5 * cm, -1.5 * cm, "ESTADO DE SANTA CATARINA")
-            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
-            c.drawString(2.5 * cm, -1.9 * cm, "SECRETARIA DE ESTADO DA ADIMINISTRAÇÃO PRISIONAL E SOCIOEDUCATIVA")
-            c.drawString(2.5 * cm, -2.3 * cm, "PRESÍDIO DE MARAVILHA")
-            c.rotate(270)
-            
-            #Componente Nome e Matricula
-            c.rect(3.5 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(3.5 * cm, 0.2 * cm, 1 * cm, 11 * cm, fill=0)  # para criar retangulo
-            c.rect(2.5 * cm, 11.2 * cm, 1 * cm, 3.3 * cm, fill=0)  # para criar retangulo periiodo
-            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
-            c.rotate(90)
-            c.drawString(0.8 * cm, -3.8 * cm, 'NOME')
-            c.drawString(11.5 * cm, -3.8 * cm, 'MATRÍCULA')
-            c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
-            c.drawCentredString(6 * cm, -4.3 * cm, f'{nome_interno}')
-            c.drawRightString(14.3 * cm, -4.3 * cm, f'{prontuario}')
-            c.drawCentredString(12.8 * cm, -3.3 * cm, 'março/abril')
-            c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
-            c.drawRightString(11 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
-            c.rotate(270)
+            # Componente Observação
+            c.setFillColor(aColor='black')  # Cor preto
+            c.setFont("Helvetica-Bold", 12)  # Negrito
+            c.rect(2 * cm, 16.5 * cm, 4 * cm, .5 * cm, fill=0)  # para criar retangulo
+            c.drawString(2 * cm, 16.6 * cm, '    Observação:')
+            c.rect(6 * cm, 16.5 * cm, 13 * cm, .5 * cm, fill=0)  # para criar retangulo
 
+            c.setFillColor(aColor='black')  # Cor preto
+            c.setFont("Helvetica-Oblique", 12)
+            c.rect(2 * cm, 16 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
+            c.drawString(2 * cm, 16.1 * cm, '  Se uniforme, quantidade e tamanho.')
+            c.rect(2 * cm, 15.5 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
+            c.drawAlignedString(15 * cm, 15.6 * cm, "KIT DE HIGIENE: 01 ESCOVA DE DENTE, 01 CREME DENTAL, 03 ROLOS DE PAPEL")
+            c.drawAlignedString(18.5 * cm, 15.1 * cm, "HIGIÊNICO, 04 BARBEADORES, 01 DESODORANTE LIQUIDO E 01 SABONETE.    ")
+            c.rect(2 * cm, 15 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
+            c.rect(2 * cm, 14.5 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
+            c.rect(2 * cm, 14 * cm, 17 * cm, .5 * cm, fill=0)  # para criar retangulo
 
-            #Componente setor
-            c.rect(4.8 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
-            c.rotate(90)
-            c.drawString(0.8 * cm, -5.2 * cm, 'AO SETOR')
-            c.setFont("Helvetica-Oblique", 14.3, leading=1)  # Fonte normal
-            c.drawCentredString(7 * cm, -5.5 * cm, 'PENAL')
-            c.rotate(270)
+            c.setFont("Helvetica-Oblique", 12)
+            ## Componente recebido em
+            c.setFillColor(aColor='black')  # Cor preto
+            c.setFont("Helvetica-Bold", 12)  # Negrito
+            c.drawString(2 * cm, 220, 'Recebido em ______/______/__________.')
 
-            ##Componente linhas para escrever o memorando
-            #c.rect(6 * cm, 0.2 * cm, 13 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(18 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(17 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(16 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(15 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(14 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(13 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(12 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(11 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(10 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(9 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(8 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(7 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(6 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            
-            
-            #Componente de data e assinatura
-            #c.rect(19.5 * cm, 0.5 * cm, 1 * cm, 14 * cm, fill=0)  # para criar retangulo
-            c.rect(19.5 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(19.5 * cm, 0.2 * cm, 1 * cm, 3 * cm, fill=0)  # para criar retangulo
-            c.rotate(90)
-            c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
-            c.drawString(0.2 * cm, -19.3 * cm, 'APENADO')
-            c.drawCentredString(.8 * cm, -19.8 * cm, 'DATA')
-            c.drawCentredString(4.2 * cm, -19.8 * cm, 'ASSINATURA')
-            c.rotate(270)
-            ##FIM componente data e assinatura
+            ## Assinaura do interno
+            c.setFillColor(aColor='black')  # Cor preto
+            c.setFont("Helvetica-Bold", 12)  # Negrito
+            c.drawString(2 * cm, 170, '___________________________________')
+            c.drawString(2 * cm, 155, le_pdf.get_nome_interno())
+
+            ## Assinatura do servidor
+            c.setFillColor(aColor='black')  # Cor preto
+            c.setFont("Helvetica-Bold", 12)  # Negrito
+            c.drawString(2 * cm, 110, '___________________________________')
+            c.drawString(2 * cm, 95, 'Assinatura do servidor (nome completo).')
+
             c.showPage()
-            c.save()
-        except OSError as e:
+            c.save()  # Salva o documento e fecha
+            ##################################################################################################
+                    
+        except TypeError as e:
+            print(f'Erro ao gerar os termos, o erro é {str(e)}')
+        
+        except PermissionError as a:
+            print(f'Erro ao gerar os termos, o erro é de permissão {str(a)}')
 
-            print(f'Erro ao gerar o PDF, e erro é do tipo OSError\t{e}')            
-
-        except:
-            #print(f'Erro ao gerar o Termo de Kit de higiene {self.pdf_filename}')
-            print('Erro ao gerar o PDF, Tipo de Erro\t', sys.exc_info()[0])
+        except : 
+            print(f'Erro ao gerar o Termo de Kit de higiene {sys.exc_info()[0]}')
     
 class Le_pdf:
 
@@ -303,4 +265,4 @@ tabelas_lida = le_pdf.abre_pdf()
 le_pdf.extrai_tabela(tabelas_lida)
 
 
-#template.Imprimi_nova()
+template.Imprimi_nova()

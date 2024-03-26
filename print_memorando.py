@@ -14,13 +14,14 @@ import win32print
 import datetime as dd
 import os
 from reportlab.lib.pagesizes import A4
-import tabula
-from tabula.io import read_pdf
 from pathlib import Path
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm
 import sys
 import pandas as pd
+import pdfplumber
+import tkinter as tk
+from tkinter import filedialog
 
 class Template:
     def Imprimi_nova(self):
@@ -49,10 +50,13 @@ class Template:
         caminho = r"\\10.40.22.35\Plantão\Para Impressão do termo de recebimento\Imprimir"
         #print(caminho)
         lista_arq_print = os.listdir(caminho)
+        
         for arquivo in lista_arq_print:
             pass
-            #print("Remover este, e habilitar a linha abaixo para imprimir")
+            #print("Remover este e habilitar a linha abaixo para imprimir")
             #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
+            #print(f'o caminho é: {caminho} \n Os arquivo excluidos serão: {arquivo}')
+            #os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
     ### FIM ### def Imprimi_nova(self):
             
     def GeneratePDF(self):
@@ -64,8 +68,8 @@ class Template:
             c = canvas.Canvas(self.nome_arq_out, pagesize=self._page_size)
             c.setTitle("Momorando de apenado")
             c.setAuthor("Natan Ogliari")
-            
-
+            #################################################################################################
+            ### Cabeçalho
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.setFillColor(aColor='black')  # Cor preto
             #INICIO PRIMEIRO MEMORANDO
@@ -202,13 +206,17 @@ class Template:
             ##FIM componente data e assinatura
             c.showPage()
             c.save()
-                    
 
-        except TypeError as e:
-            print(f'Erro ao gerar o memorando, o erro é: {str(e)}')
+        except OSError as e:
+            print(f'Erro ao gerar o PDF, e erro é do tipo OSError\t{e}')            
 
-        except : 
-            print(f'Erro ao gerar o memorando {sys.exc_info()[0]}')
+        except NameError as f:
+            print(f'Erro ao gerar o PDF, e erro é do tipo NameError\t{f}')
+        except TypeError as t:
+            print(f'Erro ao gerar o PDF, e erro é do tipo TypeError\t{t}')
+        except:
+            #print(f'Erro ao gerar o Termo de Kit de higiene {self.pdf_filename}')
+            print('Erro ao gerar o PDF, Tipo de Erro\t', sys.exc_info()[0])
     
 class Le_pdf:
 
@@ -218,65 +226,71 @@ class Le_pdf:
     def get_numero_ipen(self):
         return self._numero_ipen
     def get_dir_saida(self):
-        return self._diretorio_saida
+         self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
+         self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
+         return self._diretorio_saida
+    
 
     def abre_pdf(self, paginas='all'):
         try:
-            self._diretorio_entrada = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/")
+            #self._diretorio_entrada = Path(r"\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/")
 
-            for arquivo in self._diretorio_entrada.glob('*.pdf'):
-                print(f'O .pdf lido é: {arquivo}')
+            #for arquivo in self._diretorio_entrada.glob('*.pdf'):#Arquivo .pdf a ser analisado
+                #print(arquivo)
 
-            self._lista_tabela = tabula.io.read_pdf(arquivo, pages=paginas)
-            self.numero_de_tabelas = len(self._lista_tabela)
-            #print('Possui {} tabelas para uso e um cabechalho' .format(self.numero_de_tabelas-1))
-            return self._lista_tabela
+            root.withdraw()
+            self._arquivo = filedialog.askopenfilename() # escolhe o arquivo
+            #print('=================')
+            #print(self._arquivo)
+            #print('==================')
+
+            with pdfplumber.open(self._arquivo) as pdf:
+                 
+                 self._all_tables = []
+
+                 for pagina in pdf.pages:
+                    self._tables = pagina.extract_tables()
+
+                    for table in self._tables:
+                        self._all_tables.append(table)
+            
+                 #print (self._all_tables)
+            return self._all_tables
 
         except:
-            print('Erro ao abrir o arquivo ', sys.exc_info()[0])
+            print('Erro ao abrir o arquivo {}'.format(self._arquivo))
 
 
     def extrai_tabela(self, tabela):
         
         try:
+            df  = pd.concat([pd.DataFrame(tabela) for tabela in self._all_tables])
+            self._frist_colu = df.iloc[:,0]
+            self._frist_colu = self._frist_colu.reset_index(drop=True)
+            self._frist_colu = self._frist_colu.drop([0, 1, 2])
+            self._frist_colu = self._frist_colu.reset_index(drop=True)
             
-            
-            tabela = tabela['PRONTUÁRIO | NOME'].str.split(' - ', expand=True) #Cria duas colunas 
-            tabela = tabela.rename(columns={0: 'IPEN'})#Altera o nome da coluna
-            tabela = tabela.rename(columns={1: 'Nomes'})#Altera o nome da coluna
-            tabela = tabela.dropna(axis=0, how='all')#remove linhas e todas NaN
-            #print(tabela)
-            tabela['Nomes'] = tabela['Nomes'].replace(to_replace=r'\r', value=' ', regex=True)#remove o \r
-            ##################
-            # Fazer um for que veifica se a coluna nome é nula 
-            # e concatena a coluna PRONTUARIO+1 na anterior
-            # posterior remove qualquer linha Nula
-            #
-
-
-            tabela = tabela.dropna(axis=0, how='all')#remove linhas e todas NaN
-            tabela = tabela.reset_index(drop=True)
-            print(tabela)
-            self._crit_stop = len(tabela) # Criterio de parada do for
-            #print(f'O numero de linhas da tabela é {self._crit_stop}')
-            #print(tabela.info())#Mostra informações do dataframe
-
-            
-            self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
-            self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
-            
-            for x in range(self._crit_stop): #Intera sobre todas as linha
-            #for x in range(1):
-                #print(f"Nomes do interno: {tabela['Nomes'][x]}")
-                #print(f"Numero do prontuario: {tabela['IPEN'][x]}")
-                self._nome_interno = tabela['Nomes'][x]
-                self._numero_ipen = tabela['IPEN'][x]
+            #print(self._frist_colu)
+            self._crit_stop = len(self._frist_colu)
+            #print(f'O criterio de parada é:  {self._crit_stop}')
+            #print('Irá gerar 138 Memorandos')
+            #Gera os termos
+            for x in range(self._crit_stop):
+                self._numero_ipen, self._nome_interno = self._frist_colu[x].split('-',1)
+                self._nome_interno = self._nome_interno.replace('\n', ' ') #Remove o \n
+                #print(f"Numero: {self._numero_ipen}, Nome: {self._nome_interno}")
                 template.GeneratePDF()
-                                
-            
+                print(f'Esta no número {x+1} de {self._crit_stop}, no memorando do: {le_pdf.get_nome_interno()}')
+                
+           
+          
         except AttributeError as e:
-            print('Erro ao extrair dados da tabela ', str(e))
+            print(f'O erro é {e}')
+        
+        except :
+            print('Erro ao extrair dados da tabela ', sys.exc_info()[0])
             
+
         
         #finally: 
             #print("Programa encerrado devido a erros")
@@ -286,17 +300,10 @@ class Le_pdf:
 
 template = Template() #Instância a classe Template
 le_pdf = Le_pdf()
+root = tk.Tk()
 
 tabelas_lida = le_pdf.abre_pdf()
+le_pdf.extrai_tabela(tabelas_lida)
 
 
-var_vezes = len(tabelas_lida) - 1 #Remove o cabechalho 
-print("Esta sendo gerado os Memorandos")
-for x in range(var_vezes): #Intera sobre todas as tabelas
-#for x in range(1):
-    #print(tabelas_lida[x+1])
-    dados_impri = le_pdf.extrai_tabela(tabelas_lida[x+1])
-
-
-#template.Imprimi_nova()
-print(f"Seus memorando forão gerados, confira em {le_pdf.get_dir_saida()}")
+#template.Imprimi_nova()#Para impressão dos memorandos
