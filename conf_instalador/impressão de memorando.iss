@@ -1,6 +1,6 @@
 
 #define MyAppName "Impressão de memorandos"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.1"
 #define MyAppPublisher "Ogliari"
 #define MyAppURL "https://github.com/casa-inteligente"
 #define MyAppSupport "https://github.com/casa-inteligente/pdf_to_print/issues/17"
@@ -31,7 +31,7 @@ InfoBeforeFile={#PathApp}\conf_instalador\Antes.txt
 InfoAfterFile={#PathApp}\conf_instalador\Depois.txt
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
-OutputDir={#PathApp}\conf_instalador\Nova pasta
+OutputDir={#PathApp}\conf_instalador\instalador
 OutputBaseFilename=Impressão de memorandos
 SetupIconFile={#PathApp}\figure\este.ico
 Compression=lzma
