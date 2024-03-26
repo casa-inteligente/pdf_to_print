@@ -9,9 +9,9 @@ rode o __pyinstaller__
 
 #### Segundo passo:
 ##### para o print_memorando.py
-Rodando o __innosetup__
+Devemos empacotar a pasta print_memorando, que esta em __dist__ para isso rode o __innosetup__
 
 
 ###### para o print_termo_kit_higiene.py
 
-Rodando o __innosetup__
+Devemos empacotar a pasta print_termo_kit_higiene, que esta em __dist__ para isso rode o __innosetup__
