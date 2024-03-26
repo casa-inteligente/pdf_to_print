@@ -21,7 +21,7 @@ import sys
 import pandas as pd
 import pdfplumber
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 
 class Template:
     def Imprimi_nova(self):
@@ -52,10 +52,10 @@ class Template:
         lista_arq_print = os.listdir(caminho)
         
         for arquivo in lista_arq_print:
-            pass
+            #pass
             #print("Remover este e habilitar a linha abaixo para imprimir")
             #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
-            #print(f'o caminho é: {caminho} \n Os arquivo excluidos serão: {arquivo}')
+            print(f'o caminho é: {caminho} \n Os arquivo excluidos serão: {arquivo}')
             #os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
     ### FIM ### def Imprimi_nova(self):
             
@@ -243,7 +243,10 @@ class Le_pdf:
             #print('=================')
             #print(self._arquivo)
             #print('==================')
-
+            #messagebox.showinfo("Informação", "Gerando os memorandos\nClique em OK para prosseguir")
+            #messagebox.askokcancel("Informação", "Deseja abrir o arquivo?") #Implementar if
+            #messagebox.showerror("jhlk", "hjvhjl")
+            
             with pdfplumber.open(self._arquivo) as pdf:
                  
                  self._all_tables = []
@@ -291,6 +294,9 @@ class Le_pdf:
         
         except :
             print('Erro ao extrair dados da tabela ', sys.exc_info()[0])
+    def get_month():
+        month = month_entry.get()
+        print(f'O mês inserido foi: {month}')
             
 
         
@@ -304,8 +310,24 @@ template = Template() #Instância a classe Template
 le_pdf = Le_pdf()
 root = tk.Tk()
 
+#root.title('Presídio Regional de Maravilha - PR29.')
+#month_label = tk.Label(root, text='Insira o mês de referência:')
+#month_label.pack()
+
+#month_entry = tk.Entry(root)
+#month_entry.pack()
+
+#submit_button = tk.Button(root, text='Enviar', command=le_pdf.get_month)
+#submit_button.pack()
+
+#root.mainloop()
+
+
+
 tabelas_lida = le_pdf.abre_pdf()
 le_pdf.extrai_tabela(tabelas_lida)
 
-
-#template.Imprimi_nova()#Para impressão dos memorandos
+if messagebox.askokcancel("Informação", "Deseja Imprimir os arquivos?"):
+    template.Imprimi_nova()#Para impressão dos memorandos
+else:
+    print("não será impresso")
