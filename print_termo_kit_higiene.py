@@ -14,8 +14,6 @@ import win32print
 import datetime as dd
 import os
 from reportlab.lib.pagesizes import A4
-import tabula
-from tabula.io import read_pdf
 from pathlib import Path
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import cm

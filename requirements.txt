@@ -1,9 +1,10 @@
-tabula-py
-IPython
-PyPDF2
-reportlab
-tabula
+win32api
+win32print
 datetime
+import os
 reportlab
-os
+Path
+sys
+pandas
 pdfplumber
+tkinter
