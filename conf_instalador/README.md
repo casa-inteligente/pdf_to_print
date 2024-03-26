@@ -19,3 +19,8 @@ Devemos empacotar a pasta print_termo_kit_higiene, que esta em __dist__ para iss
 
 
 ![figura_1](https://github.com/casa-inteligente/pdf_to_print/blob/main/figure/inno/1.png)
+<br>
+![figura_2](https://github.com/casa-inteligente/pdf_to_print/blob/main/figure/inno/2.png)
+<br>
+![figura_3](https://github.com/casa-inteligente/pdf_to_print/blob/main/figure/inno/3.png)
+<br>
