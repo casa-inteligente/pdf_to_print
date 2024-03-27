@@ -309,6 +309,7 @@ class Le_pdf:
 template = Template() #Instância a classe Template
 le_pdf = Le_pdf()
 root = tk.Tk()
+root.iconbitmap(r"C:\Users\AULA-1\Documents\GitHub\pdf_to_print\figure\este.ico")
 
 #root.title('Presídio Regional de Maravilha - PR29.')
 #month_label = tk.Label(root, text='Insira o mês de referência:')
@@ -327,7 +328,7 @@ root = tk.Tk()
 tabelas_lida = le_pdf.abre_pdf()
 le_pdf.extrai_tabela(tabelas_lida)
 
-if messagebox.askokcancel("Informação", "Deseja Imprimir os arquivos?"):
+if messagebox.askyesno("Informação", "Deseja Imprimir os arquivos?"):
     template.Imprimi_nova()#Para impressão dos memorandos
 else:
     print("não será impresso")

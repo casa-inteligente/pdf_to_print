@@ -21,7 +21,7 @@ import sys
 import pandas as pd
 import pdfplumber
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 
 class Template:
     def Imprimi_nova(self):
@@ -301,9 +301,15 @@ class Le_pdf:
 template = Template() #Instância a classe Template
 le_pdf = Le_pdf()
 root = tk.Tk()
+root.iconbitmap(r"C:\Users\AULA-1\Documents\GitHub\pdf_to_print\figure\este.ico")
+
 
 tabelas_lida = le_pdf.abre_pdf()
 le_pdf.extrai_tabela(tabelas_lida)
 
 
-#template.Imprimi_nova()#Para impressão dos memorandos
+if messagebox.askyesno("Informação", "Deseja Imprimir os arquivos?"):
+    template.Imprimi_nova()#Para impressão dos memorandos
+else:
+    print("não será impresso")
+
