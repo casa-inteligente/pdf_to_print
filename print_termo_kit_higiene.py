@@ -21,7 +21,7 @@ import sys
 import pandas as pd
 import pdfplumber
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 
 class Template:
     def Imprimi_nova(self):
@@ -54,9 +54,9 @@ class Template:
         for arquivo in lista_arq_print:
             pass
             #print("Remover este e habilitar a linha abaixo para imprimir")
-            #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
+            win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
             #print(f'o caminho é: {caminho} \n Os arquivo excluidos serão: {arquivo}')
-            #os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
+            os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
     ### FIM ### def Imprimi_nova(self):
             
     def GeneratePDF(self):
@@ -258,9 +258,12 @@ class Le_pdf:
 template = Template() #Instância a classe Template
 le_pdf = Le_pdf()
 root = tk.Tk()
+root.iconbitmap(r"C:\Users\AULA-1\Documents\GitHub\pdf_to_print\figure\este.ico")
 
 tabelas_lida = le_pdf.abre_pdf()
 le_pdf.extrai_tabela(tabelas_lida)
 
-
-#template.Imprimi_nova()#Para impressão dos memorandos
+if messagebox.askyesno("Informação", "CUIDADO!\nDeseja Imprimir os arquivos?\n Caso opte pelo 'sim', irá imprimir todos.\n Caso queira imprimir um específico escolha 'não' e vá na pasta e imprima."):
+    template.Imprimi_nova()#Para impressão dos memorandos
+else:
+    print("não será impresso")

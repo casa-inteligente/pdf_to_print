@@ -21,7 +21,7 @@ import sys
 import pandas as pd
 import pdfplumber
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 
 class Template:
     def Imprimi_nova(self):
@@ -52,11 +52,11 @@ class Template:
         lista_arq_print = os.listdir(caminho)
         
         for arquivo in lista_arq_print:
-            pass
+            #pass
             #print("Remover este e habilitar a linha abaixo para imprimir")
-            #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
+            win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
             #print(f'o caminho é: {caminho} \n Os arquivo excluidos serão: {arquivo}')
-            #os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
+            os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
     ### FIM ### def Imprimi_nova(self):
             
     def GeneratePDF(self):
@@ -72,6 +72,7 @@ class Template:
             ### Cabeçalho
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.setFillColor(aColor='black')  # Cor preto
+            
             #INICIO PRIMEIRO MEMORANDO
             #Componente Cabechalho
             c.setFont("Helvetica-Oblique", 11, leading=1)  # Fonte normal
@@ -121,7 +122,7 @@ class Template:
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
             c.drawCentredString(20 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
             c.drawRightString(28.5 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(27.5 * cm, -3.3 * cm, 'março')
+            c.drawCentredString(27.5 * cm, -3.3 * cm, f'{template.get_mes_corrente()}')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(25.8 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
@@ -161,7 +162,7 @@ class Template:
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
             c.drawCentredString(6 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
             c.drawRightString(14.3 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(12.8 * cm, -3.3 * cm, 'março/abril')
+            c.drawCentredString(12.8 * cm, -3.3 * cm, f'{template.get_mes_referencia()}')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(11 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
@@ -218,6 +219,89 @@ class Template:
             #print(f'Erro ao gerar o Termo de Kit de higiene {self.pdf_filename}')
             print('Erro ao gerar o PDF, Tipo de Erro\t', sys.exc_info()[0])
     
+        
+    def get_mes_referencia(self):
+        return self._mes_referencia
+    
+    def get_mes_corrente(self):
+        return self._mes_corrente
+    
+    def get_mes(self):
+        try:
+            hoje = dd.datetime.now()
+            mes_corrente_aux = int(hoje.strftime("%m"))
+            #print(mes_corrente)
+            
+            match mes_corrente_aux:
+
+                case 1:
+                 self._mes_referencia = 'janeiro/fevereiro'
+                 self._mes_corrente = 'janeiro'
+                 #print(self._mes_referencia)
+
+                case 2:
+                 self._mes_referencia = 'janeiro/fevereiro'
+                 self._mes_corrente = 'fevereiro'
+                 #print(self._mes_referencia)
+
+                case 3:
+                 self._mes_referencia = 'março/abril'
+                 self._mes_corrente = 'março'
+                 #print(self._mes_referencia)
+
+                case 4:
+                 self._mes_referencia = 'março/abril'
+                 self._mes_corrente = 'abril'
+                 #print(self._mes_referencia)
+
+                case 5:
+                 self._mes_referencia = 'maio/junho'
+                 self._mes_corrente = 'maio'
+                 #print(self._mes_referencia)
+                
+                case 6:
+                 self._mes_referencia = 'maio/junho'
+                 self._mes_corrente = 'junho'
+                 #print(self._mes_referencia)
+                
+                case 7:
+                 self._mes_referencia = 'julho/agosto'
+                 self._mes_corrente = 'julho'
+                 #print(self._mes_referencia)
+
+                case 8:
+                 self._mes_referencia = 'julho/agosto'
+                 self._mes_corrente = 'agosto'
+                 #print(self._mes_referencia)
+
+                case 9:
+                 self._mes_referencia = 'setembro/outubro'
+                 self._mes_corrente = 'setembro'
+                 #print(self._mes_referencia)
+                
+                case 10:
+                 self._mes_referencia = 'setembro/outubro'
+                 self._mes_corrente = 'outubro'
+                 #print(self._mes_referencia)
+
+                case 11:
+                 self._mes_referencia = 'novembro/dezembro'
+                 self._mes_corrente = 'novembro'
+                 #print(self._mes_referencia)
+
+                case 12:
+                 self._mes_referencia = 'novembro/dezembro'
+                 self._mes_corrente = 'dezembro'
+                 #print(self._mes_referencia)
+
+        except NameError as e:
+            print(f'Erro ao ler o mes, o erro é\t{e}')
+
+        except:
+            print(f"Erro ao ler mês{sys.exc_info()[0]}")
+
+
+
 class Le_pdf:
 
     def get_nome_interno(self):
@@ -301,9 +385,14 @@ class Le_pdf:
 template = Template() #Instância a classe Template
 le_pdf = Le_pdf()
 root = tk.Tk()
-
+root.iconbitmap(r"C:\Users\AULA-1\Documents\GitHub\pdf_to_print\figure\este.ico")
+template.get_mes()
 tabelas_lida = le_pdf.abre_pdf()
 le_pdf.extrai_tabela(tabelas_lida)
 
 
-#template.Imprimi_nova()#Para impressão dos memorandos
+if messagebox.askyesno("Informação", "CUIDADO!\nDeseja Imprimir os arquivos?\n Caso opte pelo 'sim', irá imprimir todos.\n Caso queira imprimir um específico escolha 'não' e vá na pasta e imprima."):
+    template.Imprimi_nova()#Para impressão dos memorandos
+else:
+    print("não será impresso")
+

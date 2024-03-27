@@ -121,7 +121,7 @@ class Template:
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
             c.drawCentredString(20 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
             c.drawRightString(28.5 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(27.5 * cm, -3.3 * cm, 'abril')
+            c.drawCentredString(27.5 * cm, -3.3 * cm, f'{template.get_mes_corrente()}')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(25.8 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
@@ -139,7 +139,7 @@ class Template:
             c.rotate(270)
 
             ############################################################################
-            ##INICIO DO SEGUNDO MEMORANDO (PENAL)
+            ##INICIO DO SEGUNDO MEMORANDO (ANTIGO PENAL)
             ##Componente cabechalho
             c.setFont("Helvetica-Oblique", 11, leading=1)  # Fonte normal
             c.rotate(90)
@@ -159,9 +159,9 @@ class Template:
             c.drawString(0.8 * cm, -3.8 * cm, 'NOME')
             c.drawString(11.5 * cm, -3.8 * cm, 'MATRÍCULA')
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
-            c.drawCentredString(6 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
-            c.drawRightString(14.3 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(12.8 * cm, -3.3 * cm, 'abril')
+            c.drawCentredString(6 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno1()}')
+            c.drawRightString(14.3 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen1()}')
+            c.drawCentredString(12.8 * cm, -3.3 * cm, f'{template.get_mes_corrente()}')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(11 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
@@ -169,11 +169,13 @@ class Template:
 
             #Componente setor
             c.rect(4.8 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(5.8 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.rotate(90)
             c.drawString(0.8 * cm, -5.2 * cm, 'AO SETOR')
-            c.setFont("Helvetica-Oblique", 14.3, leading=1)  # Fonte normal
-            c.drawCentredString(7 * cm, -5.5 * cm, 'PENAL')
+            c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
+            c.drawCentredString(7 * cm, -5.6 * cm, '(  )PSICÓLOGA; (  )DIRETOR; (  )PECÚLIO; (  )EDUCAÇÃO;')
+            c.drawString(0.3 * cm, -6.6 * cm, '(  )SOCIAL; (  )CHEFE DE SEGURANÇA e (  )OUTROS:__________')
             c.rotate(270)
 
             ##Componente linhas para escrever o memorando
@@ -190,7 +192,7 @@ class Template:
             c.rect(9 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             c.rect(8 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             c.rect(7 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(6 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            #c.rect(6 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             
             
             #Componente de data e assinatura
@@ -214,17 +216,105 @@ class Template:
             print(f'Erro ao gerar o PDF, e erro é do tipo NameError\t{f}')
         except TypeError as t:
             print(f'Erro ao gerar o PDF, e erro é do tipo TypeError\t{t}')
+        except KeyError as k:
+           print(f'Erro ao gerar o emorando, o erro é {k}')
         except:
             #print(f'Erro ao gerar o Termo de Kit de higiene {self.pdf_filename}')
             print('Erro ao gerar o PDF, Tipo de Erro\t', sys.exc_info()[0])
+    def get_mes_referencia(self):
+        return self._mes_referencia
     
+    def get_mes_corrente(self):
+        return self._mes_corrente
+    
+    def get_mes(self):
+        try:
+            hoje = dd.datetime.now()
+            mes_corrente_aux = int(hoje.strftime("%m"))
+            #print(mes_corrente)
+            
+            match mes_corrente_aux:
+
+                case 1:
+                 self._mes_referencia = 'janeiro/fevereiro'
+                 self._mes_corrente = 'janeiro'
+                 #print(self._mes_referencia)
+
+                case 2:
+                 self._mes_referencia = 'janeiro/fevereiro'
+                 self._mes_corrente = 'fevereiro'
+                 #print(self._mes_referencia)
+
+                case 3:
+                 self._mes_referencia = 'março/abril'
+                 self._mes_corrente = 'março'
+                 #print(self._mes_referencia)
+
+                case 4:
+                 self._mes_referencia = 'março/abril'
+                 self._mes_corrente = 'abril'
+                 #print(self._mes_referencia)
+
+                case 5:
+                 self._mes_referencia = 'maio/junho'
+                 self._mes_corrente = 'maio'
+                 #print(self._mes_referencia)
+                
+                case 6:
+                 self._mes_referencia = 'maio/junho'
+                 self._mes_corrente = 'junho'
+                 #print(self._mes_referencia)
+                
+                case 7:
+                 self._mes_referencia = 'julho/agosto'
+                 self._mes_corrente = 'julho'
+                 #print(self._mes_referencia)
+
+                case 8:
+                 self._mes_referencia = 'julho/agosto'
+                 self._mes_corrente = 'agosto'
+                 #print(self._mes_referencia)
+
+                case 9:
+                 self._mes_referencia = 'setembro/outubro'
+                 self._mes_corrente = 'setembro'
+                 #print(self._mes_referencia)
+                
+                case 10:
+                 self._mes_referencia = 'setembro/outubro'
+                 self._mes_corrente = 'outubro'
+                 #print(self._mes_referencia)
+
+                case 11:
+                 self._mes_referencia = 'novembro/dezembro'
+                 self._mes_corrente = 'novembro'
+                 #print(self._mes_referencia)
+
+                case 12:
+                 self._mes_referencia = 'novembro/dezembro'
+                 self._mes_corrente = 'dezembro'
+                 #print(self._mes_referencia)
+
+        except NameError as e:
+            print(f'Erro ao ler o mes, o erro é\t{e}')
+
+        except:
+            print(f"Erro ao ler mês{sys.exc_info()[0]}")
+
+
+
 class Le_pdf:
 
     def get_nome_interno(self):
         #print(self._nome_interno)
         return self._nome_interno
+    def get_nome_interno1(self):
+        #print(self._nome_interno)
+        return self._nome_interno1
     def get_numero_ipen(self):
         return self._numero_ipen
+    def get_numero_ipen1(self):
+        return self._numero_ipen1
     def get_dir_saida(self):
          self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
          self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
@@ -272,6 +362,7 @@ class Le_pdf:
             self._frist_colu = self._frist_colu.reset_index(drop=True)
             self._frist_colu = self._frist_colu.drop([0, 1, 2])
             self._frist_colu = self._frist_colu.reset_index(drop=True)
+            #self._frist_colu = self._frist_colu.replace('\n', ' ')#Remove o \n
             
             #print(self._frist_colu)
             self._crit_stop = len(self._frist_colu)
@@ -280,12 +371,20 @@ class Le_pdf:
             #Gera os termos
             #implementar solicitação do mês referencia
 
-            for x in range(self._crit_stop):
+            for x in range(0, self._crit_stop, 2):
                 self._numero_ipen, self._nome_interno = self._frist_colu[x].split('-',1)
+                self._numero_ipen1, self._nome_interno1 = self._frist_colu[x+1].split('-',1)
                 self._nome_interno = self._nome_interno.replace('\n', ' ') #Remove o \n
+                self._nome_interno1 = self._nome_interno1.replace('\n', ' ') #Remove o \n
                 #print(f"Numero: {self._numero_ipen}, Nome: {self._nome_interno}")
+
+                if not self._nome_interno1.strip():
+                    self._nome_interno1 = ''
+                    self._nome_interno1 = ''
+
                 template.GeneratePDF()
-                print(f'Esta no número {x+1} de {self._crit_stop}, no memorando do: {le_pdf.get_nome_interno()}')
+                print(f'Esta no número {x+1} ; {x+2} de {self._crit_stop}, no memorando do: {le_pdf.get_nome_interno()}')
+                print(f'\t\t\t  No memorando do: {le_pdf.get_nome_interno1()}')
                 
            
           
@@ -294,40 +393,24 @@ class Le_pdf:
         
         except :
             print('Erro ao extrair dados da tabela ', sys.exc_info()[0])
-    def get_month():
-        month = month_entry.get()
-        print(f'O mês inserido foi: {month}')
-            
-
-        
-        #finally: 
-            #print("Programa encerrado devido a erros")
-
+    
+  
 #Inicio do "main"
 #print(sys.executable) #Imprimi o local do interpretador
 
 template = Template() #Instância a classe Template
 le_pdf = Le_pdf()
 root = tk.Tk()
+root.iconbitmap(r"C:\Users\AULA-1\Documents\GitHub\pdf_to_print\figure\este.ico")
 
-#root.title('Presídio Regional de Maravilha - PR29.')
-#month_label = tk.Label(root, text='Insira o mês de referência:')
-#month_label.pack()
-
-#month_entry = tk.Entry(root)
-#month_entry.pack()
-
-#submit_button = tk.Button(root, text='Enviar', command=le_pdf.get_month)
-#submit_button.pack()
-
-#root.mainloop()
-
-
-
+template.get_mes()
 tabelas_lida = le_pdf.abre_pdf()
 le_pdf.extrai_tabela(tabelas_lida)
 
-if messagebox.askokcancel("Informação", "Deseja Imprimir os arquivos?"):
-    template.Imprimi_nova()#Para impressão dos memorandos
+template.get_mes()
+
+if messagebox.askyesno("Informação", "CUIDADO!\nDeseja Imprimir os arquivos?\n Caso opte pelo 'sim', irá imprimir todos.\n Caso queira imprimir um específico escolha 'não' e vá na pasta e imprima."):
+    #template.Imprimi_nova()#Para impressão dos memorandos
+    pass
 else:
     print("não será impresso")
