@@ -72,6 +72,7 @@ class Template:
             ### Cabeçalho
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.setFillColor(aColor='black')  # Cor preto
+            
             #INICIO PRIMEIRO MEMORANDO
             #Componente Cabechalho
             c.setFont("Helvetica-Oblique", 11, leading=1)  # Fonte normal
@@ -121,7 +122,7 @@ class Template:
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
             c.drawCentredString(20 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
             c.drawRightString(28.5 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(27.5 * cm, -3.3 * cm, 'maio')
+            c.drawCentredString(27.5 * cm, -3.3 * cm, f'{template.get_mes_corrente()}')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(25.8 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
@@ -161,7 +162,7 @@ class Template:
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
             c.drawCentredString(6 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
             c.drawRightString(14.3 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(12.8 * cm, -3.3 * cm, 'maio/junho')
+            c.drawCentredString(12.8 * cm, -3.3 * cm, f'{template.get_mes_referencia()}')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(11 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)

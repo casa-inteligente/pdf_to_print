@@ -139,7 +139,7 @@ class Template:
             c.rotate(270)
 
             ############################################################################
-            ##INICIO DO SEGUNDO MEMORANDO (PENAL)
+            ##INICIO DO SEGUNDO MEMORANDO (ANTIGO PENAL)
             ##Componente cabechalho
             c.setFont("Helvetica-Oblique", 11, leading=1)  # Fonte normal
             c.rotate(90)
@@ -161,7 +161,7 @@ class Template:
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
             c.drawCentredString(6 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
             c.drawRightString(14.3 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(12.8 * cm, -3.3 * cm, f'{template.get_mes_referencia()}')
+            c.drawCentredString(12.8 * cm, -3.3 * cm, f'{template.get_mes_corrente()}')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(11 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
@@ -172,8 +172,9 @@ class Template:
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.rotate(90)
             c.drawString(0.8 * cm, -5.2 * cm, 'AO SETOR')
-            c.setFont("Helvetica-Oblique", 14.3, leading=1)  # Fonte normal
-            c.drawCentredString(7 * cm, -5.5 * cm, 'PENAL')
+            c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
+            c.drawCentredString(7 * cm, -5.5 * cm, '(  )PSICÓLOGA; (  )DIRETOR; (  )PECÚLIO; (  )EDUCAÇÃO;')
+            c.drawString(0.3 * cm, -6.6 * cm, '(  )SOCIAL; (  )CHEFE DE SEGURANÇA e (  )OUTROS:__________')
             c.rotate(270)
 
             ##Componente linhas para escrever o memorando
