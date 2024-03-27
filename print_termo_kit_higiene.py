@@ -263,7 +263,7 @@ root.iconbitmap(r"C:\Users\AULA-1\Documents\GitHub\pdf_to_print\figure\este.ico"
 tabelas_lida = le_pdf.abre_pdf()
 le_pdf.extrai_tabela(tabelas_lida)
 
-if messagebox.askyesno("Termo de Recebimento", "Deseja Imprimir os arquivos?"):
+if messagebox.askyesno("Informação", "CUIDADO!\nDeseja Imprimir os arquivos?\n Caso opte pelo 'sim', irá imprimir todos.\n Caso queira imprimir um específico escolha 'não' e vá na pasta e imprima."):
     template.Imprimi_nova()#Para impressão dos memorandos
 else:
     print("não será impresso")

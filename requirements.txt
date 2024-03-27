@@ -1,10 +1,5 @@
-win32api
-win32print
-datetime
-import os
 reportlab
 Path
 sys
 pandas
 pdfplumber
-tkinter

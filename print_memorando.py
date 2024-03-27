@@ -52,11 +52,11 @@ class Template:
         lista_arq_print = os.listdir(caminho)
         
         for arquivo in lista_arq_print:
-            pass
+            #pass
             #print("Remover este e habilitar a linha abaixo para imprimir")
-            #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
+            win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
             #print(f'o caminho é: {caminho} \n Os arquivo excluidos serão: {arquivo}')
-            #os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
+            os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
     ### FIM ### def Imprimi_nova(self):
             
     def GeneratePDF(self):
@@ -121,7 +121,7 @@ class Template:
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
             c.drawCentredString(20 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
             c.drawRightString(28.5 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(27.5 * cm, -3.3 * cm, 'março')
+            c.drawCentredString(27.5 * cm, -3.3 * cm, 'maio')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(25.8 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
@@ -161,7 +161,7 @@ class Template:
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
             c.drawCentredString(6 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
             c.drawRightString(14.3 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(12.8 * cm, -3.3 * cm, 'março/abril')
+            c.drawCentredString(12.8 * cm, -3.3 * cm, 'maio/junho')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(11 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
@@ -308,7 +308,7 @@ tabelas_lida = le_pdf.abre_pdf()
 le_pdf.extrai_tabela(tabelas_lida)
 
 
-if messagebox.askyesno("Informação", "Deseja Imprimir os arquivos?"):
+if messagebox.askyesno("Informação", "CUIDADO!\nDeseja Imprimir os arquivos?\n Caso opte pelo 'sim', irá imprimir todos.\n Caso queira imprimir um específico escolha 'não' e vá na pasta e imprima."):
     template.Imprimi_nova()#Para impressão dos memorandos
 else:
     print("não será impresso")
