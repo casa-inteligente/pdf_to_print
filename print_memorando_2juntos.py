@@ -299,7 +299,7 @@ class Template:
             print(f'Erro ao ler o mes, o erro é\t{e}')
 
         except:
-            print(f"Erro ao ler mês{sys.exc_info()[0]}")
+            print(f"Erro ao ler mês {sys.exc_info()[0]}")
 
 
 
