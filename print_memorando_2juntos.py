@@ -54,9 +54,9 @@ class Template:
         for arquivo in lista_arq_print:
             #pass
             #print("Remover este e habilitar a linha abaixo para imprimir")
-            #win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
+            win32api.ShellExecute(0, "print", arquivo, None, caminho, 0)
             print(f'o caminho é: {caminho} \n Os arquivo excluidos serão: {arquivo}')
-            #os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
+            os.remove(os.path.join(caminho, arquivo))# Remove após a impressão
     ### FIM ### def Imprimi_nova(self):
             
     def GeneratePDF(self):
