@@ -159,8 +159,8 @@ class Template:
             c.drawString(0.8 * cm, -3.8 * cm, 'NOME')
             c.drawString(11.5 * cm, -3.8 * cm, 'MATRÍCULA')
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
-            c.drawCentredString(6 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
-            c.drawRightString(14.3 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
+            c.drawCentredString(6 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno1()}')
+            c.drawRightString(14.3 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen1()}')
             c.drawCentredString(12.8 * cm, -3.3 * cm, f'{template.get_mes_corrente()}')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(11 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
@@ -216,6 +216,8 @@ class Template:
             print(f'Erro ao gerar o PDF, e erro é do tipo NameError\t{f}')
         except TypeError as t:
             print(f'Erro ao gerar o PDF, e erro é do tipo TypeError\t{t}')
+        except KeyError as k:
+           print(f'Erro ao gerar o emorando, o erro é {k}')
         except:
             #print(f'Erro ao gerar o Termo de Kit de higiene {self.pdf_filename}')
             print('Erro ao gerar o PDF, Tipo de Erro\t', sys.exc_info()[0])
@@ -306,8 +308,13 @@ class Le_pdf:
     def get_nome_interno(self):
         #print(self._nome_interno)
         return self._nome_interno
+    def get_nome_interno1(self):
+        #print(self._nome_interno)
+        return self._nome_interno1
     def get_numero_ipen(self):
         return self._numero_ipen
+    def get_numero_ipen1(self):
+        return self._numero_ipen1
     def get_dir_saida(self):
          self._diretorio_saida = Path(r'\\10.40.22.35/Plantão/Para Impressão do termo de recebimento/Imprimir/')# define o diretorio a ser gravado os arq pdf
          self._diretorio_saida.mkdir(mode=777, parents=True, exist_ok=True) # Cria o diretorio caso não exista (Local inapropriado pois cria n vezes)
@@ -364,12 +371,20 @@ class Le_pdf:
             #Gera os termos
             #implementar solicitação do mês referencia
 
-            for x in range(self._crit_stop):
+            for x in range(0, self._crit_stop, 2):
                 self._numero_ipen, self._nome_interno = self._frist_colu[x].split('-',1)
+                self._numero_ipen1, self._nome_interno1 = self._frist_colu[x+1].split('-',1)
                 self._nome_interno = self._nome_interno.replace('\n', ' ') #Remove o \n
+                self._nome_interno1 = self._nome_interno1.replace('\n', ' ') #Remove o \n
                 #print(f"Numero: {self._numero_ipen}, Nome: {self._nome_interno}")
+
+                if not self._nome_interno1.strip():
+                    self._nome_interno1 = ''
+                    self._nome_interno1 = ''
+
                 template.GeneratePDF()
-                print(f'Esta no número {x+1} de {self._crit_stop}, no memorando do: {le_pdf.get_nome_interno()}')
+                print(f'Esta no número {x+1} ; {x+2} de {self._crit_stop}, no memorando do: {le_pdf.get_nome_interno()}')
+                print(f'\t\t\t  No memorando do: {le_pdf.get_nome_interno1()}')
                 
            
           
