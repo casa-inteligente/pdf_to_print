@@ -121,7 +121,7 @@ class Template:
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
             c.drawCentredString(20 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
             c.drawRightString(28.5 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(27.5 * cm, -3.3 * cm, f'{template.get_mes_corrente}')
+            c.drawCentredString(27.5 * cm, -3.3 * cm, f'{template.get_mes_corrente()}')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(25.8 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
@@ -161,7 +161,7 @@ class Template:
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
             c.drawCentredString(6 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
             c.drawRightString(14.3 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(12.8 * cm, -3.3 * cm, f'{template.get_mes_referencia}')
+            c.drawCentredString(12.8 * cm, -3.3 * cm, f'{template.get_mes_referencia()}')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(11 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
@@ -234,23 +234,62 @@ class Template:
                 case 1:
                  self._mes_referencia = 'janeiro/fevereiro'
                  self._mes_corrente = 'janeiro'
-                 print(self._mes_referencia)
+                 #print(self._mes_referencia)
 
                 case 2:
                  self._mes_referencia = 'janeiro/fevereiro'
                  self._mes_corrente = 'fevereiro'
-                 print(self._mes_referencia)
+                 #print(self._mes_referencia)
 
                 case 3:
                  self._mes_referencia = 'março/abril'
                  self._mes_corrente = 'março'
-                 print(self._mes_referencia)
+                 #print(self._mes_referencia)
 
                 case 4:
                  self._mes_referencia = 'março/abril'
                  self._mes_corrente = 'abril'
-                 print(self._mes_referencia)
+                 #print(self._mes_referencia)
 
+                case 5:
+                 self._mes_referencia = 'maio/junho'
+                 self._mes_corrente = 'maio'
+                 #print(self._mes_referencia)
+                
+                case 6:
+                 self._mes_referencia = 'maio/junho'
+                 self._mes_corrente = 'junho'
+                 #print(self._mes_referencia)
+                
+                case 7:
+                 self._mes_referencia = 'julho/agosto'
+                 self._mes_corrente = 'julho'
+                 #print(self._mes_referencia)
+
+                case 8:
+                 self._mes_referencia = 'julho/agosto'
+                 self._mes_corrente = 'agosto'
+                 #print(self._mes_referencia)
+
+                case 9:
+                 self._mes_referencia = 'setembro/outubro'
+                 self._mes_corrente = 'setembro'
+                 #print(self._mes_referencia)
+                
+                case 10:
+                 self._mes_referencia = 'setembro/outubro'
+                 self._mes_corrente = 'outubro'
+                 #print(self._mes_referencia)
+
+                case 11:
+                 self._mes_referencia = 'novembro/dezembro'
+                 self._mes_corrente = 'novembro'
+                 #print(self._mes_referencia)
+
+                case 12:
+                 self._mes_referencia = 'novembro/dezembro'
+                 self._mes_corrente = 'dezembro'
+                 #print(self._mes_referencia)
 
         except NameError as e:
             print(f'Erro ao ler o mes, o erro é\t{e}')
