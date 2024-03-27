@@ -121,7 +121,7 @@ class Template:
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
             c.drawCentredString(20 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
             c.drawRightString(28.5 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(27.5 * cm, -3.3 * cm, 'abril')
+            c.drawCentredString(27.5 * cm, -3.3 * cm, f'{template.get_mes_corrente}')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(25.8 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
@@ -161,7 +161,7 @@ class Template:
             c.setFont("Helvetica-Oblique", 14, leading=1)  # Fonte normal
             c.drawCentredString(6 * cm, -4.3 * cm, f'{le_pdf.get_nome_interno()}')
             c.drawRightString(14.3 * cm, -4.3 * cm, f'{le_pdf.get_numero_ipen()}')
-            c.drawCentredString(12.8 * cm, -3.3 * cm, 'abril')
+            c.drawCentredString(12.8 * cm, -3.3 * cm, f'{template.get_mes_referencia}')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
             c.drawRightString(11 * cm, -3.3 * cm, 'MEMORANDO DE APENADO')
             c.rotate(270)
@@ -217,7 +217,49 @@ class Template:
         except:
             #print(f'Erro ao gerar o Termo de Kit de higiene {self.pdf_filename}')
             print('Erro ao gerar o PDF, Tipo de Erro\t', sys.exc_info()[0])
+    def get_mes_referencia(self):
+        return self._mes_referencia
     
+    def get_mes_corrente(self):
+        return self._mes_corrente
+    
+    def get_mes(self):
+        try:
+            hoje = dd.datetime.now()
+            mes_corrente_aux = int(hoje.strftime("%m"))
+            #print(mes_corrente)
+            
+            match mes_corrente_aux:
+
+                case 1:
+                 self._mes_referencia = 'janeiro/fevereiro'
+                 self._mes_corrente = 'janeiro'
+                 print(self._mes_referencia)
+
+                case 2:
+                 self._mes_referencia = 'janeiro/fevereiro'
+                 self._mes_corrente = 'fevereiro'
+                 print(self._mes_referencia)
+
+                case 3:
+                 self._mes_referencia = 'março/abril'
+                 self._mes_corrente = 'março'
+                 print(self._mes_referencia)
+
+                case 4:
+                 self._mes_referencia = 'março/abril'
+                 self._mes_corrente = 'abril'
+                 print(self._mes_referencia)
+
+
+        except NameError as e:
+            print(f'Erro ao ler o mes, o erro é\t{e}')
+
+        except:
+            print(f"Erro ao ler mês{sys.exc_info()[0]}")
+
+
+
 class Le_pdf:
 
     def get_nome_interno(self):
@@ -294,15 +336,8 @@ class Le_pdf:
         
         except :
             print('Erro ao extrair dados da tabela ', sys.exc_info()[0])
-    def get_month():
-        month = month_entry.get()
-        print(f'O mês inserido foi: {month}')
-            
-
-        
-        #finally: 
-            #print("Programa encerrado devido a erros")
-
+    
+  
 #Inicio do "main"
 #print(sys.executable) #Imprimi o local do interpretador
 
@@ -311,24 +346,14 @@ le_pdf = Le_pdf()
 root = tk.Tk()
 root.iconbitmap(r"C:\Users\AULA-1\Documents\GitHub\pdf_to_print\figure\este.ico")
 
-#root.title('Presídio Regional de Maravilha - PR29.')
-#month_label = tk.Label(root, text='Insira o mês de referência:')
-#month_label.pack()
-
-#month_entry = tk.Entry(root)
-#month_entry.pack()
-
-#submit_button = tk.Button(root, text='Enviar', command=le_pdf.get_month)
-#submit_button.pack()
-
-#root.mainloop()
-
-
-
+template.get_mes()
 tabelas_lida = le_pdf.abre_pdf()
 le_pdf.extrai_tabela(tabelas_lida)
 
-if messagebox.askyesno("Informação", "Deseja Imprimir os arquivos?"):
-    template.Imprimi_nova()#Para impressão dos memorandos
+template.get_mes()
+
+if messagebox.askyesno("Informação", "CUIDADO!\nDeseja Imprimir os arquivos?\n Caso opte pelo 'sim', irá imprimir todos.\n Caso queira imprimir um específico escolha 'não' e vá na pasta e imprima."):
+    #template.Imprimi_nova()#Para impressão dos memorandos
+    pass
 else:
     print("não será impresso")
