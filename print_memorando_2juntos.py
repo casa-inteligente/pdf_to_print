@@ -169,11 +169,12 @@ class Template:
 
             #Componente setor
             c.rect(4.8 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            c.rect(5.8 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             c.setFont("Helvetica-Oblique", 8, leading=1)  # Fonte normal
             c.rotate(90)
             c.drawString(0.8 * cm, -5.2 * cm, 'AO SETOR')
             c.setFont("Helvetica-Oblique", 12, leading=1)  # Fonte normal
-            c.drawCentredString(7 * cm, -5.5 * cm, '(  )PSICÓLOGA; (  )DIRETOR; (  )PECÚLIO; (  )EDUCAÇÃO;')
+            c.drawCentredString(7 * cm, -5.6 * cm, '(  )PSICÓLOGA; (  )DIRETOR; (  )PECÚLIO; (  )EDUCAÇÃO;')
             c.drawString(0.3 * cm, -6.6 * cm, '(  )SOCIAL; (  )CHEFE DE SEGURANÇA e (  )OUTROS:__________')
             c.rotate(270)
 
@@ -191,7 +192,7 @@ class Template:
             c.rect(9 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             c.rect(8 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             c.rect(7 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
-            c.rect(6 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
+            #c.rect(6 * cm, 0.2 * cm, 1 * cm, 14.3 * cm, fill=0)  # para criar retangulo
             
             
             #Componente de data e assinatura
@@ -354,6 +355,7 @@ class Le_pdf:
             self._frist_colu = self._frist_colu.reset_index(drop=True)
             self._frist_colu = self._frist_colu.drop([0, 1, 2])
             self._frist_colu = self._frist_colu.reset_index(drop=True)
+            #self._frist_colu = self._frist_colu.replace('\n', ' ')#Remove o \n
             
             #print(self._frist_colu)
             self._crit_stop = len(self._frist_colu)
